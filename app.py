@@ -2,12 +2,10 @@ import streamlit as st
 import random
 
 # --- CONFIGURACIÓN DE PÁGINA ---
-# Pega aquí tu URL de la imagen si la tienes
 URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
-
 st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered")
 
-# --- CSS V6.0: ESTILO PREMIUM + MEJORAS VISUALES ---
+# --- CSS PREMIUM (ESTILO APP) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
@@ -19,14 +17,19 @@ st.markdown("""
         font-weight: 900 !important; text-transform: uppercase; letter-spacing: -1px;
         background: linear-gradient(90deg, #4F46E5, #9333EA);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        text-shadow: 0px 2px 10px rgba(147, 51, 234, 0.3); padding-bottom: 10px;
+        text-shadow: 0px 2px 10px rgba(147, 51, 234, 0.3); padding-bottom: 10px; text-align: center;
     }
-    h2, h3 { font-weight: 700 !important; color: #374151 !important; }
+    h2, h3 { font-weight: 700 !important; color: #374151 !important; text-align: center; }
 
     .card-style {
         background-color: white; padding: 25px; border-radius: 24px;
         box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); border: 1px solid #E5E7EB;
         margin-bottom: 20px; text-align: center;
+    }
+    
+    .stop-card {
+        background-color: #1F2937; color: white; padding: 40px; border-radius: 24px;
+        text-align: center; margin-bottom: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     }
 
     .stButton>button {
@@ -37,11 +40,9 @@ st.markdown("""
     }
     .stButton>button:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6); }
     
-    /* Botón de votar a alguien específico (más suave) */
     .vote-btn > button {
         background: white !important; color: #4F46E5 !important;
-        border: 2px solid #4F46E5 !important;
-        box-shadow: none !important;
+        border: 2px solid #4F46E5 !important; box-shadow: none !important; margin-bottom: 10px;
     }
     .vote-btn > button:hover { background: #EEF2FF !important; }
 
@@ -56,15 +57,12 @@ st.markdown("""
     }
     .flip-card-front { background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; }
     .flip-card-back { background-color: white; color: #1F2937; transform: rotateY(180deg); border: 4px solid #F3F4F6; }
-    
-    .status-eliminated { color: #EF4444; font-weight: bold; text-decoration: line-through; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- TUS DATOS ---
+# --- TU LISTA GIGANTE DE DATOS ---
 DATOS = {
     "⚽ Fútbol": [
-        # TUS DATOS ORIGINALES
         "Real Madrid", "FC Barcelona", "Champions League", "Copa del Mundo",
         "Leo Messi", "Cristiano Ronaldo", "Kylian Mbappé", "Balón de Oro",
         "El Clásico", "Boca Juniors", "Manchester City", "La Liga",
@@ -73,40 +71,34 @@ DATOS = {
         "Selección Española", "Inter Miami", "Luis de la Fuente", "Mundial 2030",
         "Árbitro", "Jabulani", "Maradona", "Zidane", "Barça de Guardiola",
         "La chilena de Cristiano", "Iker Casillas", "Xavi e Iniesta", "El Chiringuito",
-        "Kings League", "Un Linier", "Tirar un penalti", 
-        # NUEVOS AÑADIDOS
-        "Atlético de Madrid", "Cholo Simeone", "Florentino Pérez", "Joan Laporta",
-        "Neymar Jr", "Pelé", "Johan Cruyff", "Mundial de Sudáfrica 2010",
-        "Gol de Iniesta", "Sergio Ramos", "Lamine Yamal", "Copa América",
-        "Eurocopa", "Anfield", "River Plate", "La Libertadores",
-        "Saque de esquina", "Gol en propia puerta", "Tanda de penaltis", "El Bicho",
-        "Hala Madrid", "Visca el Barça", "Luis Rubiales", "Fútbol Femenino",
-        "Alexia Putellas", "Aitana Bonmatí", "Balón de Oro", "Ley del Ex",
-        "Hacer una rabona", "Tirar a lo Panenka", "Un espontáneo", "El césped",
-        "Vestuario", "Rueda de prensa", "Fichaje millonario", "Cláusula de rescisión",
+        "Kings League", "Un Linier", "Tirar un penalti", "Atlético de Madrid", 
+        "Cholo Simeone", "Florentino Pérez", "Joan Laporta", "Neymar Jr", "Pelé", 
+        "Johan Cruyff", "Mundial de Sudáfrica 2010", "Gol de Iniesta", "Sergio Ramos", 
+        "Lamine Yamal", "Copa América", "Eurocopa", "Anfield", "River Plate", 
+        "La Libertadores", "Saque de esquina", "Gol en propia puerta", "Tanda de penaltis", 
+        "El Bicho", "Hala Madrid", "Visca el Barça", "Luis Rubiales", "Fútbol Femenino", 
+        "Alexia Putellas", "Aitana Bonmatí", "Balón de Oro", "Ley del Ex", 
+        "Hacer una rabona", "Tirar a lo Panenka", "Un espontáneo", "El césped", 
+        "Vestuario", "Rueda de prensa", "Fichaje millonario", "Cláusula de rescisión", 
         "Mourinho", "Pep Guardiola", "La Masía", "La Fábrica"
     ],
     "🏀 Deportes": [
-        # TUS DATOS ORIGINALES
         "Baloncesto", "Tenis", "Fórmula 1", "MotoGP", "Pádel", "NBA",
         "Boxeo", "Natación", "Ciclismo", "Golf", "Rugby", "Carlos Alcaraz",
         "Fernando Alonso", "Rafa Nadal", "Marc Márquez", "Juegos Olímpicos",
         "Gimnasio", "Crossfit", "Maratón", "Surf", "Lamine Yamal", "Pau Gasol",
         "Tour de Francia", "Wimbledon", "Super Bowl", "Esquí", "Escalada",
         "Ajedrez", "Yoga", "La 33 de Alonso", "Lanzamiento de jabalina",
-        # NUEVOS AÑADIDOS
         "Michael Jordan", "LeBron James", "Kobe Bryant", "Usain Bolt",
         "Simone Biles", "Serena Williams", "Roland Garros", "Copa Davis",
         "Lewis Hamilton", "Max Verstappen", "Valentino Rossi", "Dakar",
-        "UFC", "Ilia Topuria", "Conor McGregor", "Mike Tyson",
-        "Karate", "Judo", "Ping Pong", "Bádminton", "Voleibol",
-        "Waterpolo", "Halterofilia", "Triatlón", "Ironman",
-        "Senderismo", "Skateboarding", "Snowboard", "Curling", "Petanca",
-        "Dardos", "Billar", "Bolos", "Hoyo en uno", "Triple",
-        "Mate", "Touchdown", "Pit Stop", "Bandera a cuadros", "Medalla de Oro"
+        "UFC", "Ilia Topuria", "Conor McGregor", "Mike Tyson", "Karate", 
+        "Judo", "Ping Pong", "Bádminton", "Voleibol", "Waterpolo", "Halterofilia", 
+        "Triatlón", "Ironman", "Senderismo", "Skateboarding", "Snowboard", 
+        "Curling", "Petanca", "Dardos", "Billar", "Bolos", "Hoyo en uno", 
+        "Triple", "Mate", "Touchdown", "Pit Stop", "Bandera a cuadros", "Medalla de Oro"
     ],
     "📜 Historia": [
-        # TUS DATOS ORIGINALES
         "Pirámides de Egipto", "Imperio Romano", "Cristóbal Colón", "Guerra Fría",
         "Revolución Francesa", "El Muro de Berlín", "Napoleón Bonaparte",
         "Segunda Guerra Mundial", "Los Mayas", "Vikingos", "Edad Media",
@@ -114,7 +106,6 @@ DATOS = {
         "El Titanic", "Los Reyes Católicos", "La Peste Negra", "Julio César",
         "La llegada a la Luna", "Antigua Grecia", "Samuráis", "Caballeros Templarios",
         "La Revolución Industrial", "Cleopatra", "Atila el Huno", "El Lejano Oeste",
-        # NUEVOS AÑADIDOS
         "Guerra Civil Española", "Franquismo", "La Transición", "Constitución de 1812",
         "Albert Einstein", "Marie Curie", "Isaac Newton", "Charles Darwin",
         "Mozart", "Beethoven", "Elvis Presley", "Marilyn Monroe",
@@ -127,14 +118,12 @@ DATOS = {
         "Imprenta", "Internet", "Teléfono", "Máquina de vapor"
     ],
     "🌟 Famosos": [
-        # TUS DATOS ORIGINALES
         "Ibai Llanos", "Rosalía", "Shakira", "Mr Beast", "Bad Bunny",
         "Taylor Swift", "Georgina Rodríguez", "Auronplay", "TheGrefg",
         "Zendaya", "Tom Holland", "Rauw Alejandro", "Donald Trump",
         "Elon Musk", "Kim Kardashian", "Quevedo", "Bizarrap", "Will Smith",
         "C. Tangana", "Belén Esteban", "David Broncano", "IlloJuan", "Kanye West",
         "Justin Bieber", "Lady Gaga", "Marta Díaz", "Plex", "Mariano Rajoy",
-        # NUEVOS AÑADIDOS
         "El Rubius", "DjMaRiiO", "Rivers", "Kings League", "Gerard Piqué",
         "Aitana", "Lola Índigo", "Omar Montes", "Melendi", "Estopa",
         "Duki", "Karol G", "Feid", "Peso Pluma", "Harry Styles",
@@ -147,14 +136,12 @@ DATOS = {
         "Mark Zuckerberg", "Jeff Bezos", "Bill Gates", "Papa Francisco"
     ],
     "🎬 Series y Cine": [
-        # TUS DATOS ORIGINALES
         "La Casa de Papel", "Juego de Tronos", "Harry Potter", "Star Wars",
         "Stranger Things", "Titanic", "Marvel", "El Rey León", "Avatar",
         "Batman", "Spiderman", "Élite", "The Last of Us", "Disney World",
         "Netflix", "Piratas del Caribe", "Shrek", "Sherlock Holmes",
         "Los Juegos del Hambre", "Toy Story", "Parásitos", "Barbie (película)",
         "Oppenheimer", "Breaking Bad", "The Office", "Los Simpson", "Jurassic Park",
-        # NUEVOS AÑADIDOS
         "El Padrino", "Pulp Fiction", "Matrix", "El Señor de los Anillos",
         "Indiana Jones", "Regreso al Futuro", "Forrest Gump", "Gladiator",
         "Interstellar", "Inception", "Joker", "Vengadores: Endgame",
@@ -167,14 +154,12 @@ DATOS = {
         "Operación Triunfo", "Supervivientes", "Masterchef", "First Dates"
     ],
     "🥘 Comida": [
-        # TUS DATOS ORIGINALES
         "Pizza", "Hamburguesa", "Sushi", "Paella", "Tortilla de patatas",
         "Croquetas", "Tacos", "Kebab", "Pasta Carbonara", "Ramen",
         "Salmorejo", "Chuletón", "Tarta de Queso", "Donuts", "Bravas",
         "Jamón Ibérico", "Palomitas", "Nutella", "Cerveza", "Filipinos",
         "Brócoli", "Aguacate", "Huevo frito", "Arroz con cosas", "Tiramisú",
         "Air Fryer", "Comida de la abuela", "Un buffet libre", "Macarrones",
-        # NUEVOS AÑADIDOS
         "Gazpacho", "Fabada Asturiana", "Cocido Madrileño", "Pulpo a la gallega",
         "Calamares a la romana", "Ensaladilla Rusa", "Bocadillo de calamares",
         "Churros con chocolate", "Torrijas", "Roscón de Reyes", "Turrón",
@@ -187,7 +172,6 @@ DATOS = {
         "Mercadona", "Hacendado", "Glovo", "Uber Eats", "Telepizza"
     ],
     "✈️ Lugares y Viajes": [
-        # TUS DATOS ORIGINALES
         "Madrid", "Barcelona", "París", "Nueva York", "Londres", "Roma",
         "Tokio", "Ibiza", "La Playa", "Egipto", "Route 66", "Un Gimnasio",
         "Una Discoteca", "El Supermercado", "Un Aeropuerto", "La Universidad",
@@ -195,7 +179,6 @@ DATOS = {
         "La Luna", "Benidorm", "Islandia", "Machu Picchu", "La Gran Muralla China",
         "Un crucero", "Un hostal de mochileros", "Camping en la montaña", "Jordania",
         "Canada", "Oslo", "Puerto Rico",
-        # NUEVOS AÑADIDOS
         "Venecia", "Ámsterdam", "Berlín", "Dubái", "Las Vegas",
         "Los Ángeles", "Miami", "Caribe", "Cancún", "Punta Cana",
         "Maldivas", "Bali", "Tailandia", "Japón", "Australia",
@@ -208,13 +191,11 @@ DATOS = {
         "El baño de una discoteca", "La cola del paro", "Hacienda"
     ],
     "📱 Tecnología y Redes": [
-        # TUS DATOS ORIGINALES
         "TikTok", "Instagram", "WhatsApp", "Twitter / X", "ChatGPT",
         "iPhone", "PlayStation 5", "YouTube", "Influencer", "Hacker",
         "Google", "Amazon", "Wifi", "Batería baja", "Selfie", "Inteligencia Artificial",
         "Realidad Virtual", "Un podcast", "Notificaciones", "Modo Avión",
         "El algoritmo", "Bizum", "Spotify Wrapped", "Vinted", "Bluetooth",
-        # NUEVOS AÑADIDOS
         "Tinder", "Bumble", "Grindr", "OnlyFans", "Twitch",
         "Discord", "Telegram", "Facebook", "LinkedIn", "Pinterest",
         "BeReal", "Snapchat", "Filtro de Instagram", "Trending Topic",
@@ -228,7 +209,6 @@ DATOS = {
         "Historial de búsqueda", "Contraseña olvidada", "Verificación en dos pasos"
     ],
     "🛋️ Cosas de la Vida": [
-        # TUS DATOS ORIGINALES
         "Llegar tarde", "La resaca", "Quedarse sin papel en el baño",
         "Hacerse un selfie", "El grupo de WhatsApp de la familia",
         "Ligar en una discoteca", "El primer día de gimnasio",
@@ -239,7 +219,6 @@ DATOS = {
         "Ese amigo que nunca tiene batería", "Pedir un Glovo",
         "Intentar no reírse en un sitio serio", "El lunes por la mañana",
         "Hacer la compra con hambre", "Perder las llaves", "Hacer la maleta",
-        # NUEVOS AÑADIDOS
         "Pisar una pieza de Lego", "Darse con el dedo meñique del pie",
         "Se cae el internet", "Spoiler de tu serie favorita",
         "La declaración de la Renta", "Pasar la ITV", "Buscar aparcamiento",
@@ -256,9 +235,13 @@ DATOS = {
     ]
 }
 
-# --- LÓGICA DE ESTADOS ---
+# --- INICIALIZACIÓN DE MEMORIA SEGURA (CORRECCIÓN DE BUGS) ---
+# Esto evita el error de la votación si recargas o cambias código
 if 'game_state' not in st.session_state: st.session_state.game_state = "setup"
 if 'eliminados' not in st.session_state: st.session_state.eliminados = []
+if 'roles_bool' not in st.session_state: st.session_state.roles_bool = []
+if 'total' not in st.session_state: st.session_state.total = 4
+if 'palabra' not in st.session_state: st.session_state.palabra = ""
 
 # Cabecera
 st.markdown(f"""
@@ -288,20 +271,38 @@ if st.session_state.game_state == "setup":
         st.session_state.palabra = random.choice(DATOS[tema])
         st.session_state.turno = 0
         st.session_state.total = jug
-        st.session_state.eliminados = [] # Reseteamos eliminados
-        st.session_state.game_state = "playing"
+        st.session_state.eliminados = []
+        # Empezamos con el Jugador 1, no hace falta transición inicial
+        st.session_state.game_state = "playing" 
         st.session_state.card_flipped = False
         st.rerun()
 
 # =========================================
-# PANTALLA 2: JUEGO (CARTAS)
+# PANTALLA 2: PANTALLA DE BLOQUEO (TRANSICIÓN)
+# =========================================
+elif st.session_state.game_state == "transition":
+    turno = st.session_state.turno
+    st.markdown(f"""
+    <div class="stop-card">
+        <div style="font-size: 60px;">🛑</div>
+        <h2>¡ALTO AHÍ!</h2>
+        <p>Pasa el dispositivo al siguiente jugador.</p>
+        <h1 style="color: #F87171; margin-top: 20px;">JUGADOR {turno + 1}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button(f"✅ SOY EL JUGADOR {turno + 1}"):
+        st.session_state.game_state = "playing"
+        st.rerun()
+
+# =========================================
+# PANTALLA 3: JUEGO (CARTAS)
 # =========================================
 elif st.session_state.game_state == "playing":
     turno = st.session_state.turno
     
     st.markdown(f'<h3 style="text-align: center;">Turno del Jugador {turno + 1}</h3>', unsafe_allow_html=True)
 
-    # Contenido reverso (HTML limpio)
     if st.session_state.roles_bool[turno]:
         contenido = """<div style="text-align: center;">
             <span style="font-size: 50px;">🤫</span><br>
@@ -333,23 +334,25 @@ elif st.session_state.game_state == "playing":
     else:
         es_ultimo = turno >= st.session_state.total - 1
         txt = "🗳️ IR A VOTACIÓN" if es_ultimo else "🔒 OCULTAR Y SIGUIENTE"
+        
         if st.button(txt):
-            if es_ultimo: st.session_state.game_state = "voting_round"
+            st.session_state.card_flipped = False # Reseteamos carta siempre
+            if es_ultimo: 
+                st.session_state.game_state = "voting_round"
             else: 
                 st.session_state.turno += 1
-                st.session_state.card_flipped = False
+                # Vamos a la pantalla de transición en lugar de directa al jugador
+                st.session_state.game_state = "transition"
             st.rerun()
 
 # =========================================
-# PANTALLA 3: VOTACIÓN (BUCLE)
+# PANTALLA 4: VOTACIÓN
 # =========================================
 elif st.session_state.game_state == "voting_round":
     st.markdown('<div class="card-style"><h3>🗣️ R O N D A &nbsp; D E &nbsp; V O T A C I Ó N</h3><p>Debatid y expulsad a un jugador.</p></div>', unsafe_allow_html=True)
     
-    # Mostramos botones solo para los vivos
     for i in range(st.session_state.total):
         if i not in st.session_state.eliminados:
-            # Usamos un truco de CSS para botones secundarios
             st.markdown('<div class="vote-btn">', unsafe_allow_html=True)
             if st.button(f"👉 Expulsar al Jugador {i+1}", key=f"vote_{i}"):
                 st.session_state.ultimo_expulsado = i
@@ -361,13 +364,44 @@ elif st.session_state.game_state == "voting_round":
              st.markdown(f'<div style="text-align:center; padding: 10px; color: #9CA3AF;">💀 Jugador {i+1} (Eliminado)</div>', unsafe_allow_html=True)
 
 # =========================================
-# PANTALLA 4: RESULTADO DE LA RONDA
+# PANTALLA 5: RESULTADO
 # =========================================
 elif st.session_state.game_state == "round_result":
     expulsado = st.session_state.ultimo_expulsado
     es_impostor = st.session_state.roles_bool[expulsado]
     
-    # LÓGICA DE VICTORIA
-    total_impostores = sum(st.session_state.roles_bool)
     impostores_vivos = sum(1 for i in range(st.session_state.total) if st.session_state.roles_bool[i] and i not in st.session_state.eliminados)
     inocentes_vivos = sum(1 for i in range(st.session_state.total) if not st.session_state.roles_bool[i] and i not in st.session_state.eliminados)
+    
+    st.markdown('<div class="card-style">', unsafe_allow_html=True)
+    st.subheader(f"El Jugador {expulsado + 1} ha sido expulsado.")
+    
+    if es_impostor:
+        st.markdown(f"<h2 style='color: #10B981;'>¡ERA UN INFILTRADO! 😈</h2>", unsafe_allow_html=True)
+        if impostores_vivos == 0:
+            st.balloons()
+            st.success("🎉 ¡VICTORIA! Todos los infiltrados han sido eliminados.")
+            st.markdown(f"**La palabra era:** {st.session_state.palabra}")
+            if st.button("🔄 NUEVA PARTIDA"):
+                st.session_state.game_state = "setup"
+                st.rerun()
+            st.stop()
+        else:
+            st.info(f"Quedan {impostores_vivos} infiltrados...")
+    else:
+        st.markdown(f"<h2 style='color: #EF4444;'>¡ERA INOCENTE! 😱</h2>", unsafe_allow_html=True)
+        if impostores_vivos >= inocentes_vivos:
+            st.error("💀 ¡DERROTA! Los infiltrados ganan por mayoría.")
+            st.markdown(f"**La palabra era:** {st.session_state.palabra}")
+            if st.button("🔄 NUEVA PARTIDA"):
+                st.session_state.game_state = "setup"
+                st.rerun()
+            st.stop()
+        else:
+            st.warning("Habéis cometido un error. La partida continúa.")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    if st.button("🔄 SIGUIENTE RONDA DE DEBATE"):
+        st.session_state.game_state = "voting_round"
+        st.rerun()
