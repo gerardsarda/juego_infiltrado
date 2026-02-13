@@ -79,8 +79,8 @@ DATOS = {
         "Neymar Jr", "Pelé", "Johan Cruyff", "Mundial de Sudáfrica 2010",
         "Gol de Iniesta", "Sergio Ramos", "Lamine Yamal", "Copa América",
         "Eurocopa", "Anfield", "River Plate", "La Libertadores",
-        "Saque de esquina", "Gol en propia puerta", "Tanda de penaltis",
-        "Luis Rubiales", "Fútbol Femenino",
+        "Saque de esquina", "Gol en propia puerta", "Tanda de penaltis", "El Bicho",
+        "Hala Madrid", "Visca el Barça", "Luis Rubiales", "Fútbol Femenino",
         "Alexia Putellas", "Aitana Bonmatí", "Balón de Oro", "Ley del Ex",
         "Hacer una rabona", "Tirar a lo Panenka", "Un espontáneo", "El césped",
         "Vestuario", "Rueda de prensa", "Fichaje millonario", "Cláusula de rescisión",
@@ -187,13 +187,16 @@ DATOS = {
         "Mercadona", "Hacendado", "Glovo", "Uber Eats", "Telepizza"
     ],
     "✈️ Lugares y Viajes": [
+        # TUS DATOS ORIGINALES
         "Madrid", "Barcelona", "París", "Nueva York", "Londres", "Roma",
         "Tokio", "Ibiza", "La Playa", "Egipto", "Route 66", "Un Gimnasio",
         "Una Discoteca", "El Supermercado", "Un Aeropuerto", "La Universidad",
         "El Cine", "Un Hospital", "Un Parque de Atracciones", "Costa Rica",
         "La Luna", "Benidorm", "Islandia", "Machu Picchu", "La Gran Muralla China",
         "Un crucero", "Un hostal de mochileros", "Camping en la montaña", "Jordania",
-        "Canada", "Oslo", "Puerto Rico", "Venecia", "Ámsterdam", "Berlín", "Dubái", "Las Vegas",
+        "Canada", "Oslo", "Puerto Rico",
+        # NUEVOS AÑADIDOS
+        "Venecia", "Ámsterdam", "Berlín", "Dubái", "Las Vegas",
         "Los Ángeles", "Miami", "Caribe", "Cancún", "Punta Cana",
         "Maldivas", "Bali", "Tailandia", "Japón", "Australia",
         "Antártida", "Desierto del Sahara", "Selva Amazónica", "Niágara",
@@ -202,7 +205,7 @@ DATOS = {
         "Estación de tren", "Metro de Madrid", "Un autobús", "Un taxi",
         "La casa de tus padres", "Un hotel de 5 estrellas", "Una casa rural",
         "La feria del pueblo", "Un concierto", "Un estadio de fútbol", "La cárcel",
-         "La cola del paro", "Hacienda"
+        "El baño de una discoteca", "La cola del paro", "Hacienda"
     ],
     "📱 Tecnología y Redes": [
         # TUS DATOS ORIGINALES
@@ -211,7 +214,9 @@ DATOS = {
         "Google", "Amazon", "Wifi", "Batería baja", "Selfie", "Inteligencia Artificial",
         "Realidad Virtual", "Un podcast", "Notificaciones", "Modo Avión",
         "El algoritmo", "Bizum", "Spotify Wrapped", "Vinted", "Bluetooth",
-        "Twitch", "Discord", "Telegram", "Facebook", "LinkedIn", "Pinterest",
+        # NUEVOS AÑADIDOS
+        "Tinder", "Bumble", "Grindr", "OnlyFans", "Twitch",
+        "Discord", "Telegram", "Facebook", "LinkedIn", "Pinterest",
         "BeReal", "Snapchat", "Filtro de Instagram", "Trending Topic",
         "Hacerse viral", "Un meme", "Sticker de WhatsApp", "Audio de 5 minutos",
         "Visto azul", "Bloquear a alguien", "Stalkear", "Ghosting",
@@ -233,7 +238,22 @@ DATOS = {
         "Stalkear a tu ex", "Dormir la siesta", "El mando a distancia",
         "Ese amigo que nunca tiene batería", "Pedir un Glovo",
         "Intentar no reírse en un sitio serio", "El lunes por la mañana",
-        "Hacer la compra con hambre", "Perder las llaves",
+        "Hacer la compra con hambre", "Perder las llaves", "Hacer la maleta",
+        # NUEVOS AÑADIDOS
+        "Pisar una pieza de Lego", "Darse con el dedo meñique del pie",
+        "Se cae el internet", "Spoiler de tu serie favorita",
+        "La declaración de la Renta", "Pasar la ITV", "Buscar aparcamiento",
+        "El vecino ruidoso", "Llamada de spam a la siesta", "Olvidar el PIN de la tarjeta",
+        "Encontrarse a un ex", "Mancharse de tomate la camisa blanca",
+        "Perder el autobús por un segundo", "Que te toque la lotería",
+        "Domingo de lluvia", "Hacer dieta", "Dejar de fumar",
+        "Ir a Ikea el sábado", "Montar un mueble y que sobren piezas",
+        "Que se te queme la comida", "Pedir la cuenta y que no te miren",
+        "Quedarse sin batería en el momento clave", "Romper la pantalla del móvil",
+        "Perder un calcetín en la lavadora", "Sacar la basura",
+        "Reunión de vecinos", "Cena de empresa", "Amigo invisible",
+        "Boda, bautizo y comunión", "Operación bikini", "La cuesta de enero"
+    ]
 }
 
 # --- LÓGICA DE ESTADOS ---
