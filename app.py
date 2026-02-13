@@ -1,62 +1,67 @@
 import streamlit as st
 import random
-import time
 
 # --- CONFIGURACIÓN DE PÁGINA ---
-st.set_page_config(page_title="Infiltrado", page_icon="🕵️", layout="centered")
+# Pega aquí el link que has copiado de GitHub
+URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
+st.set_page_config(
+    page_title="Infiltrado",
+    page_icon=URL_LOGO, # Esto pone el logo en la pestaña del navegador
+    layout="centered"
+)
 
-# --- CSS V3.0: DISEÑO MODERNO Y LIMPIO ---
+# --- ICONO PARA EL MÓVIL (PWA) ---
+st.markdown(f"""
+    <head>
+        <link rel="apple-touch-icon" href="{URL_LOGO}">
+        <meta name="apple-mobile-web-app-title" content="Infiltrado">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    </head>
+    """, unsafe_allow_html=True)
+
+# --- CSS V4.0: DISEÑO LUMINOSO Y EFECTO FLIP CARD ---
 st.markdown("""
     <style>
-    /* Importamos la fuente 'Inter' para un look profesional y moderno */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    /* Importamos una fuente moderna y limpia */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
-    /* --- ESTRUCTURA BASE --- */
+    /* --- ESTRUCTURA LUMINOSA --- */
     .stApp {
-        background-color: #0E1117; /* Fondo oscuro premium (no negro puro) */
-        color: #E6EDF3; /* Texto blanco roto para no cansar la vista */
-        font-family: 'Inter', sans-serif !important;
+        background-color: #F8FAFC; /* Blanco roto luminoso */
+        color: #1E293B; /* Azul oscuro casi negro para el texto */
+        font-family: 'Poppins', sans-serif !important;
     }
 
-    /* --- TIPOGRAFÍA --- */
-    h1 {
-        color: #FFFFFF !important;
-        font-weight: 800 !important;
-        letter-spacing: -1px;
-        font-size: 3.5rem !important;
+    h1, h2, h3 {
+        color: #334155 !important;
         text-align: center;
-        margin-bottom: 1rem !important;
-        text-shadow: none !important; /* Eliminamos sombras cutres */
     }
     
-    h2, h3 {
-        font-weight: 600 !important;
-        color: #E6EDF3 !important;
+    h1 {
+        font-weight: 800;
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(to right, #4F46E5, #7C3AED); /* Degradado Azul-Violeta */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
-    /* --- TARJETAS Y CONTENEDORES --- */
-    .setup-card, .role-card, .result-card {
-        background-color: #161B22; /* Un tono más claro que el fondo */
+    /* --- TARJETAS LIMPIAS --- */
+    .setup-card, .result-card, .flip-container {
+        background-color: #FFFFFF; /* Blanco puro */
         padding: 30px;
-        border-radius: 16px;
-        border: 1px solid #30363D; /* Borde sutil */
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 20px;
+        border: 1px solid #E2E8F0; /* Borde gris muy suave */
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); /* Sombra sutil y elegante */
         margin-bottom: 20px;
     }
-    
-    .role-card {
-        text-align: center;
-        font-size: 26px;
-        font-weight: 600;
-    }
 
-    /* --- BOTONES --- */
-    /* Botón Principal (Acción) */
+    /* --- BOTONES MODERNOS --- */
     .stButton>button {
         width: 100%;
         border-radius: 12px;
         height: 3.5em;
-        background-color: #7C3AED; /* Violeta eléctrico moderno */
+        background-color: #4F46E5; /* Azul vibrante */
         color: white;
         font-weight: 700;
         border: none;
@@ -64,28 +69,69 @@ st.markdown("""
         transition: all 0.2s ease-in-out;
     }
     .stButton>button:hover {
-        background-color: #6D28D9; /* Un poco más oscuro al pasar el ratón */
+        background-color: #4338CA;
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
     }
-    
-    /* Botones secundarios (Votación) - Usaremos un truco en el código de Python para diferenciarlos */
 
-    /* --- INPUTS Y LABELS --- */
-    .stSelectbox label, .stNumberInput label {
-        color: #E6EDF3 !important;
-        font-weight: 600;
-        font-size: 16px;
+    /* --- 🔥 EFECTO FLIP CARD (LA MAGIA) 🔥 --- */
+    .flip-card {
+      background-color: transparent;
+      width: 100%;
+      height: 300px; /* Altura de la carta */
+      perspective: 1000px; /* Necesario para el efecto 3D */
+      margin-bottom: 20px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s; /* Duración del giro */
+      transform-style: preserve-3d;
+    }
+
+    /* Esta clase se activa con Python para girar la carta */
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden; /* Oculta la cara de atrás */
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    .flip-card-front {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED); /* Frente azul-violeta */
+      color: white;
+    }
+
+    .flip-card-back {
+      background-color: #FFFFFF; /* Reverso blanco */
+      color: #1E293B;
+      transform: rotateY(180deg); /* El reverso empieza girado */
+      border: 2px solid #4F46E5;
     }
     
-    /* --- RESULTADOS --- */
-    .winner-text { color: #2ea043; font-size: 2rem; font-weight: 800; text-align: center; } /* Verde moderno */
-    .loser-text { color: #da3633; font-size: 2rem; font-weight: 800; text-align: center; } /* Rojo moderno */
-    .word-reveal { margin-top: 20px; padding: 15px; background: #30363D; border-radius: 8px; text-align: center; }
+    /* --- TEXTOS DE RESULTADO --- */
+    .winner-text { color: #10B981; font-size: 2rem; font-weight: 800; text-align: center; }
+    .loser-text { color: #EF4444; font-size: 2rem; font-weight: 800; text-align: center; }
 
     </style>
     """, unsafe_allow_html=True)
 
-# --- TUS DATOS (¡IMPORTANTE! SUSTITUYE ESTO POR TU LISTA GIGANTE) ---
+# --- TUS DATOS (¡IMPORTANTE! PEGA TU LISTA GIGANTE AQUÍ) ---
 DATOS = {
     "⚽ Fútbol": [
         "Real Madrid", "FC Barcelona", "Champions League", "Copa del Mundo",
@@ -94,7 +140,7 @@ DATOS = {
         "Estadio Santiago Bernabéu", "Camp Nou", "Tarjeta Roja", "VAR",
         "Fuera de Juego", "Bota de Oro", "Erling Haaland", "Vinícius Jr",
         "Selección Española", "Inter Miami", "Luis de la Fuente", "Mundial 2030",
-        "Árbitro", "Jabulani", "Maradona", "Zidane", "Barça de Guardiola", 
+        "Árbitro", "Jabulani", "Maradona", "Zidane", "Barça de Guardiola",
         "La chilena de Cristiano", "Iker Casillas", "Xavi e Iniesta", "El Chiringuito",
         "Kings League", "Un Linier", "Tirar un penalti"
     ],
@@ -107,11 +153,11 @@ DATOS = {
         "Ajedrez", "Yoga", "La 33 de Alonso", "Lanzamiento de jabalina"
     ],
     "📜 Historia": [
-        "Pirámides de Egipto", "Imperio Romano", "Cristóbal Colón", "Guerra Fría", 
-        "Revolución Francesa", "El Muro de Berlín", "Napoleón Bonaparte", 
-        "Segunda Guerra Mundial", "Los Mayas", "Vikingos", "Edad Media", 
-        "Renacimiento", "Juana de Arco", "Mahatma Gandhi", "Leonardo da Vinci", 
-        "El Titanic", "Los Reyes Católicos", "La Peste Negra", "Julio César", 
+        "Pirámides de Egipto", "Imperio Romano", "Cristóbal Colón", "Guerra Fría",
+        "Revolución Francesa", "El Muro de Berlín", "Napoleón Bonaparte",
+        "Segunda Guerra Mundial", "Los Mayas", "Vikingos", "Edad Media",
+        "Renacimiento", "Juana de Arco", "Mahatma Gandhi", "Leonardo da Vinci",
+        "El Titanic", "Los Reyes Católicos", "La Peste Negra", "Julio César",
         "La llegada a la Luna", "Antigua Grecia", "Samuráis", "Caballeros Templarios",
         "La Revolución Industrial", "Cleopatra", "Atila el Huno", "El Lejano Oeste"
     ],
@@ -127,7 +173,7 @@ DATOS = {
         "La Casa de Papel", "Juego de Tronos", "Harry Potter", "Star Wars",
         "Stranger Things", "Titanic", "Marvel", "El Rey León", "Avatar",
         "Batman", "Spiderman", "Élite", "The Last of Us", "Disney World",
-        "Netflix", "Piratas del Caribe", "Shrek", "Sherlock Holmes", 
+        "Netflix", "Piratas del Caribe", "Shrek", "Sherlock Holmes",
         "Los Juegos del Hambre", "Toy Story", "Parásitos", "Barbie (película)",
         "Oppenheimer", "Breaking Bad", "The Office", "Los Simpson", "Jurassic Park"
     ],
@@ -141,18 +187,21 @@ DATOS = {
     ],
     "✈️ Lugares y Viajes": [
         "Madrid", "Barcelona", "París", "Nueva York", "Londres", "Roma",
-        "Tokio", "Ibiza", "La Playa", "Egipto", "Route 66", "Un Gimnasio", 
-        "Una Discoteca", "El Supermercado", "Un Aeropuerto", "La Universidad", 
-        "El Cine", "Un Hospital", "Un Parque de Atracciones", "El Infierno", 
+        "Tokio", "Ibiza", "La Playa", "Egipto", "Route 66", "Un Gimnasio",
+        "Una Discoteca", "El Supermercado", "Un Aeropuerto", "La Universidad",
+        "El Cine", "Un Hospital", "Un Parque de Atracciones", "Costa Rica",
         "La Luna", "Benidorm", "Islandia", "Machu Picchu", "La Gran Muralla China",
-        "Un crucero", "Un hostal de mochileros", "Camping en la montaña"
+        "Un crucero", "Un hostal de mochileros", "Camping en la montaña", "Jordania",
+        "Canada", "Oslo", "Puerto Rico"
+
     ],
     "📱 Tecnología y Redes": [
         "TikTok", "Instagram", "WhatsApp", "Twitter / X", "ChatGPT",
         "iPhone", "PlayStation 5", "YouTube", "Influencer", "Hacker",
         "Google", "Amazon", "Wifi", "Batería baja", "Selfie", "Inteligencia Artificial",
-        "Realidad Virtual", "Un podcast", "Notificaciones", "Modo Avión", 
-        "El algoritmo", "Bizum", "Spotify Wrapped", "Vinted"
+        "Realidad Virtual", "Un podcast", "Notificaciones", "Modo Avión",
+        "El algoritmo", "Bizum", "Spotify Wrapped", "Vinted", "Bluetooth",
+        ""
     ],
     "🛋️ Cosas de la Vida": [
         "Llegar tarde", "La resaca", "Quedarse sin papel en el baño",
@@ -167,24 +216,24 @@ DATOS = {
         "Hacer la compra con hambre", "Perder las llaves", "Hacer la maleta"
     ]
 }
-# ------------------------------------------------------------------
 
-
-# --- LÓGICA DE ESTADOS DEL JUEGO ---
+# --- LÓGICA DEL JUEGO ---
 if 'game_state' not in st.session_state:
     st.session_state.game_state = "setup"
+if 'card_flipped' not in st.session_state:
+    st.session_state.card_flipped = False
 
-st.title("INFILTRADO")
+st.markdown("<h1>INFILTRADO</h1>", unsafe_allow_html=True)
 
 # =========================================
 # PANTALLA 1: CONFIGURACIÓN (SETUP)
 # =========================================
 if st.session_state.game_state == "setup":
     st.markdown('<div class="setup-card">', unsafe_allow_html=True)
+    st.subheader("Configura la Partida")
     tema = st.selectbox("📚 SELECCIONA TEMÁTICA", list(DATOS.keys()))
     
-    st.write("") # Espaciador
-    
+    st.write("")
     c1, c2 = st.columns(2)
     with c1:
         jugadores = st.number_input("👥 JUGADORES", min_value=3, max_value=20, value=4)
@@ -194,99 +243,104 @@ if st.session_state.game_state == "setup":
     st.markdown('</div>', unsafe_allow_html=True)
     
     if st.button("🚀 COMENZAR PARTIDA"):
-        if not DATOS[tema]: # Protección si la categoría está vacía
-            st.error("¡Esa categoría no tiene palabras!")
+        if not DATOS[tema]:
+            st.error("¡Categoría vacía!")
             st.stop()
-            
         palabra = random.choice(DATOS[tema])
-        # Crear lista de True (impostor) y False (inocente)
         lista_roles_bool = [False] * jugadores
         indices_impostores = random.sample(range(jugadores), impostores)
-        for idx in indices_impostores:
-            lista_roles_bool[idx] = True
+        for idx in indices_impostores: lista_roles_bool[idx] = True
             
-        # Guardar todo en la memoria del juego
         st.session_state.roles_bool = lista_roles_bool
         st.session_state.palabra_secreta = palabra
         st.session_state.turno_actual = 0
         st.session_state.total_jugadores = jugadores
-        st.session_state.game_state = "playing_hidden"
+        st.session_state.game_state = "playing"
+        st.session_state.card_flipped = False
         st.rerun()
 
 # =========================================
-# PANTALLA 2: TURNO OCULTO (Pasar el móvil)
+# PANTALLA 2: TURNO Y CARTA (EL NÚCLEO)
 # =========================================
-elif st.session_state.game_state == "playing_hidden":
-    turno = st.session_state.turno_actual
-    st.markdown(f"""
-    <div class="setup-card" style="text-align: center;">
-        <h2>➡️ Turno del Jugador {turno + 1}</h2>
-        <p style="color: #8b949e;">Pasad el dispositivo. Asegúrate de que nadie más mire.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.button("👁️ MOSTRAR MI ROL"):
-        st.session_state.game_state = "playing_revealed"
-        st.rerun()
-
-# =========================================
-# PANTALLA 3: ROL REVELADO
-# =========================================
-elif st.session_state.game_state == "playing_revealed":
+elif st.session_state.game_state == "playing":
     turno = st.session_state.turno_actual
     es_impostor = st.session_state.roles_bool[turno]
     
+    st.markdown(f'<h2 style="margin-bottom: 20px;">Turno del Jugador {turno + 1}</h2>', unsafe_allow_html=True)
+
+    # --- CONTENIDO DEL REVERSO DE LA CARTA ---
     if es_impostor:
-        contenido = """
-        <span style="font-size: 40px;">🕵️</span><br>
-        <span style="color: #f85149; font-weight: 800;">ERES EL INFILTRADO</span><br>
-        <span style="font-size: 18px; color: #8b949e;">No sabes la palabra. ¡Miente!</span>
+        contenido_reverso = """
+        <span style="font-size: 60px;">🤫</span><br>
+        <h2 style="color: #EF4444; margin: 10px 0;">ERES EL INFILTRADO</h2>
+        <p>No sabes la palabra. ¡Miente!</p>
         """
     else:
-        contenido = f"""
-        <span style="font-size: 18px; color: #8b949e;">La palabra clave es:</span><br>
-        <span style="font-size: 36px; color: #7C3AED; font-weight: 800;">{st.session_state.palabra_secreta.upper()}</span>
+        contenido_reverso = f"""
+        <p style="font-size: 18px; color: #64748B;">La palabra clave es:</p>
+        <h1 style="font-size: 40px; margin: 10px 0;">{st.session_state.palabra_secreta.upper()}</h1>
+        <span style="font-size: 40px;">🧐</span>
         """
-        
-    st.markdown(f'<div class="role-card">{contenido}</div>', unsafe_allow_html=True)
-    st.warning("Memorízalo rápido. Pulsa el botón para ocultarlo antes de pasar el móvil.")
+
+    # --- LÓGICA DE LA CARTA GIRATORIA ---
+    # Si card_flipped es True, añadimos la clase "flipped" para que rote
+    flip_class = "flipped" if st.session_state.card_flipped else ""
+
+    st.markdown(f"""
+    <div class="flip-card">
+      <div class="flip-card-inner {flip_class}">
+        <div class="flip-card-front">
+          <span style="font-size: 60px;">🃏</span>
+          <h2 style="color: white;">TU CARTA DE ROL</h2>
+          <p>Pulsa el botón para revelarla</p>
+        </div>
+        <div class="flip-card-back">
+          {contenido_reverso}
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
     
-    # Lógica del botón siguiente
+    # --- BOTÓN DE ACCIÓN ---
     es_ultimo_jugador = turno >= st.session_state.total_jugadores - 1
-    texto_boton = "🗳️ IR A LA VOTACIÓN FINAL" if es_ultimo_jugador else "🔒 OCULTAR Y SIGUIENTE JUGADOR"
     
-    if st.button(texto_boton):
-        if es_ultimo_jugador:
-            st.session_state.game_state = "voting"
-        else:
-            st.session_state.turno_actual += 1
-            st.session_state.game_state = "playing_hidden"
-        st.rerun()
+    if not st.session_state.card_flipped:
+        # Botón para girar la carta
+        if st.button("👁️ VER MI ROL (GIRAR CARTA)"):
+            st.session_state.card_flipped = True
+            st.rerun()
+    else:
+        # Botón para pasar al siguiente turno/votación
+        texto_boton = "🗳️ IR A LA VOTACIÓN FINAL" if es_ultimo_jugador else "🔒 OCULTAR Y SIGUIENTE JUGADOR"
+        if st.button(texto_boton):
+            if es_ultimo_jugador:
+                st.session_state.game_state = "voting"
+            else:
+                st.session_state.turno_actual += 1
+                st.session_state.card_flipped = False # Reseteamos la carta para el siguiente
+            st.rerun()
 
 # =========================================
-# PANTALLA 4: VOTACIÓN
+# PANTALLA 3: VOTACIÓN (Estilo Luminoso)
 # =========================================
 elif st.session_state.game_state == "voting":
-    st.title("🗣️ DEBATE Y VOTACIÓN")
-    st.markdown('<div class="setup-card"><p>Debatid y pulsad sobre el jugador que creéis que es el infiltrado para comprobarlo.</p></div>', unsafe_allow_html=True)
+    st.markdown("<h2>🗣️ DEBATE Y VOTACIÓN</h2>", unsafe_allow_html=True)
+    st.markdown('<div class="setup-card"><p style="text-align: center;">Debatid y pulsad sobre el jugador que creéis que es el infiltrado.</p></div>', unsafe_allow_html=True)
     
-    # Generamos un botón por cada jugador
     for i in range(st.session_state.total_jugadores):
-        # Usamos un estilo diferente (outline) para los botones de votación
         if st.button(f"👉 Acusar al Jugador {i + 1}", key=f"voto_{i}"):
             st.session_state.jugador_acusado = i
             st.session_state.game_state = "result"
             st.rerun()
 
 # =========================================
-# PANTALLA 5: RESULTADO FINAL
+# PANTALLA 4: RESULTADO FINAL (Estilo Luminoso)
 # =========================================
 elif st.session_state.game_state == "result":
     acusado_idx = st.session_state.jugador_acusado
     era_impostor = st.session_state.roles_bool[acusado_idx]
     
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    
+    st.markdown('<div class="result-card" style="text-align: center;">', unsafe_allow_html=True)
     if era_impostor:
         st.markdown('<div class="winner-text">🎉 ¡INOCENTES GANAN! 🎉</div>', unsafe_allow_html=True)
         st.write(f"¡Correcto! El Jugador {acusado_idx + 1} era un infiltrado.")
@@ -294,26 +348,15 @@ elif st.session_state.game_state == "result":
     else:
         st.markdown('<div class="loser-text">💀 ¡INFILTRADOS GANAN! 💀</div>', unsafe_allow_html=True)
         st.write(f"¡Habéis fallado! El Jugador {acusado_idx + 1} era inocente.")
-        st.write("Los infiltrados se han salido con la suya.")
     
-    # Mostrar la palabra secreta y quiénes eran los impostores
-    st.markdown(f"""
-    <div class="word-reveal">
-        La palabra secreta era: <b>{st.session_state.palabra_secreta}</b>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    lista_impostores_txt = []
-    for idx, es_imp in enumerate(st.session_state.roles_bool):
-        if es_imp:
-            lista_impostores_txt.append(f"Jugador {idx+1}")
-            
-    st.write(f"\nLos infiltrados eran: {', '.join(lista_impostores_txt)}")
+    st.write("---")
+    st.subheader(f"Palabra: {st.session_state.palabra_secreta}")
+    lista_imps = [f"J.{i+1}" for i, es in enumerate(st.session_state.roles_bool) if es]
+    st.write(f"Infiltrados: {', '.join(lista_imps)}")
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("🔄 JUGAR OTRA VEZ"):
-        # Reseteamos variables clave
-        for key in ['roles_bool', 'palabra_secreta', 'turno_actual', 'jugador_acusado']:
+        for key in ['roles_bool', 'palabra_secreta', 'turno_actual', 'jugador_acusado', 'card_flipped']:
             del st.session_state[key]
         st.session_state.game_state = "setup"
         st.rerun()
