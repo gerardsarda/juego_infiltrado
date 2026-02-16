@@ -10,138 +10,145 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS ESTILO GOMINOLA FRIENDLY (CANDY STYLE) ---
+# --- 🎨 CSS PREMIUM DARK (ESTILO DISCORD/TWITCH) ---
 st.markdown(f"""
     <style>
-    /* 1. IMPORTAMOS LA FUENTE 'NUNITO' (LA MÁS REDONDITA) */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+    /* 1. FUENTE 'OUTFIT' (La reina del diseño moderno actual) */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
     
-    /* 2. REGLAS MAESTRAS - TODO REDONDO Y SUAVE */
+    /* 2. FONDO OSCURO PROFUNDO */
     html, body, .stApp {{
-        font-family: 'Nunito', sans-serif !important;
-        background: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 100%); /* Fondo pastel suave */
-        color: #334155; /* Texto gris oscuro suave */
+        font-family: 'Outfit', sans-serif !important;
+        background-color: #0f172a; /* Azul noche muy oscuro */
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%), 
+            radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+        color: #f8fafc;
     }}
 
-    /* TÍTULOS AMABLES */
+    /* 3. TÍTULOS MODERNOS */
     h1 {{
-        font-weight: 900 !important;
+        font-weight: 800 !important;
+        background: linear-gradient(to right, #a78bfa, #60a5fa); /* Degradado lila-azul */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         font-size: 3.5rem !important;
-        color: #3b82f6; /* Azul amigable */
         text-align: center;
-        margin-bottom: 10px !important;
+        margin-bottom: 0 !important;
+        letter-spacing: -1px;
     }}
     
-    h2 {{
-        font-weight: 800 !important;
-        color: #475569 !important;
-        font-size: 2rem !important;
+    p {{ color: #94a3b8 !important; font-size: 1.1rem; font-weight: 400; }}
+    h2, h3 {{ color: white !important; font-weight: 700 !important; }}
+
+    /* 4. TARJETAS "GLASS" (CRISTAL) - LA CLAVE DEL DISEÑO */
+    .glass-card {{
+        background: rgba(30, 41, 59, 0.7); /* Semitransparente */
+        backdrop-filter: blur(12px); /* Efecto borroso detrás */
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08); /* Borde sutil */
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        margin-bottom: 25px;
+        text-align: center;
     }}
 
-    p, label, span, div {{
-        font-weight: 700 !important;
-        font-size: 1.1rem;
-    }}
-
-    /* 3. INPUTS "BLANDITOS" */
+    /* 5. INPUTS INTEGRADOS (OSCUROS) */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: white !important;
-        border: 3px solid #cbd5e1 !important; /* Borde gris suave grueso */
-        border-radius: 25px !important; /* Muy redondo */
-        color: #334155 !important;
-        font-size: 1.2rem !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
-        transition: all 0.2s;
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+        color: white !important;
+        font-size: 1rem !important;
     }}
-    div[data-baseweb="select"] > div:hover, div[data-baseweb="input"] > div:hover {{
-        border-color: #3b82f6 !important; /* Al pasar el ratón se pone azul */
-    }}
-
-    /* 4. BOTONES DE GOMINOLA */
+    div[data-baseweb="select"] span {{ color: white !important; }}
+    
+    /* 6. BOTONES "VIVID" (GRADIENTE ELÉCTRICO) */
     .stButton>button {{
-        font-family: 'Nunito', sans-serif !important;
         width: 100%;
-        border-radius: 30px !important; /* Súper redondo */
-        height: 65px;
-        background: linear-gradient(to bottom, #60a5fa, #3b82f6); /* Degradado azul suave */
+        border-radius: 16px !important;
+        height: 60px;
+        background: linear-gradient(90deg, #7c3aed, #4f46e5); /* Violeta a Índigo */
         border: none;
-        border-bottom: 6px solid #2563eb; /* Sombra suave 3D */
         color: white;
-        font-weight: 900 !important;
-        font-size: 22px !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 18px !important;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        transition: all 0.1s;
-        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); /* Sombra difuminada */
+        box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4); /* Resplandor */
+        transition: all 0.2s ease;
     }}
     
     .stButton>button:hover {{
-        transform: translateY(2px);
-        border-bottom-width: 4px;
-        filter: brightness(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgba(124, 58, 237, 0.6);
+        filter: brightness(1.1);
     }}
     
-    .stButton>button:active {{
-        transform: translateY(6px);
-        border-bottom-width: 0px;
-    }}
-    
-    /* Botón de Votar (Rojo suave) */
+    /* Botón Secundario (Votar/Eliminar) */
     .vote-btn button {{
-        background: linear-gradient(to bottom, #f87171, #ef4444) !important;
-        border-bottom: 6px solid #dc2626 !important;
-        box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3) !important;
+        background: rgba(255,255,255,0.05) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        box-shadow: none !important;
+    }}
+    .vote-btn button:hover {{
+        border-color: #7c3aed !important;
+        color: #a78bfa !important;
     }}
 
-    /* 5. TARJETAS ESPONJOSAS */
-    .candy-card {{
-        background: white;
-        border-radius: 40px; /* Esquinas gigantes */
-        padding: 30px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08); /* Sombra muy suave y grande */
-        margin-bottom: 25px;
-        text-align: center;
-        border: 2px solid #f1f5f9;
-    }}
-
-    /* 6. ESCAPARATE DE ICONO (Nube) */
-    .icon-cloud {{
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe); /* Nube azulita */
-        border-radius: 35px;
-        padding: 25px;
+    /* 7. ESCAPARATE DE CATEGORÍA */
+    .category-display {{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255,255,255,0.03);
+        border-radius: 16px;
+        padding: 15px 20px;
         margin: 20px 0;
-        box-shadow: inset 0 0 20px rgba(255,255,255,0.5);
-        border: 3px solid white;
+        border: 1px solid rgba(255,255,255,0.05);
     }}
-    .floating-icon {{
-        font-size: 80px;
-        filter: drop-shadow(0 8px 16px rgba(59, 130, 246, 0.2));
-        animation: float 3s ease-in-out infinite;
-    }}
-    @keyframes float {{
-        0%, 100% {{ transform: translateY(0px); }}
-        50% {{ transform: translateY(-10px); }}
+    .cat-icon {{ font-size: 40px; margin-right: 15px; }}
+    .cat-text {{ text-align: left; flex-grow: 1; }}
+    .cat-title {{ font-size: 18px; font-weight: 700; color: white; margin: 0; }}
+    .cat-status {{ font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }}
+    
+    .status-vip {{ color: #fbbf24; }}
+    .status-free {{ color: #4ade80; }}
+
+    /* 8. JUEGO DE CARTAS (SOFISTICADO) */
+    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }}
+    .flipped {{ transform: rotateY(180deg); }}
+    
+    .flip-card-front, .flip-card-back {{ 
+        position: absolute; width: 100%; height: 100%; 
+        -webkit-backface-visibility: hidden; backface-visibility: hidden; 
+        border-radius: 24px; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; padding: 30px; 
+        box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
     }}
     
-    /* 7. ETIQUETAS PASTEL */
-    .tag {{ padding: 8px 16px; border-radius: 20px; font-size: 1rem; font-weight: 900; display: inline-block; }}
-    .tag-vip {{ background: #fef3c7; color: #d97706; border: 2px solid #fcd34d; }} /* Amarillo pastel */
-    .tag-free {{ background: #d1fae5; color: #059669; border: 2px solid #6ee7b7; }} /* Verde pastel */
-
-    /* 8. CARTAS DE JUEGO (Caramelos gigantes) */
-    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }}
-    .flipped {{ transform: rotateY(180deg); }}
-    .flip-card-front, .flip-card-back {{ 
-        position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 4px solid white;
+    /* Frente: Gradiente oscuro elegante */
+    .flip-card-front {{ 
+        background: linear-gradient(135deg, #1e293b, #0f172a); 
+        border: 1px solid rgba(255,255,255,0.1);
     }}
-    .flip-card-front {{ background: linear-gradient(135deg, #60a5fa, #a78bfa); color: white; }}
-    .flip-card-back {{ background: white; color: #334155; transform: rotateY(180deg); }}
-    .flip-card-front h2 {{ color: white !important; }}
-    .flip-card-front p {{ color: rgba(255,255,255,0.8) !important; }}
+    
+    /* Reverso: Blanco o Acento según rol */
+    .flip-card-back {{ 
+        background: white; 
+        color: #0f172a; 
+        transform: rotateY(180deg); 
+    }}
+    
+    /* ROLES */
+    .role-impostor {{ color: #ef4444; font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin: 10px 0; }}
+    .role-innocent {{ color: #3b82f6; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin: 10px 0; }}
+    .secret-word {{ font-size: 2.5rem; font-weight: 900; color: #0f172a; margin: 10px 0; }}
 
-    /* OCULTAR COSAS DE STREAMLIT */
+    /* OCULTAR ELEMENTOS */
     #MainMenu, footer, header {{visibility: hidden;}}
     
     </style>
