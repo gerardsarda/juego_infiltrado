@@ -10,30 +10,127 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- CSS DISEÑO PREMIUM ---
+# --- 🎨 CSS PREMIUM (DARK MODE + GLASSMORPHISM) ---
 st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
-    html, body, [class*="css"] {{ font-family: 'Montserrat', sans-serif !important; }}
-    .stApp {{ background-color: #F3F4F6; background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 20px 20px; color: #1F2937; }}
+    /* 1. IMPORTAMOS LA FUENTE 'OUTFIT' */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap');
     
-    .hero-container {{ text-align: center; padding: 40px 20px; background: white; border-radius: 0 0 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: -60px; margin-bottom: 30px; border-bottom: 3px solid #4F46E5; }}
-    .hero-title {{ font-weight: 900 !important; text-transform: uppercase; letter-spacing: -2px; font-size: 3.5rem !important; background: linear-gradient(90deg, #4F46E5, #9333EA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }}
+    /* 2. FONDO ANIMADO DEGRADADO */
+    .stApp {{
+        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        font-family: 'Outfit', sans-serif !important;
+        color: white;
+    }}
     
-    .premium-lock {{ background: linear-gradient(135deg, #111827, #000000); color: #FCD34D; padding: 30px; border-radius: 20px; text-align: center; margin-bottom: 20px; border: 2px solid #F59E0B; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }}
+    @keyframes gradient {{
+        0% {{ background-position: 0% 50%; }}
+        50% {{ background-position: 100% 50%; }}
+        100% {{ background-position: 0% 50%; }}
+    }}
+
+    /* 3. TIPOGRAFÍA DE LUJO */
+    h1 {{
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 0px 30px rgba(0, 198, 255, 0.5);
+        margin-bottom: 0px !important;
+    }}
     
-    .setup-card {{ background-color: white; padding: 30px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1); border: 1px solid #E5E7EB; margin-bottom: 20px; }}
-    .stop-card {{ background-color: #111827; color: white; padding: 40px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }}
+    h2, h3 {{ color: #E0E7FF !important; font-weight: 500 !important; }}
+    p {{ color: #A5B4FC !important; font-weight: 300; }}
+
+    /* 4. TARJETAS DE CRISTAL (GLASSMORPHISM) */
+    .glass-card {{
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        margin-bottom: 20px;
+        text-align: center;
+    }}
+
+    /* 5. BOTONES DE NEÓN */
+    .stButton>button {{
+        width: 100%;
+        border-radius: 12px !important;
+        height: 50px;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        color: white;
+        font-weight: 800;
+        letter-spacing: 1px;
+        border: none;
+        box-shadow: 0 0 15px rgba(0, 114, 255, 0.5);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+    }}
     
-    .stButton>button {{ width: 100%; border-radius: 50px !important; height: 3.8em; background: linear-gradient(90deg, #4F46E5, #7C3AED); color: white; font-weight: 700; border: none; font-size: 18px; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); transition: all 0.3s ease; }}
-    .stButton>button:hover {{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(79, 70, 229, 0.5); }}
+    .stButton>button:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px rgba(0, 114, 255, 0.8);
+    }}
     
-    .flip-card {{ background-color: transparent; width: 100%; height: 340px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
+    /* BOTÓN SECUNDARIO (Votar) */
+    .vote-btn button {{
+        background: transparent !important;
+        border: 2px solid #00c6ff !important;
+        color: #00c6ff !important;
+        box-shadow: none !important;
+    }}
+    .vote-btn button:hover {{
+        background: rgba(0, 198, 255, 0.1) !important;
+        box-shadow: 0 0 15px rgba(0, 198, 255, 0.3) !important;
+    }}
+
+    /* 6. INPUTS Y SELECTORES OSCUROS */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+    }}
+    div[data-baseweb="select"] span {{ color: white !important; }}
+
+    /* 7. TARJETA GIRATORIA (FLIP) MEJORADA */
+    .flip-card {{ background-color: transparent; width: 100%; height: 380px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
-    .flip-card-front, .flip-card-back {{ position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); }}
-    .flip-card-front {{ background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; }}
-    .flip-card-back {{ background-color: white; color: #1F2937; transform: rotateY(180deg); border: 4px solid #F3F4F6; }}
+    
+    .flip-card-front, .flip-card-back {{
+      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }}
+    
+    .flip-card-front {{ 
+        background: linear-gradient(135deg, #1CB5E0 0%, #000851 100%); 
+    }}
+    
+    .flip-card-back {{ 
+        background: #1a1a2e; 
+        transform: rotateY(180deg); 
+        border: 2px solid #00c6ff;
+    }}
+
+    /* EMOTICONOS GIGANTES CON BRILLO */
+    .giant-emoji {{
+        font-size: 80px;
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        margin-bottom: 20px;
+    }}
+    
+    /* ESTILOS ESPECÍFICOS DE ROLES */
+    .role-impostor {{ color: #FF416C; text-shadow: 0 0 20px rgba(255, 65, 108, 0.6); font-size: 2rem; font-weight: 900; }}
+    .role-innocent {{ color: #00c6ff; text-shadow: 0 0 20px rgba(0, 198, 255, 0.6); font-size: 2rem; font-weight: 900; }}
     </style>
     """, unsafe_allow_html=True)
 
