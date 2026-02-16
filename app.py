@@ -10,64 +10,112 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS VIBRANT + TIPOGRAFÍA 'FREDOKA' (ESTILO JUEGO CASUAL) ---
+# --- 🎨 CSS AGRESIVO (FORZADO DE FUENTE) ---
 st.markdown(f"""
     <style>
-    /* 1. IMPORTAMOS LA FUENTE 'FREDOKA' (ESTILO FALL GUYS) */
+    /* 1. IMPORTAMOS LA FUENTE 'FREDOKA' (ESTILO JUEGO) */
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&display=swap');
     
-    /* 2. FORZAMOS LA FUENTE EN TODOS LOS ELEMENTOS (*) */
-    html, body, [class*="css"], button, input, select, textarea, div, p, h1, h2, h3 {{
+    /* 2. REGLAS MAESTRAS PARA FORZAR LA FUENTE */
+    html, body, .stApp {{
         font-family: 'Fredoka', sans-serif !important;
-    }}
-
-    /* 3. FONDO VIBRANTE */
-    .stApp {{
         background: radial-gradient(circle at 50% 0%, #4c1d95 0%, #1e1b4b 60%, #000000 100%);
         color: white;
     }}
 
-    /* 4. TÍTULOS DIVERTIDOS */
-    h1 {{
+    /* TÍTULOS */
+    h1, h2, h3, h4, h5, h6 {{
+        font-family: 'Fredoka', sans-serif !important;
         font-weight: 700 !important;
         text-transform: uppercase;
-        font-size: 3.5rem !important;
-        letter-spacing: 2px;
-        color: white;
-        text-shadow: 4px 4px 0px #4c1d95; /* Sombra dura tipo cartoon */
-        margin: 0 !important;
-        text-align: center;
+        color: white !important;
     }}
     
-    h2 {{ font-weight: 600 !important; color: white !important; letter-spacing: 1px; }}
-    h3 {{ font-weight: 600 !important; color: #a78bfa !important; }}
-    p {{ font-size: 18px !important; font-weight: 400; }}
+    h1 {{
+        font-size: 3.5rem !important;
+        text-shadow: 4px 4px 0px #4c1d95;
+        margin-bottom: 10px !important;
+        text-align: center;
+    }}
 
-    /* 5. TARJETAS "BUBBLE" */
+    /* TEXTOS Y ETIQUETAS */
+    p, label, span, div {{
+        font-family: 'Fredoka', sans-serif !important;
+    }}
+    
+    label {{
+        font-size: 18px !important;
+        color: #a78bfa !important; /* Color lila claro para etiquetas */
+        font-weight: 600 !important;
+    }}
+
+    /* 3. FORZAR FUENTE EN LOS INPUTS (LO QUE FALLABA ANTES) */
+    /* Selectores y Cajas de Texto */
+    div[data-baseweb="select"], div[data-baseweb="base-input"], input {{
+        font-family: 'Fredoka', sans-serif !important;
+        font-size: 18px !important;
+    }}
+    
+    /* Fondo de los inputs */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
+        background-color: rgba(255,255,255,0.1) !important;
+        border: 2px solid rgba(255,255,255,0.2) !important;
+        border-radius: 15px !important;
+        color: white !important;
+    }}
+
+    /* 4. BOTONES DIVERTIDOS */
+    .stButton>button {{
+        font-family: 'Fredoka', sans-serif !important;
+        width: 100%;
+        border-radius: 20px !important;
+        height: 60px;
+        background: #ec4899;
+        border: none;
+        border-bottom: 6px solid #be185d;
+        color: white;
+        font-weight: 700 !important;
+        font-size: 22px !important;
+        text-transform: uppercase;
+        transition: all 0.1s;
+    }}
+    
+    .stButton>button:hover {{
+        transform: translateY(2px);
+        border-bottom-width: 4px;
+        filter: brightness(1.1);
+    }}
+    
+    .stButton>button:active {{
+        transform: translateY(6px);
+        border-bottom-width: 0px;
+    }}
+
+    /* 5. TARJETAS PERSONALIZADAS */
     .game-card {{
-        background: rgba(255, 255, 255, 0.1);
-        border: 3px solid rgba(255, 255, 255, 0.2);
-        border-radius: 35px; /* Más redondo */
-        padding: 30px;
-        backdrop-filter: blur(15px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        background: rgba(255, 255, 255, 0.08);
+        border: 3px solid rgba(255, 255, 255, 0.15);
+        border-radius: 30px;
+        padding: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         margin-bottom: 25px;
         text-align: center;
     }}
 
-    /* 6. ESCAPARATE DE ICONOS (SHOWCASE) */
+    /* 6. ICONO 3D (Showcase) */
     .icon-showcase {{
         background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
-        border-radius: 30px;
-        padding: 25px;
+        border-radius: 25px;
+        padding: 20px;
         margin: 20px 0;
-        box-shadow: 0 10px 0px #4c1d95; /* Sombra sólida 3D */
+        box-shadow: 0 8px 0px #4c1d95;
         border: 2px solid rgba(255,255,255,0.2);
         position: relative;
     }}
     
     .floating-icon {{
-        font-size: 100px;
+        font-size: 80px;
         filter: drop-shadow(0 5px 0px rgba(0,0,0,0.2));
         animation: bounce 2s infinite;
         display: inline-block;
@@ -77,78 +125,31 @@ st.markdown(f"""
         0%, 100% {{ transform: translateY(0); }}
         50% {{ transform: translateY(-10px); }}
     }}
-
-    /* 7. BOTONES "GOMINOLA" (Jelly Buttons) */
-    .stButton>button {{
-        width: 100%;
-        border-radius: 25px !important;
-        height: 65px;
-        background: #ec4899; /* Rosa chicle */
-        border: none;
-        border-bottom: 8px solid #be185d; /* Sombra 3D dura */
-        color: white;
-        font-weight: 700;
-        font-size: 22px;
-        text-transform: uppercase;
-        transition: all 0.1s;
-    }}
     
-    .stButton>button:hover {{
-        transform: translateY(2px);
-        border-bottom-width: 6px;
-        filter: brightness(1.1);
-    }}
-    
-    .stButton>button:active {{
-        transform: translateY(8px);
-        border-bottom-width: 0px;
-    }}
+    /* 7. ETIQUETAS DE ESTADO */
+    .vip-tag {{ background: #fbbf24; color: #78350f; padding: 5px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; display: inline-block; border-bottom: 3px solid #b45309; }}
+    .free-tag {{ background: #34d399; color: #064e3b; padding: 5px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; display: inline-block; border-bottom: 3px solid #065f46; }}
 
-    /* BOTONES DE VOTAR (Azules) */
-    .vote-btn button {{
-        background: #3b82f6 !important;
-        border-bottom: 8px solid #1d4ed8 !important;
-    }}
-
-    /* 8. INPUTS REDONDOS */
-    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: rgba(0,0,0,0.3) !important;
-        border: 3px solid rgba(255,255,255,0.3) !important;
-        border-radius: 20px !important;
-        color: white !important;
-        font-size: 18px !important;
-    }}
-    
-    /* 9. TAGS DIVERTIDOS */
-    .vip-tag {{
-        background: #fbbf24; color: #78350f; padding: 8px 15px; 
-        border-radius: 15px; font-weight: 700; font-size: 14px; 
-        display: inline-block; border-bottom: 3px solid #b45309;
-    }}
-    
-    .free-tag {{
-        background: #34d399; color: #064e3b; padding: 8px 15px; 
-        border-radius: 15px; font-weight: 700; font-size: 14px; 
-        display: inline-block; border-bottom: 3px solid #065f46;
-    }}
-
-    /* 10. CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
+    /* 8. JUEGO DE CARTAS */
+    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
-    
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 40px; display: flex; flex-direction: column; 
+        border-radius: 30px; display: flex; flex-direction: column; 
         justify-content: center; align-items: center; padding: 20px; 
-        box-shadow: 0 20px 0px rgba(0,0,0,0.3); /* Sombra bloque */
+        box-shadow: 0 15px 0px rgba(0,0,0,0.3);
         border: 4px solid rgba(255,255,255,0.2);
     }}
-    
     .flip-card-front {{ background: linear-gradient(180deg, #6366f1, #4338ca); }}
     .flip-card-back {{ background: #1e1b4b; transform: rotateY(180deg); border: 4px solid #6366f1; }}
 
+    /* OCULTAR ELEMENTOS MOLESTOS DE STREAMLIT */
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+    header {{visibility: hidden;}}
+    
     </style>
     """, unsafe_allow_html=True)
     
