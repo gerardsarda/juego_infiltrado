@@ -10,150 +10,175 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS PREMIUM DARK (ESTILO DISCORD/TWITCH) ---
+# --- 🎨 CSS ESTILO "PRO GAMING" (DARK & POWERFUL) ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTE 'OUTFIT' (La reina del diseño moderno actual) */
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+    /* 1. FUENTE 'RUSSO ONE' (ESTILO ESPORTS/GAMING) */
+    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
     
-    /* 2. FONDO OSCURO PROFUNDO */
+    /* 2. FONDO PRINCIPAL */
     html, body, .stApp {{
-        font-family: 'Outfit', sans-serif !important;
-        background-color: #0f172a; /* Azul noche muy oscuro */
+        font-family: 'Russo One', sans-serif !important;
+        background-color: #0b0e14; /* Negro azulado profundo */
         background-image: 
-            radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%), 
-            radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
-        color: #f8fafc;
+            linear-gradient(rgba(18, 22, 33, 0.9), rgba(18, 22, 33, 0.9)),
+            url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        color: #e2e8f0;
     }}
 
-    /* 3. TÍTULOS MODERNOS */
+    /* 3. TÍTULOS IMPONENTES */
     h1 {{
-        font-weight: 800 !important;
-        background: linear-gradient(to right, #a78bfa, #60a5fa); /* Degradado lila-azul */
+        font-size: 3.5rem !important;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 3.5rem !important;
+        text-shadow: 0px 5px 15px rgba(0,0,0,0.5);
         text-align: center;
-        margin-bottom: 0 !important;
-        letter-spacing: -1px;
+        margin-bottom: 5px !important;
+        letter-spacing: 2px;
     }}
     
-    p {{ color: #94a3b8 !important; font-size: 1.1rem; font-weight: 400; }}
-    h2, h3 {{ color: white !important; font-weight: 700 !important; }}
-
-    /* 4. TARJETAS "GLASS" (CRISTAL) - LA CLAVE DEL DISEÑO */
-    .glass-card {{
-        background: rgba(30, 41, 59, 0.7); /* Semitransparente */
-        backdrop-filter: blur(12px); /* Efecto borroso detrás */
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08); /* Borde sutil */
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        margin-bottom: 25px;
-        text-align: center;
+    h2 {{
+        font-size: 1.8rem !important;
+        color: white !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }}
+    
+    p {{
+        font-family: 'Segoe UI', sans-serif !important; /* Fuente secundaria para leer bien */
+        font-size: 1.1rem !important;
+        color: #94a3b8 !important;
+        font-weight: 500;
     }}
 
-    /* 5. INPUTS INTEGRADOS (OSCUROS) */
+    /* 4. TARJETAS "GAMING INTERFACE" */
+    .pro-card {{
+        background: #151923;
+        border: 1px solid #2d3748;
+        border-top: 4px solid #6366f1; /* Borde superior de color */
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 25px;
+        text-align: center;
+        position: relative;
+    }}
+
+    /* 5. SELECTORES E INPUTS OSCUROS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: rgba(15, 23, 42, 0.8) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 12px !important;
+        background-color: #0f1116 !important;
+        border: 2px solid #2d3748 !important;
+        border-radius: 8px !important;
         color: white !important;
-        font-size: 1rem !important;
+        font-family: 'Russo One', sans-serif !important;
+        height: 50px;
     }}
     div[data-baseweb="select"] span {{ color: white !important; }}
     
-    /* 6. BOTONES "VIVID" (GRADIENTE ELÉCTRICO) */
+    /* Hover en inputs */
+    div[data-baseweb="select"] > div:hover {{
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }}
+
+    /* 6. BOTONES 3D "PRESS START" */
     .stButton>button {{
         width: 100%;
-        border-radius: 16px !important;
+        border-radius: 8px !important;
         height: 60px;
-        background: linear-gradient(90deg, #7c3aed, #4f46e5); /* Violeta a Índigo */
+        background: linear-gradient(180deg, #6366f1 0%, #4338ca 100%); /* Índigo vibrante */
         border: none;
+        border-bottom: 4px solid #312e81; /* Sombra sólida */
         color: white;
-        font-family: 'Outfit', sans-serif !important;
-        font-weight: 700 !important;
-        font-size: 18px !important;
-        letter-spacing: 0.5px;
+        font-family: 'Russo One', sans-serif !important;
+        font-size: 20px !important;
         text-transform: uppercase;
-        box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4); /* Resplandor */
-        transition: all 0.2s ease;
+        letter-spacing: 1px;
+        transition: all 0.1s;
+        box-shadow: 0 5px 15px rgba(67, 56, 202, 0.4);
     }}
     
     .stButton>button:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px -5px rgba(124, 58, 237, 0.6);
-        filter: brightness(1.1);
+        transform: translateY(2px);
+        border-bottom-width: 2px;
+        filter: brightness(1.2);
     }}
     
-    /* Botón Secundario (Votar/Eliminar) */
+    .stButton>button:active {{
+        transform: translateY(4px);
+        border-bottom-width: 0px;
+    }}
+    
+    /* Botón Secundario (ROJO PELIGRO) */
     .vote-btn button {{
-        background: rgba(255,255,255,0.05) !important;
-        border: 1px solid rgba(255,255,255,0.1) !important;
-        box-shadow: none !important;
-    }}
-    .vote-btn button:hover {{
-        border-color: #7c3aed !important;
-        color: #a78bfa !important;
+        background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%) !important;
+        border-bottom: 4px solid #7f1d1d !important;
+        box-shadow: 0 5px 15px rgba(185, 28, 28, 0.4) !important;
     }}
 
-    /* 7. ESCAPARATE DE CATEGORÍA */
-    .category-display {{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(255,255,255,0.03);
+    /* 7. WIDGET DE CATEGORÍA (Estilo "Loot Box") */
+    .loot-box {{
+        background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        border: 2px solid #334155;
         border-radius: 16px;
-        padding: 15px 20px;
+        padding: 20px;
         margin: 20px 0;
-        border: 1px solid rgba(255,255,255,0.05);
+        box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        position: relative;
+        overflow: hidden;
     }}
-    .cat-icon {{ font-size: 40px; margin-right: 15px; }}
-    .cat-text {{ text-align: left; flex-grow: 1; }}
-    .cat-title {{ font-size: 18px; font-weight: 700; color: white; margin: 0; }}
-    .cat-status {{ font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }}
     
-    .status-vip {{ color: #fbbf24; }}
-    .status-free {{ color: #4ade80; }}
+    .glow-icon {{
+        font-size: 60px;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+        margin-bottom: 10px;
+    }}
+    
+    /* 8. ETIQUETAS DE ESTADO */
+    .badge {{
+        padding: 5px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-top: 5px;
+    }}
+    .badge-vip {{ background: #fbbf24; color: #451a03; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }}
+    .badge-free {{ background: #22c55e; color: #022c22; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }}
 
-    /* 8. JUEGO DE CARTAS (SOFISTICADO) */
-    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }}
+    /* 9. JUEGO DE CARTAS */
+    .flip-card {{ background-color: transparent; width: 100%; height: 400px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
     
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 24px; display: flex; flex-direction: column; 
-        justify-content: center; align-items: center; padding: 30px; 
-        box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
+        border-radius: 16px; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; padding: 20px; 
+        border: 2px solid rgba(255,255,255,0.1);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }}
     
-    /* Frente: Gradiente oscuro elegante */
     .flip-card-front {{ 
-        background: linear-gradient(135deg, #1e293b, #0f172a); 
-        border: 1px solid rgba(255,255,255,0.1);
+        background: linear-gradient(135deg, #4f46e5, #312e81); 
     }}
     
-    /* Reverso: Blanco o Acento según rol */
     .flip-card-back {{ 
-        background: white; 
-        color: #0f172a; 
+        background: #1e293b; 
         transform: rotateY(180deg); 
+        border: 2px solid #6366f1;
     }}
-    
-    /* ROLES */
-    .role-impostor {{ color: #ef4444; font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin: 10px 0; }}
-    .role-innocent {{ color: #3b82f6; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; margin: 10px 0; }}
-    .secret-word {{ font-size: 2.5rem; font-weight: 900; color: #0f172a; margin: 10px 0; }}
 
-    /* OCULTAR ELEMENTOS */
+    /* OCULTAR ELEMENTOS EXTRAÑOS */
     #MainMenu, footer, header {{visibility: hidden;}}
     
     </style>
     """, unsafe_allow_html=True)
-
+    
 # --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
 
 # =========================================
