@@ -10,164 +10,144 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS VIBRANT GAME STYLE ---
+# --- 🎨 CSS VIBRANT + TIPOGRAFÍA 'FREDOKA' (ESTILO JUEGO CASUAL) ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTE 'POPPINS': Redonda, moderna y con peso */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
+    /* 1. IMPORTAMOS LA FUENTE 'FREDOKA' (ESTILO FALL GUYS) */
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&display=swap');
     
-    /* 2. FONDO VIBRANTE OSCURO */
+    /* 2. FORZAMOS LA FUENTE EN TODOS LOS ELEMENTOS (*) */
+    html, body, [class*="css"], button, input, select, textarea, div, p, h1, h2, h3 {{
+        font-family: 'Fredoka', sans-serif !important;
+    }}
+
+    /* 3. FONDO VIBRANTE */
     .stApp {{
         background: radial-gradient(circle at 50% 0%, #4c1d95 0%, #1e1b4b 60%, #000000 100%);
         color: white;
-        font-family: 'Poppins', sans-serif !important;
     }}
 
-    /* 3. TÍTULOS GIGANTES Y SUAVES */
+    /* 4. TÍTULOS DIVERTIDOS */
     h1 {{
-        font-weight: 900 !important;
+        font-weight: 700 !important;
         text-transform: uppercase;
-        font-size: 3rem !important;
-        background: linear-gradient(to bottom, #fff 0%, #a5b4fc 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.5));
+        font-size: 3.5rem !important;
+        letter-spacing: 2px;
+        color: white;
+        text-shadow: 4px 4px 0px #4c1d95; /* Sombra dura tipo cartoon */
         margin: 0 !important;
         text-align: center;
     }}
     
-    h2 {{
-        font-weight: 800 !important;
-        color: white !important;
-        font-size: 1.8rem !important;
-    }}
-    
-    h3 {{
-        font-weight: 700 !important;
-        color: #ddd6fe !important; /* Lila claro */
-    }}
-    
-    p {{
-        font-size: 16px;
-        color: #c4b5fd; /* Lila grisáceo */
-        font-weight: 400;
-    }}
+    h2 {{ font-weight: 600 !important; color: white !important; letter-spacing: 1px; }}
+    h3 {{ font-weight: 600 !important; color: #a78bfa !important; }}
+    p {{ font-size: 18px !important; font-weight: 400; }}
 
-    /* 4. TARJETAS "BUBBLE" (Redondeadas y coloridas) */
+    /* 5. TARJETAS "BUBBLE" */
     .game-card {{
-        background: rgba(255, 255, 255, 0.08);
-        border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        border-radius: 35px; /* Más redondo */
         padding: 30px;
-        backdrop-filter: blur(20px);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         margin-bottom: 25px;
         text-align: center;
     }}
 
-    /* 5. EL ESCAPARATE DE ICONOS (SOLUCIÓN VISUAL) */
+    /* 6. ESCAPARATE DE ICONOS (SHOWCASE) */
     .icon-showcase {{
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        border-radius: 25px;
-        padding: 20px;
+        background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
+        border-radius: 30px;
+        padding: 25px;
         margin: 20px 0;
-        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 10px 0px #4c1d95; /* Sombra sólida 3D */
+        border: 2px solid rgba(255,255,255,0.2);
         position: relative;
-        overflow: hidden;
     }}
     
     .floating-icon {{
-        font-size: 90px;
-        filter: drop-shadow(0 10px 0px rgba(0,0,0,0.3));
-        animation: float 4s ease-in-out infinite;
+        font-size: 100px;
+        filter: drop-shadow(0 5px 0px rgba(0,0,0,0.2));
+        animation: bounce 2s infinite;
         display: inline-block;
     }}
     
-    @keyframes float {{
-        0% {{ transform: translateY(0px) rotate(0deg); }}
-        50% {{ transform: translateY(-15px) rotate(5deg); }}
-        100% {{ transform: translateY(0px) rotate(0deg); }}
+    @keyframes bounce {{
+        0%, 100% {{ transform: translateY(0); }}
+        50% {{ transform: translateY(-10px); }}
     }}
 
-    /* 6. BOTONES "JUICY" (Parecen caramelos) */
+    /* 7. BOTONES "GOMINOLA" (Jelly Buttons) */
     .stButton>button {{
         width: 100%;
-        border-radius: 20px !important;
-        height: 60px;
-        background: linear-gradient(to bottom, #f472b6, #db2777); /* Rosa Fuerte */
-        border-bottom: 6px solid #9d174d; /* Sombra sólida 3D */
+        border-radius: 25px !important;
+        height: 65px;
+        background: #ec4899; /* Rosa chicle */
+        border: none;
+        border-bottom: 8px solid #be185d; /* Sombra 3D dura */
         color: white;
-        font-weight: 900;
-        font-size: 20px;
+        font-weight: 700;
+        font-size: 22px;
         text-transform: uppercase;
-        border-top: none; border-left: none; border-right: none;
         transition: all 0.1s;
-        text-shadow: 0 2px 0 rgba(0,0,0,0.2);
     }}
     
     .stButton>button:hover {{
         transform: translateY(2px);
-        border-bottom-width: 4px;
-        background: linear-gradient(to bottom, #f68cc3, #e14d8e);
+        border-bottom-width: 6px;
+        filter: brightness(1.1);
     }}
     
     .stButton>button:active {{
-        transform: translateY(6px);
+        transform: translateY(8px);
         border-bottom-width: 0px;
     }}
 
-    /* BOTONES AZULES (Para votar) */
+    /* BOTONES DE VOTAR (Azules) */
     .vote-btn button {{
-        background: linear-gradient(to bottom, #3b82f6, #2563eb) !important;
-        border-bottom: 6px solid #1e40af !important;
+        background: #3b82f6 !important;
+        border-bottom: 8px solid #1d4ed8 !important;
     }}
-    
-    /* 7. INPUTS MODERNOS */
+
+    /* 8. INPUTS REDONDOS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: rgba(0,0,0,0.4) !important;
-        border: 2px solid rgba(255,255,255,0.2) !important;
-        border-radius: 15px !important;
+        background-color: rgba(0,0,0,0.3) !important;
+        border: 3px solid rgba(255,255,255,0.3) !important;
+        border-radius: 20px !important;
         color: white !important;
-        font-weight: 600;
+        font-size: 18px !important;
     }}
     
-    /* 8. TAGS DE ESTADO */
+    /* 9. TAGS DIVERTIDOS */
     .vip-tag {{
-        background: #FCD34D; color: #78350F; padding: 5px 15px; 
-        border-radius: 20px; font-weight: 800; font-size: 12px; 
-        display: inline-block; box-shadow: 0 4px 10px rgba(252, 211, 77, 0.3);
+        background: #fbbf24; color: #78350f; padding: 8px 15px; 
+        border-radius: 15px; font-weight: 700; font-size: 14px; 
+        display: inline-block; border-bottom: 3px solid #b45309;
     }}
     
     .free-tag {{
-        background: #6EE7B7; color: #064E3B; padding: 5px 15px; 
-        border-radius: 20px; font-weight: 800; font-size: 12px; 
-        display: inline-block;
+        background: #34d399; color: #064e3b; padding: 8px 15px; 
+        border-radius: 15px; font-weight: 700; font-size: 14px; 
+        display: inline-block; border-bottom: 3px solid #065f46;
     }}
 
-    /* 9. JUEGO DE CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
+    /* 10. CARTAS */
+    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
     
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 30px; display: flex; flex-direction: column; 
+        border-radius: 40px; display: flex; flex-direction: column; 
         justify-content: center; align-items: center; padding: 20px; 
-        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        border: 4px solid rgba(255,255,255,0.1);
+        box-shadow: 0 20px 0px rgba(0,0,0,0.3); /* Sombra bloque */
+        border: 4px solid rgba(255,255,255,0.2);
     }}
     
-    .flip-card-front {{ 
-        background: linear-gradient(135deg, #4f46e5, #ec4899); 
-    }}
-    
-    .flip-card-back {{ 
-        background: #1e1b4b; 
-        transform: rotateY(180deg); 
-        border: 4px solid #4f46e5;
-    }}
+    .flip-card-front {{ background: linear-gradient(180deg, #6366f1, #4338ca); }}
+    .flip-card-back {{ background: #1e1b4b; transform: rotateY(180deg); border: 4px solid #6366f1; }}
 
     </style>
     """, unsafe_allow_html=True)
