@@ -10,149 +10,156 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS AGRESIVO (FORZADO DE FUENTE) ---
+# --- 🎨 CSS ESTILO CARTOON / CÓMIC (FORTNITE STYLE) ---
 st.markdown(f"""
     <style>
-    /* 1. IMPORTAMOS LA FUENTE 'FREDOKA' (ESTILO JUEGO) */
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&display=swap');
+    /* 1. IMPORTAMOS LA FUENTE 'BANGERS' */
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
     
-    /* 2. REGLAS MAESTRAS PARA FORZAR LA FUENTE */
+    /* 2. REGLAS MAESTRAS */
     html, body, .stApp {{
-        font-family: 'Fredoka', sans-serif !important;
-        background: radial-gradient(circle at 50% 0%, #4c1d95 0%, #1e1b4b 60%, #000000 100%);
+        font-family: 'Bangers', cursive !important;
+        background-color: #7c3aed;
+        background-image: radial-gradient(#6d28d9 20%, transparent 20%),
+        radial-gradient(#6d28d9 20%, transparent 20%);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
         color: white;
     }}
 
-    /* TÍTULOS */
-    h1, h2, h3, h4, h5, h6 {{
-        font-family: 'Fredoka', sans-serif !important;
-        font-weight: 700 !important;
-        text-transform: uppercase;
-        color: white !important;
-    }}
-    
+    /* TÍTULOS EXPLOSIVOS (Con borde negro) */
     h1 {{
-        font-size: 3.5rem !important;
-        text-shadow: 4px 4px 0px #4c1d95;
+        font-size: 4.5rem !important;
+        color: #FCD34D !important; /* Amarillo cómic */
+        text-shadow: 4px 4px 0px #000000; /* Sombra dura negra */
+        -webkit-text-stroke: 2px black; /* Borde negro */
         margin-bottom: 10px !important;
         text-align: center;
-    }}
-
-    /* TEXTOS Y ETIQUETAS */
-    p, label, span, div {{
-        font-family: 'Fredoka', sans-serif !important;
+        transform: rotate(-2deg); /* Un poco inclinado */
     }}
     
-    label {{
-        font-size: 18px !important;
-        color: #a78bfa !important; /* Color lila claro para etiquetas */
-        font-weight: 600 !important;
+    h2, h3, p, div, label, span {{
+        font-family: 'Bangers', cursive !important;
+        letter-spacing: 1px;
     }}
 
-    /* 3. FORZAR FUENTE EN LOS INPUTS (LO QUE FALLABA ANTES) */
-    /* Selectores y Cajas de Texto */
-    div[data-baseweb="select"], div[data-baseweb="base-input"], input {{
-        font-family: 'Fredoka', sans-serif !important;
-        font-size: 18px !important;
+    h2 {{
+        font-size: 2rem !important;
+        text-shadow: 2px 2px 0px #000;
     }}
-    
-    /* Fondo de los inputs */
+
+    /* 3. INPUTS CÓMIC */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: rgba(255,255,255,0.1) !important;
-        border: 2px solid rgba(255,255,255,0.2) !important;
-        border-radius: 15px !important;
-        color: white !important;
+        background-color: white !important;
+        border: 3px solid black !important;
+        border-radius: 10px !important;
+        color: black !important;
+        font-size: 1.5rem !important;
+        box-shadow: 4px 4px 0px black !important; /* Sombra dura */
     }}
+    div[data-baseweb="select"] span {{ color: black !important; }}
 
-    /* 4. BOTONES DIVERTIDOS */
+    /* 4. BOTONES DE ACCIÓN (ESTILO "PUSH ME") */
     .stButton>button {{
-        font-family: 'Fredoka', sans-serif !important;
+        font-family: 'Bangers', cursive !important;
         width: 100%;
-        border-radius: 20px !important;
-        height: 60px;
-        background: #ec4899;
-        border: none;
-        border-bottom: 6px solid #be185d;
+        border-radius: 12px !important;
+        height: 70px;
+        background: #ef4444; /* Rojo intenso */
+        border: 3px solid black;
+        box-shadow: 5px 5px 0px black; /* Sombra sólida */
         color: white;
-        font-weight: 700 !important;
-        font-size: 22px !important;
+        font-size: 28px !important;
         text-transform: uppercase;
+        text-shadow: 2px 2px 0px black;
         transition: all 0.1s;
     }}
     
     .stButton>button:hover {{
-        transform: translateY(2px);
-        border-bottom-width: 4px;
-        filter: brightness(1.1);
+        transform: translate(-2px, -2px);
+        box-shadow: 7px 7px 0px black;
+        background: #f87171;
     }}
     
     .stButton>button:active {{
-        transform: translateY(6px);
-        border-bottom-width: 0px;
+        transform: translate(5px, 5px);
+        box-shadow: 0px 0px 0px black;
     }}
 
-    /* 5. TARJETAS PERSONALIZADAS */
-    .game-card {{
-        background: rgba(255, 255, 255, 0.08);
-        border: 3px solid rgba(255, 255, 255, 0.15);
-        border-radius: 30px;
+    /* 5. TARJETAS CÓMIC (Borde grueso) */
+    .comic-card {{
+        background: white;
+        border: 4px solid black;
+        border-radius: 20px;
         padding: 25px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
         margin-bottom: 25px;
         text-align: center;
+        color: black; /* Texto negro sobre blanco */
+    }}
+    
+    .comic-card h2, .comic-card p {{
+        color: black !important;
+        text-shadow: none !important;
     }}
 
-    /* 6. ICONO 3D (Showcase) */
-    .icon-showcase {{
-        background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
-        border-radius: 25px;
-        padding: 20px;
-        margin: 20px 0;
-        box-shadow: 0 8px 0px #4c1d95;
-        border: 2px solid rgba(255,255,255,0.2);
-        position: relative;
+    /* 6. ICONO SHOWCASE (ESTILO PEGATINA) */
+    .icon-sticker {{
+        background: #3b82f6;
+        border: 4px solid black;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px auto;
+        box-shadow: 5px 5px 0px black;
+        transform: rotate(5deg);
     }}
     
     .floating-icon {{
-        font-size: 80px;
-        filter: drop-shadow(0 5px 0px rgba(0,0,0,0.2));
-        animation: bounce 2s infinite;
+        font-size: 70px;
+        filter: drop-shadow(3px 3px 0px black);
+    }}
+    
+    /* 7. ETIQUETAS EXPLOSIVAS */
+    .tag {{
+        padding: 5px 15px;
+        border: 2px solid black;
+        font-size: 1.2rem;
+        box-shadow: 3px 3px 0px black;
         display: inline-block;
+        transform: rotate(-3deg);
     }}
-    
-    @keyframes bounce {{
-        0%, 100% {{ transform: translateY(0); }}
-        50% {{ transform: translateY(-10px); }}
-    }}
-    
-    /* 7. ETIQUETAS DE ESTADO */
-    .vip-tag {{ background: #fbbf24; color: #78350f; padding: 5px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; display: inline-block; border-bottom: 3px solid #b45309; }}
-    .free-tag {{ background: #34d399; color: #064e3b; padding: 5px 12px; border-radius: 12px; font-weight: 700; font-size: 14px; display: inline-block; border-bottom: 3px solid #065f46; }}
+    .tag-vip {{ background: #FCD34D; color: black; }}
+    .tag-free {{ background: #6EE7B7; color: black; }}
 
     /* 8. JUEGO DE CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
+    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.4s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
+    
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 30px; display: flex; flex-direction: column; 
+        border-radius: 20px; display: flex; flex-direction: column; 
         justify-content: center; align-items: center; padding: 20px; 
-        box-shadow: 0 15px 0px rgba(0,0,0,0.3);
-        border: 4px solid rgba(255,255,255,0.2);
+        border: 4px solid black;
+        box-shadow: 10px 10px 0px black;
     }}
-    .flip-card-front {{ background: linear-gradient(180deg, #6366f1, #4338ca); }}
-    .flip-card-back {{ background: #1e1b4b; transform: rotateY(180deg); border: 4px solid #6366f1; }}
+    
+    .flip-card-front {{ background: #3b82f6; color: white; }}
+    .flip-card-back {{ background: #ffffff; color: black; transform: rotateY(180deg); }}
 
-    /* OCULTAR ELEMENTOS MOLESTOS DE STREAMLIT */
+    /* OCULTAR COSAS DE STREAMLIT */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
     header {{visibility: hidden;}}
     
     </style>
     """, unsafe_allow_html=True)
-    
+
 # --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
 
 # =========================================
