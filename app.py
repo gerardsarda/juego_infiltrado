@@ -10,127 +10,130 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS PREMIUM (DARK MODE + GLASSMORPHISM) ---
+# --- 🎨 CSS SUPER-PREMIUM (CYBERPUNK STYLE) ---
 st.markdown(f"""
     <style>
-    /* 1. IMPORTAMOS LA FUENTE 'OUTFIT' */
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap');
+    /* 1. FUENTES FUTURISTAS */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Rajdhani:wght@500;700&display=swap');
     
-    /* 2. FONDO ANIMADO DEGRADADO */
+    /* 2. FONDO ANIMADO DEGRADADO OSCURO */
     .stApp {{
-        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-        font-family: 'Outfit', sans-serif !important;
-        color: white;
-    }}
-    
-    @keyframes gradient {{
-        0% {{ background-position: 0% 50%; }}
-        50% {{ background-position: 100% 50%; }}
-        100% {{ background-position: 0% 50%; }}
+        background-color: #050505;
+        background-image: 
+            radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+            radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        color: #E0E7FF;
+        font-family: 'Rajdhani', sans-serif !important;
     }}
 
-    /* 3. TIPOGRAFÍA DE LUJO */
+    /* 3. TÍTULOS 'ORBITRON' (ESTILO VIDEOJUEGO) */
     h1 {{
-        font-weight: 800 !important;
+        font-family: 'Orbitron', sans-serif !important;
+        font-weight: 900 !important;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        background: linear-gradient(to right, #00c6ff, #0072ff);
+        letter-spacing: 3px;
+        background: linear-gradient(to bottom, #fff, #999);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 0px 0px 30px rgba(0, 198, 255, 0.5);
-        margin-bottom: 0px !important;
+        text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        margin-bottom: 5px !important;
     }}
     
-    h2, h3 {{ color: #E0E7FF !important; font-weight: 500 !important; }}
-    p {{ color: #A5B4FC !important; font-weight: 300; }}
+    h2, h3 {{
+        font-family: 'Orbitron', sans-serif !important;
+        color: white !important;
+        letter-spacing: 1px;
+    }}
+    
+    p, div, label {{
+        font-size: 18px !important;
+    }}
 
-    /* 4. TARJETAS DE CRISTAL (GLASSMORPHISM) */
+    /* 4. EFECTO CRISTAL OSCURO (GLASS) */
     .glass-card {{
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
         padding: 30px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        margin-bottom: 20px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        margin-bottom: 25px;
         text-align: center;
     }}
 
-    /* 5. BOTONES DE NEÓN */
+    /* 5. TARJETA DE CATEGORÍA ACTIVA (NEÓN) */
+    .category-showcase {{
+        background: linear-gradient(145deg, #1e1e24, #121212);
+        border-radius: 20px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #333;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        position: relative;
+        overflow: hidden;
+    }}
+    
+    .category-icon-glow {{
+        font-size: 80px;
+        filter: drop-shadow(0 0 20px rgba(0, 198, 255, 0.8));
+        animation: float 3s ease-in-out infinite;
+    }}
+    
+    @keyframes float {{
+        0% {{ transform: translateY(0px); }}
+        50% {{ transform: translateY(-10px); }}
+        100% {{ transform: translateY(0px); }}
+    }}
+
+    /* 6. BOTONES CIBERNÉTICOS */
     .stButton>button {{
         width: 100%;
-        border-radius: 12px !important;
-        height: 50px;
-        background: linear-gradient(90deg, #00c6ff, #0072ff);
-        color: white;
+        border-radius: 8px !important;
+        height: 55px;
+        background: #000;
+        color: #00FFC6;
+        font-family: 'Orbitron', sans-serif;
         font-weight: 800;
-        letter-spacing: 1px;
-        border: none;
-        box-shadow: 0 0 15px rgba(0, 114, 255, 0.5);
-        transition: all 0.3s ease;
+        letter-spacing: 2px;
+        border: 2px solid #00FFC6;
+        box-shadow: 0 0 10px rgba(0, 255, 198, 0.2);
+        transition: all 0.2s ease;
         text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
     }}
     
     .stButton>button:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 0 25px rgba(0, 114, 255, 0.8);
-    }}
-    
-    /* BOTÓN SECUNDARIO (Votar) */
-    .vote-btn button {{
-        background: transparent !important;
-        border: 2px solid #00c6ff !important;
-        color: #00c6ff !important;
-        box-shadow: none !important;
-    }}
-    .vote-btn button:hover {{
-        background: rgba(0, 198, 255, 0.1) !important;
-        box-shadow: 0 0 15px rgba(0, 198, 255, 0.3) !important;
+        background: #00FFC6;
+        color: black;
+        box-shadow: 0 0 30px rgba(0, 255, 198, 0.6);
     }}
 
-    /* 6. INPUTS Y SELECTORES OSCUROS */
+    /* 7. INPUTS FUTURISTAS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: rgba(0, 0, 0, 0.3) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
+        background-color: #0a0a0a !important;
+        border: 1px solid #333 !important;
+        color: #00FFC6 !important;
+        font-family: 'Rajdhani', sans-serif !important;
+        font-weight: bold;
     }}
-    div[data-baseweb="select"] span {{ color: white !important; }}
+    div[data-baseweb="select"] span {{ color: #ccc !important; }}
 
-    /* 7. TARJETA GIRATORIA (FLIP) MEJORADA */
-    .flip-card {{ background-color: transparent; width: 100%; height: 380px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }}
+    /* ESTILOS DE JUEGO */
+    .flip-card {{ background-color: transparent; width: 100%; height: 400px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
+    .flip-card-front, .flip-card-back {{ position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }}
     
-    .flip-card-front, .flip-card-back {{
-      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-      border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-    }}
+    .flip-card-front {{ background: linear-gradient(180deg, #111, #050505); border: 2px solid #333; }}
+    .flip-card-back {{ background: #000; transform: rotateY(180deg); border: 2px solid #00FFC6; }}
     
-    .flip-card-front {{ 
-        background: linear-gradient(135deg, #1CB5E0 0%, #000851 100%); 
-    }}
-    
-    .flip-card-back {{ 
-        background: #1a1a2e; 
-        transform: rotateY(180deg); 
-        border: 2px solid #00c6ff;
-    }}
+    .role-text {{ font-family: 'Orbitron'; font-size: 40px; margin: 10px 0; }}
+    .role-imp {{ color: #FF0055; text-shadow: 0 0 15px #FF0055; }}
+    .role-ino {{ color: #00FFC6; text-shadow: 0 0 15px #00FFC6; }}
 
-    /* EMOTICONOS GIGANTES CON BRILLO */
-    .giant-emoji {{
-        font-size: 80px;
-        filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
-        margin-bottom: 20px;
-    }}
-    
-    /* ESTILOS ESPECÍFICOS DE ROLES */
-    .role-impostor {{ color: #FF416C; text-shadow: 0 0 20px rgba(255, 65, 108, 0.6); font-size: 2rem; font-weight: 900; }}
-    .role-innocent {{ color: #00c6ff; text-shadow: 0 0 20px rgba(0, 198, 255, 0.6); font-size: 2rem; font-weight: 900; }}
     </style>
     """, unsafe_allow_html=True)
 
