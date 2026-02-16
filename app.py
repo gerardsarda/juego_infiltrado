@@ -10,150 +10,164 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS CLEAN & MODERN (ESTILO APPLE/STRIPE) ---
+# --- 🎨 CSS VIBRANT GAME STYLE ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTE MODERNA 'OUTFIT' */
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap');
+    /* 1. FUENTE 'POPPINS': Redonda, moderna y con peso */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
     
-    /* 2. FONDO GENERAL LIMPIO */
+    /* 2. FONDO VIBRANTE OSCURO */
     .stApp {{
-        background-color: #F8FAFC; /* Gris muy muy claro */
-        background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
-        background-size: 20px 20px;
-        color: #1E293B; /* Texto gris oscuro, no negro puro */
-        font-family: 'Outfit', sans-serif !important;
+        background: radial-gradient(circle at 50% 0%, #4c1d95 0%, #1e1b4b 60%, #000000 100%);
+        color: white;
+        font-family: 'Poppins', sans-serif !important;
     }}
 
-    /* 3. TÍTULOS ELEGANTES */
+    /* 3. TÍTULOS GIGANTES Y SUAVES */
     h1 {{
         font-weight: 900 !important;
-        letter-spacing: -1px;
-        color: #0F172A;
-        margin-bottom: 5px !important;
+        text-transform: uppercase;
+        font-size: 3rem !important;
+        background: linear-gradient(to bottom, #fff 0%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.5));
+        margin: 0 !important;
+        text-align: center;
     }}
     
-    h2, h3 {{
-        color: #334155 !important;
+    h2 {{
+        font-weight: 800 !important;
+        color: white !important;
+        font-size: 1.8rem !important;
+    }}
+    
+    h3 {{
         font-weight: 700 !important;
+        color: #ddd6fe !important; /* Lila claro */
     }}
     
-    p {{ color: #64748B !important; font-size: 16px; }}
+    p {{
+        font-size: 16px;
+        color: #c4b5fd; /* Lila grisáceo */
+        font-weight: 400;
+    }}
 
-    /* 4. TARJETAS FLOTANTES (EFECTO ELEVACIÓN) */
-    .clean-card {{
-        background: white;
-        border-radius: 24px;
+    /* 4. TARJETAS "BUBBLE" (Redondeadas y coloridas) */
+    .game-card {{
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
         padding: 30px;
-        box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.05); /* Sombra suave */
-        border: 1px solid #F1F5F9;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         margin-bottom: 25px;
         text-align: center;
     }}
 
-    /* 5. ESCAPARATE DE CATEGORÍA (ESTILO IPHONE WIDGET) */
-    .category-widget {{
-        background: white;
-        border-radius: 24px;
-        padding: 25px;
+    /* 5. EL ESCAPARATE DE ICONOS (SOLUCIÓN VISUAL) */
+    .icon-showcase {{
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 25px;
+        padding: 20px;
         margin: 20px 0;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 1px solid #E2E8F0;
-        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        border: 1px solid rgba(255,255,255,0.2);
+        position: relative;
+        overflow: hidden;
     }}
     
-    .icon-box {{
-        font-size: 60px;
-        background: #F1F5F9;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    .floating-icon {{
+        font-size: 90px;
+        filter: drop-shadow(0 10px 0px rgba(0,0,0,0.3));
+        animation: float 4s ease-in-out infinite;
+        display: inline-block;
+    }}
+    
+    @keyframes float {{
+        0% {{ transform: translateY(0px) rotate(0deg); }}
+        50% {{ transform: translateY(-15px) rotate(5deg); }}
+        100% {{ transform: translateY(0px) rotate(0deg); }}
     }}
 
-    /* 6. BOTONES GRADIENTE SUAVE */
+    /* 6. BOTONES "JUICY" (Parecen caramelos) */
     .stButton>button {{
         width: 100%;
-        border-radius: 16px !important;
-        height: 56px;
-        background: linear-gradient(135deg, #4F46E5, #7C3AED); /* Índigo a Violeta */
+        border-radius: 20px !important;
+        height: 60px;
+        background: linear-gradient(to bottom, #f472b6, #db2777); /* Rosa Fuerte */
+        border-bottom: 6px solid #9d174d; /* Sombra sólida 3D */
         color: white;
-        font-weight: 700;
-        font-size: 18px;
-        border: none;
-        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
-        transition: all 0.2s ease;
+        font-weight: 900;
+        font-size: 20px;
+        text-transform: uppercase;
+        border-top: none; border-left: none; border-right: none;
+        transition: all 0.1s;
+        text-shadow: 0 2px 0 rgba(0,0,0,0.2);
     }}
     
     .stButton>button:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+        transform: translateY(2px);
+        border-bottom-width: 4px;
+        background: linear-gradient(to bottom, #f68cc3, #e14d8e);
     }}
     
-    /* BOTONES SECUNDARIOS (Votar) */
-    .vote-btn button {{
-        background: white !important;
-        border: 2px solid #E2E8F0 !important;
-        color: #475569 !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02) !important;
-    }}
-    .vote-btn button:hover {{
-        border-color: #4F46E5 !important;
-        color: #4F46E5 !important;
-        background: #EEF2FF !important;
+    .stButton>button:active {{
+        transform: translateY(6px);
+        border-bottom-width: 0px;
     }}
 
-    /* 7. INPUTS LIMPIOS */
-    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: white !important;
-        border: 2px solid #E2E8F0 !important;
-        border-radius: 12px !important;
-        color: #0F172A !important;
+    /* BOTONES AZULES (Para votar) */
+    .vote-btn button {{
+        background: linear-gradient(to bottom, #3b82f6, #2563eb) !important;
+        border-bottom: 6px solid #1e40af !important;
     }}
     
-    /* 8. JUEGO DE CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 400px; perspective: 1000px; margin-bottom: 20px; }}
+    /* 7. INPUTS MODERNOS */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
+        background-color: rgba(0,0,0,0.4) !important;
+        border: 2px solid rgba(255,255,255,0.2) !important;
+        border-radius: 15px !important;
+        color: white !important;
+        font-weight: 600;
+    }}
+    
+    /* 8. TAGS DE ESTADO */
+    .vip-tag {{
+        background: #FCD34D; color: #78350F; padding: 5px 15px; 
+        border-radius: 20px; font-weight: 800; font-size: 12px; 
+        display: inline-block; box-shadow: 0 4px 10px rgba(252, 211, 77, 0.3);
+    }}
+    
+    .free-tag {{
+        background: #6EE7B7; color: #064E3B; padding: 5px 15px; 
+        border-radius: 20px; font-weight: 800; font-size: 12px; 
+        display: inline-block;
+    }}
+
+    /* 9. JUEGO DE CARTAS */
+    .flip-card {{ background-color: transparent; width: 100%; height: 420px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
+    
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 24px; display: flex; flex-direction: column; 
-        justify-content: center; align-items: center; padding: 30px; 
-        box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+        border-radius: 30px; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; padding: 20px; 
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        border: 4px solid rgba(255,255,255,0.1);
     }}
     
     .flip-card-front {{ 
-        background: linear-gradient(135deg, #4F46E5, #8B5CF6); 
-        color: white; 
+        background: linear-gradient(135deg, #4f46e5, #ec4899); 
     }}
     
     .flip-card-back {{ 
-        background: white; 
-        color: #1E293B; 
+        background: #1e1b4b; 
         transform: rotateY(180deg); 
-        border: 1px solid #E2E8F0;
+        border: 4px solid #4f46e5;
     }}
-    
-    /* 9. TAGS DE ROLES */
-    .role-tag {{
-        padding: 10px 20px;
-        border-radius: 50px;
-        font-weight: 800;
-        font-size: 14px;
-        text-transform: uppercase;
-        margin-top: 10px;
-        display: inline-block;
-    }}
-    .tag-impostor {{ background: #FEF2F2; color: #EF4444; border: 1px solid #FECACA; }}
-    .tag-innocent {{ background: #EFF6FF; color: #3B82F6; border: 1px solid #BFDBFE; }}
 
     </style>
     """, unsafe_allow_html=True)
