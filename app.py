@@ -10,133 +10,154 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS SUPER-PREMIUM (CYBERPUNK STYLE) ---
+# --- 🎨 CSS CLEAN & MODERN (ESTILO APPLE/STRIPE) ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTES FUTURISTAS */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Rajdhani:wght@500;700&display=swap');
+    /* 1. FUENTE MODERNA 'OUTFIT' */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap');
     
-    /* 2. FONDO ANIMADO DEGRADADO OSCURO */
+    /* 2. FONDO GENERAL LIMPIO */
     .stApp {{
-        background-color: #050505;
-        background-image: 
-            radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-            radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-            radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
-        color: #E0E7FF;
-        font-family: 'Rajdhani', sans-serif !important;
+        background-color: #F8FAFC; /* Gris muy muy claro */
+        background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
+        background-size: 20px 20px;
+        color: #1E293B; /* Texto gris oscuro, no negro puro */
+        font-family: 'Outfit', sans-serif !important;
     }}
 
-    /* 3. TÍTULOS 'ORBITRON' (ESTILO VIDEOJUEGO) */
+    /* 3. TÍTULOS ELEGANTES */
     h1 {{
-        font-family: 'Orbitron', sans-serif !important;
         font-weight: 900 !important;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        background: linear-gradient(to bottom, #fff, #999);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        letter-spacing: -1px;
+        color: #0F172A;
         margin-bottom: 5px !important;
     }}
     
     h2, h3 {{
-        font-family: 'Orbitron', sans-serif !important;
-        color: white !important;
-        letter-spacing: 1px;
+        color: #334155 !important;
+        font-weight: 700 !important;
     }}
     
-    p, div, label {{
-        font-size: 18px !important;
-    }}
+    p {{ color: #64748B !important; font-size: 16px; }}
 
-    /* 4. EFECTO CRISTAL OSCURO (GLASS) */
-    .glass-card {{
-        background: rgba(20, 20, 20, 0.6);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+    /* 4. TARJETAS FLOTANTES (EFECTO ELEVACIÓN) */
+    .clean-card {{
+        background: white;
         border-radius: 24px;
         padding: 30px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.05); /* Sombra suave */
+        border: 1px solid #F1F5F9;
         margin-bottom: 25px;
         text-align: center;
     }}
 
-    /* 5. TARJETA DE CATEGORÍA ACTIVA (NEÓN) */
-    .category-showcase {{
-        background: linear-gradient(145deg, #1e1e24, #121212);
-        border-radius: 20px;
-        padding: 20px;
+    /* 5. ESCAPARATE DE CATEGORÍA (ESTILO IPHONE WIDGET) */
+    .category-widget {{
+        background: white;
+        border-radius: 24px;
+        padding: 25px;
         margin: 20px 0;
-        border: 1px solid #333;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #E2E8F0;
+        transition: transform 0.3s ease;
     }}
     
-    .category-icon-glow {{
-        font-size: 80px;
-        filter: drop-shadow(0 0 20px rgba(0, 198, 255, 0.8));
-        animation: float 3s ease-in-out infinite;
-    }}
-    
-    @keyframes float {{
-        0% {{ transform: translateY(0px); }}
-        50% {{ transform: translateY(-10px); }}
-        100% {{ transform: translateY(0px); }}
+    .icon-box {{
+        font-size: 60px;
+        background: #F1F5F9;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
     }}
 
-    /* 6. BOTONES CIBERNÉTICOS */
+    /* 6. BOTONES GRADIENTE SUAVE */
     .stButton>button {{
         width: 100%;
-        border-radius: 8px !important;
-        height: 55px;
-        background: #000;
-        color: #00FFC6;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 800;
-        letter-spacing: 2px;
-        border: 2px solid #00FFC6;
-        box-shadow: 0 0 10px rgba(0, 255, 198, 0.2);
+        border-radius: 16px !important;
+        height: 56px;
+        background: linear-gradient(135deg, #4F46E5, #7C3AED); /* Índigo a Violeta */
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+        border: none;
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
         transition: all 0.2s ease;
-        text-transform: uppercase;
-        position: relative;
-        overflow: hidden;
     }}
     
     .stButton>button:hover {{
-        background: #00FFC6;
-        color: black;
-        box-shadow: 0 0 30px rgba(0, 255, 198, 0.6);
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+    }}
+    
+    /* BOTONES SECUNDARIOS (Votar) */
+    .vote-btn button {{
+        background: white !important;
+        border: 2px solid #E2E8F0 !important;
+        color: #475569 !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02) !important;
+    }}
+    .vote-btn button:hover {{
+        border-color: #4F46E5 !important;
+        color: #4F46E5 !important;
+        background: #EEF2FF !important;
     }}
 
-    /* 7. INPUTS FUTURISTAS */
+    /* 7. INPUTS LIMPIOS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: #0a0a0a !important;
-        border: 1px solid #333 !important;
-        color: #00FFC6 !important;
-        font-family: 'Rajdhani', sans-serif !important;
-        font-weight: bold;
+        background-color: white !important;
+        border: 2px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        color: #0F172A !important;
     }}
-    div[data-baseweb="select"] span {{ color: #ccc !important; }}
-
-    /* ESTILOS DE JUEGO */
+    
+    /* 8. JUEGO DE CARTAS */
     .flip-card {{ background-color: transparent; width: 100%; height: 400px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
-    .flip-card-front, .flip-card-back {{ position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }}
+    .flip-card-front, .flip-card-back {{ 
+        position: absolute; width: 100%; height: 100%; 
+        -webkit-backface-visibility: hidden; backface-visibility: hidden; 
+        border-radius: 24px; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; padding: 30px; 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+    }}
     
-    .flip-card-front {{ background: linear-gradient(180deg, #111, #050505); border: 2px solid #333; }}
-    .flip-card-back {{ background: #000; transform: rotateY(180deg); border: 2px solid #00FFC6; }}
+    .flip-card-front {{ 
+        background: linear-gradient(135deg, #4F46E5, #8B5CF6); 
+        color: white; 
+    }}
     
-    .role-text {{ font-family: 'Orbitron'; font-size: 40px; margin: 10px 0; }}
-    .role-imp {{ color: #FF0055; text-shadow: 0 0 15px #FF0055; }}
-    .role-ino {{ color: #00FFC6; text-shadow: 0 0 15px #00FFC6; }}
+    .flip-card-back {{ 
+        background: white; 
+        color: #1E293B; 
+        transform: rotateY(180deg); 
+        border: 1px solid #E2E8F0;
+    }}
+    
+    /* 9. TAGS DE ROLES */
+    .role-tag {{
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        display: inline-block;
+    }}
+    .tag-impostor {{ background: #FEF2F2; color: #EF4444; border: 1px solid #FECACA; }}
+    .tag-innocent {{ background: #EFF6FF; color: #3B82F6; border: 1px solid #BFDBFE; }}
 
     </style>
     """, unsafe_allow_html=True)
-
+    
 # --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
 
 # =========================================
