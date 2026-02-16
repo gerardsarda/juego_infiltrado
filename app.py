@@ -10,13 +10,12 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS ESTILO CARTOON / CÓMIC (FORTNITE STYLE) ---
+# --- 🎨 CSS ESTILO CARTOON / CÓMIC (MAX READABILITY) ---
 st.markdown(f"""
     <style>
-    /* 1. IMPORTAMOS LA FUENTE 'BANGERS' */
     @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
     
-    /* 2. REGLAS MAESTRAS */
+    /* REGLAS MAESTRAS - FONDO Y FUENTE */
     html, body, .stApp {{
         font-family: 'Bangers', cursive !important;
         background-color: #7c3aed;
@@ -27,66 +26,96 @@ st.markdown(f"""
         color: white;
     }}
 
-    /* TÍTULOS EXPLOSIVOS (Con borde negro) */
+    /* TÍTULOS PRINCIPALES (Amarillo explosivo) */
     h1 {{
         font-size: 4.5rem !important;
-        color: #FCD34D !important; /* Amarillo cómic */
-        text-shadow: 4px 4px 0px #000000; /* Sombra dura negra */
-        -webkit-text-stroke: 2px black; /* Borde negro */
+        color: #FCD34D !important;
+        text-shadow: 4px 4px 0px #000000;
+        -webkit-text-stroke: 2px black;
         margin-bottom: 10px !important;
         text-align: center;
-        transform: rotate(-2deg); /* Un poco inclinado */
+        transform: rotate(-2deg);
     }}
     
-    h2, h3, p, div, label, span {{
+    /* TEXTOS GENERALES (BLANCO CON BORDE NEGRO PARA LEGIBILIDAD) */
+    h2, h3, p, div, span {{
         font-family: 'Bangers', cursive !important;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        color: white;
+        text-shadow: 2px 2px 0px #000000; /* Sombra dura */
+        -webkit-text-stroke: 1px black; /* Borde negro para que se lea bien */
     }}
 
-    h2 {{
-        font-size: 2rem !important;
-        text-shadow: 2px 2px 0px #000;
+    h2 {{ font-size: 2.2rem !important; }}
+    p {{ font-size: 1.5rem !important; }}
+
+    /* ETIQUETAS DE INPUTS */
+    label {{
+        font-family: 'Bangers', cursive !important;
+        color: #FCD34D !important; /* Amarillo para destacar */
+        font-size: 1.5rem !important;
+        text-shadow: 2px 2px 0px black !important;
+        -webkit-text-stroke: 1px black !important;
     }}
 
-    /* 3. INPUTS CÓMIC */
+    /* CONTENEDOR DE SETUP (Para aislar los inputs del fondo) */
+    .setup-container {{
+        background: white;
+        border: 4px solid black;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 8px 8px 0px black;
+        margin-bottom: 25px;
+    }}
+    /* Dentro del contenedor blanco, el texto debe ser negro sin borde */
+    .setup-container p, .setup-container h3 {{
+        color: black !important;
+        text-shadow: none !important;
+        -webkit-text-stroke: 0px !important;
+    }}
+
+    /* INPUTS CÓMIC */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         background-color: white !important;
         border: 3px solid black !important;
         border-radius: 10px !important;
         color: black !important;
         font-size: 1.5rem !important;
-        box-shadow: 4px 4px 0px black !important; /* Sombra dura */
+        box-shadow: 4px 4px 0px black !important;
     }}
-    div[data-baseweb="select"] span {{ color: black !important; }}
+    div[data-baseweb="select"] span {{ 
+        color: black !important; 
+        text-shadow: none !important; 
+        -webkit-text-stroke: 0px !important;
+    }}
 
-    /* 4. BOTONES DE ACCIÓN (ESTILO "PUSH ME") */
+    /* BOTONES DE ACCIÓN */
     .stButton>button {{
         font-family: 'Bangers', cursive !important;
         width: 100%;
         border-radius: 12px !important;
         height: 70px;
-        background: #ef4444; /* Rojo intenso */
+        background: #ef4444;
         border: 3px solid black;
-        box-shadow: 5px 5px 0px black; /* Sombra sólida */
+        box-shadow: 5px 5px 0px black;
         color: white;
         font-size: 28px !important;
         text-transform: uppercase;
         text-shadow: 2px 2px 0px black;
+        -webkit-text-stroke: 1px black;
         transition: all 0.1s;
     }}
-    
     .stButton>button:hover {{
         transform: translate(-2px, -2px);
         box-shadow: 7px 7px 0px black;
         background: #f87171;
     }}
-    
     .stButton>button:active {{
         transform: translate(5px, 5px);
         box-shadow: 0px 0px 0px black;
     }}
 
-    /* 5. TARJETAS CÓMIC (Borde grueso) */
+    /* TARJETAS CÓMIC GENÉRICAS */
     .comic-card {{
         background: white;
         border: 4px solid black;
@@ -95,67 +124,41 @@ st.markdown(f"""
         box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
         margin-bottom: 25px;
         text-align: center;
-        color: black; /* Texto negro sobre blanco */
     }}
-    
-    .comic-card h2, .comic-card p {{
+    .comic-card h2, .comic-card p, .comic-card h1 {{
         color: black !important;
         text-shadow: none !important;
+        -webkit-text-stroke: 0px !important;
     }}
 
-    /* 6. ICONO SHOWCASE (ESTILO PEGATINA) */
+    /* ICONO STICKER */
     .icon-sticker {{
-        background: #3b82f6;
-        border: 4px solid black;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 15px auto;
-        box-shadow: 5px 5px 0px black;
-        transform: rotate(5deg);
+        background: #3b82f6; border: 4px solid black; border-radius: 50%; width: 120px; height: 120px;
+        display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;
+        box-shadow: 5px 5px 0px black; transform: rotate(5deg);
     }}
+    .floating-icon {{ font-size: 70px; filter: drop-shadow(3px 3px 0px black); }}
     
-    .floating-icon {{
-        font-size: 70px;
-        filter: drop-shadow(3px 3px 0px black);
-    }}
-    
-    /* 7. ETIQUETAS EXPLOSIVAS */
-    .tag {{
-        padding: 5px 15px;
-        border: 2px solid black;
-        font-size: 1.2rem;
-        box-shadow: 3px 3px 0px black;
-        display: inline-block;
-        transform: rotate(-3deg);
-    }}
-    .tag-vip {{ background: #FCD34D; color: black; }}
-    .tag-free {{ background: #6EE7B7; color: black; }}
+    /* ETIQUETAS */
+    .tag {{ padding: 5px 15px; border: 2px solid black; font-size: 1.2rem; box-shadow: 3px 3px 0px black; display: inline-block; transform: rotate(-3deg); color: black !important; text-shadow: none !important; -webkit-text-stroke: 0px !important;}}
+    .tag-vip {{ background: #FCD34D; }}
+    .tag-free {{ background: #6EE7B7; }}
 
-    /* 8. JUEGO DE CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
+    /* CARTAS */
+    .flip-card {{ background-color: transparent; width: 100%; height: 480px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.4s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
-    
     .flip-card-front, .flip-card-back {{ 
-        position: absolute; width: 100%; height: 100%; 
-        -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 20px; display: flex; flex-direction: column; 
-        justify-content: center; align-items: center; padding: 20px; 
-        border: 4px solid black;
-        box-shadow: 10px 10px 0px black;
+        position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; 
+        border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
+        border: 4px solid black; box-shadow: 10px 10px 0px black;
     }}
-    
     .flip-card-front {{ background: #3b82f6; color: white; }}
-    .flip-card-back {{ background: #ffffff; color: black; transform: rotateY(180deg); }}
+    .flip-card-back {{ background: #ffffff; transform: rotateY(180deg); }}
+    .flip-card-back p, .flip-card-back h1 {{ color: black !important; text-shadow: none !important; -webkit-text-stroke: 0px !important; }}
 
     /* OCULTAR COSAS DE STREAMLIT */
-    #MainMenu {{visibility: hidden;}}
-    footer {{visibility: hidden;}}
-    header {{visibility: hidden;}}
+    #MainMenu, footer, header {{visibility: hidden;}}
     
     </style>
     """, unsafe_allow_html=True)
