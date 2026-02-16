@@ -5,166 +5,222 @@ import random
 URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
 st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered")
 
-# --- CSS SUPER-PREMIUM (V8.0) ---
+# --- 💰 TU NEGOCIO (CONFIGURACIÓN) ---
+# 👇👇👇 ¡PEGA AQUÍ TU ENLACE DE STRIPE! 👇👇👇
+STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
+CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
+
+# --- CSS DISEÑO PREMIUM ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
-    
-    /* FUENTES Y COLORES GENERALES */
     html, body, [class*="css"] {{ font-family: 'Montserrat', sans-serif !important; }}
-    .stApp {{ 
-        background-color: #F3F4F6; 
-        background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
-        background-size: 20px 20px;
-        color: #1F2937; 
-    }}
-
-    /* HEADER GIGANTE */
-    .hero-container {{
-        text-align: center;
-        padding: 40px 20px;
-        background: white;
-        border-radius: 0 0 30px 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        margin-top: -60px; /* Sube para pegar al borde */
-        margin-bottom: 30px;
-        border-bottom: 3px solid #4F46E5;
-    }}
+    .stApp {{ background-color: #F3F4F6; background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 20px 20px; color: #1F2937; }}
     
-    .hero-title {{
-        font-weight: 900 !important; 
-        text-transform: uppercase; 
-        letter-spacing: -2px;
-        font-size: 3.5rem !important;
-        background: linear-gradient(90deg, #4F46E5, #9333EA);
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-        margin: 0;
-    }}
+    .hero-container {{ text-align: center; padding: 40px 20px; background: white; border-radius: 0 0 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: -60px; margin-bottom: 30px; border-bottom: 3px solid #4F46E5; }}
+    .hero-title {{ font-weight: 900 !important; text-transform: uppercase; letter-spacing: -2px; font-size: 3.5rem !important; background: linear-gradient(90deg, #4F46E5, #9333EA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }}
     
-    .hero-subtitle {{
-        color: #6B7280;
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-top: 10px;
-    }}
-
-    /* TARJETAS FLOTANTES */
-    .setup-card {{
-        background-color: white; 
-        padding: 30px; 
-        border-radius: 24px;
-        box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1); 
-        border: 1px solid #E5E7EB;
-        margin-bottom: 20px;
-    }}
-
-    /* BOTONES */
-    .stButton>button {{
-        width: 100%; border-radius: 50px !important; height: 3.8em;
-        background: linear-gradient(90deg, #4F46E5, #7C3AED); color: white;
-        font-weight: 700; border: none; font-size: 18px;
-        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); 
-        transition: all 0.3s ease;
-    }}
-    .stButton>button:hover {{ 
-        transform: translateY(-3px) scale(1.02); 
-        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.5); 
-    }}
+    .premium-lock {{ background: linear-gradient(135deg, #111827, #000000); color: #FCD34D; padding: 30px; border-radius: 20px; text-align: center; margin-bottom: 20px; border: 2px solid #F59E0B; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }}
     
-    /* BOTÓN DE VOTO */
-    .vote-btn > button {{
-        background: white !important; color: #4F46E5 !important;
-        border: 2px solid #4F46E5 !important; box-shadow: none !important; margin-bottom: 10px;
-    }}
-    .vote-btn > button:hover {{ background: #EEF2FF !important; transform: translateY(-2px); }}
-
-    /* ESTILOS CARTA (Flip) */
+    .setup-card {{ background-color: white; padding: 30px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1); border: 1px solid #E5E7EB; margin-bottom: 20px; }}
+    .stop-card {{ background-color: #111827; color: white; padding: 40px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }}
+    
+    .stButton>button {{ width: 100%; border-radius: 50px !important; height: 3.8em; background: linear-gradient(90deg, #4F46E5, #7C3AED); color: white; font-weight: 700; border: none; font-size: 18px; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); transition: all 0.3s ease; }}
+    .stButton>button:hover {{ transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(79, 70, 229, 0.5); }}
+    
     .flip-card {{ background-color: transparent; width: 100%; height: 340px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
-    .flip-card-front, .flip-card-back {{
-      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-      border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      padding: 20px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
-    }}
+    .flip-card-front, .flip-card-back {{ position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); }}
     .flip-card-front {{ background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; }}
     .flip-card-back {{ background-color: white; color: #1F2937; transform: rotateY(180deg); border: 4px solid #F3F4F6; }}
-    
-    /* PANTALLA DE STOP */
-    .stop-card {{
-        background-color: #111827; color: white; padding: 40px; border-radius: 24px;
-        text-align: center; margin-bottom: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-        border: 2px solid #374151;
-    }}
-    
-    /* FOOTER */
-    .footer {{
-        text-align: center; color: #9CA3AF; font-size: 0.8rem; margin-top: 40px;
-    }}
     </style>
     """, unsafe_allow_html=True)
 
-# --- TU LISTA GIGANTE DE DATOS ---
-DATOS = {
-    "⚽ Fútbol": [
+# --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
+
+# =========================================
+# 1. LISTAS GRATUITAS (GIGANTES PERO "FAMILY FRIENDLY")
+# =========================================
+lista_animales = [
+    "Perro", "Gato", "Elefante", "León", "Delfín", "Hormiga", "Jirafa", "Vaca", "Cerdo", 
+    "Gallina", "Koala", "Pingüino", "Tiburón", "Águila", "Canguro", "Panda", "Murciélago", 
+    "Serpiente", "Cocodrilo", "Gorila", "Lobo", "Oso", "Zorro", "Camello", "Hipopótamo", 
+    "Ornitorrinco", "Capibara", "Medusa", "Pulpo", "Avestruz", "Loro", "Hámster", "Tigre", 
+    "Ballena", "Rinoceronte", "Cebra", "Ardilla", "Rata", "Mosquito", "Abeja", "Mariposa", 
+    "Camaleón", "Perezoso", "Nutria", "Suricata", "Búho", "Flamenco", "Mapache", "Erizo",
+    "Lemur", "Pavo Real", "Hiena", "Guepardo", "Topo", "Castor", "Cisne", "Buitre",
+    "Escorpión", "Araña", "Calamar", "Estrella de mar", "Caballito de mar", "Narval",
+    "Beluga", "Manatí", "Komodo", "Iguana", "Salamandra", "Rana", "Sapo", "Tarántula",
+    "Avispa", "Libélula", "Grillo", "Saltamontes", "Mariquita", "Escarabajo", "Ciervo",
+    "Alce", "Bisonte", "Jabalí", "Lince", "Puma", "Jaguar", "Leopardo", "Pantera",
+    "Oso Polar", "Foca", "Morsa", "León Marino", "Pelícano", "Gaviota", "Paloma",
+    "Cuervo", "Colibrí", "Tucán", "Cacatúa", "Canario", "Periquito", "Tortuga", "Caracol"
+]
+
+lista_casa = [
+    "Mesa", "Silla", "Cama", "Lámpara", "Nevera", "Sofá", "Espejo", "Ventana", "Puerta", 
+    "Televisión", "Microondas", "Lavadora", "Ducha", "Inodoro", "Almohada", "Sartén", 
+    "Cuchillo", "Reloj", "Maceta", "Ordenador", "Secador", "Toalla", "Llaves", 
+    "Mando a distancia", "Papel higiénico", "Cepillo de dientes", "Fregona", "Escoba", 
+    "Alfombra", "Cuadro", "Estantería", "Armario", "Percha", "Plancha", "Tostadora", 
+    "Cafetera", "Exprimidor", "Batidora", "Horno", "Lavavajillas", "Grifo", "Enchufe", 
+    "Interruptor", "Bombilla", "Manta", "Sábana", "Colchón", "Edredón", "Cojín",
+    "Mesita de noche", "Despertador", "Radiador", "Aire acondicionado", "Ventilador",
+    "Cortina", "Persiana", "Felpudo", "Timbre", "Buzón", "Cubo de basura", "Bolsa de basura",
+    "Estropajo", "Bayeta", "Detergente", "Suavizante", "Pinzas", "Tendedero", "Plato",
+    "Vaso", "Copa", "Tenedor", "Cuchara", "Cucharilla", "Servilleta", "Mantel",
+    "Tupper", "Abrelatas", "Sacacorchos", "Rallador", "Colador", "Olla", "Cazuela",
+    "Vitrocerámica", "Campana extractora", "Frutero", "Salero", "Azucarero", "Esponja",
+    "Champú", "Gel", "Jabón de manos", "Peine", "Maquillaje", "Cortauñas", "Báscula"
+]
+
+lista_colores = [
+    "Rojo", "Azul", "Verde", "Amarillo", "Negro", "Blanco", "Rosa", "Lila", "Naranja", 
+    "Gris", "Marrón", "Turquesa", "Dorado", "Plateado", "Beige", "Violeta", "Círculo", 
+    "Cuadrado", "Triángulo", "Rectángulo", "Estrella", "Corazón", "Rombo", "Pentágono", 
+    "Línea recta", "Curva", "Hexágono", "Óvalo", "Cilindro", "Cubo", "Esfera", "Pirámide",
+    "Cono", "Trapecio", "Espiral", "Zigzag", "Punto", "Raya", "Ajedrez", "Transparente",
+    "Multicolor", "Arcoíris", "Granate", "Azul Marino", "Verde Lima", "Fucsia", "Coral",
+    "Mostaza", "Caqui", "Salmón", "Índigo", "Cian", "Magenta", "Ocre", "Vainilla",
+    "Chocolate", "Carbón", "Hueso", "Crema", "Lavanda", "Menta", "Pistacho"
+]
+
+lista_profesiones = [
+    "Médico", "Profesor", "Policía", "Bombero", "Cocinero", "Futbolista", "Peluquero", 
+    "Astronauta", "Mecánico", "Abogado", "Youtuber", "Camarero", "Jardinero", "Dentista", 
+    "Piloto", "Pintor", "Detective", "Enfermero", "Carpintero", "Electricista", "Fontanero", 
+    "Veterinario", "Arquitecto", "Juez", "Cantante", "Actor", "Escritor", "Científico", 
+    "Programador", "Influencer", "Político", "Taxista", "Busero", "Farmacéutico",
+    "Panadero", "Carnicero", "Pescadero", "Frutero", "Cajero", "Reponedor", "Repartidor",
+    "Cartero", "Periodista", "Fotógrafo", "Diseñador", "Modelo", "Bailarín", "Músico",
+    "DJ", "Director de cine", "Guionista", "Traductor", "Bibliotecario", "Arqueólogo",
+    "Psicólogo", "Psiquiatra", "Cirujano", "Pediatra", "Entrenador", "Árbitro",
+    "Socorrista", "Militar", "Espía", "Ladrón", "Payaso", "Mago", "Sacerdote", "Monja",
+    "Albañil", "Soldador", "Minero", "Pescador", "Agricultor", "Ganadero", "Azafata/o",
+    "Recepcionista", "Secretario", "Contable", "Director de banco", "Empresario"
+]
+
+# --- CREACIÓN AUTOMÁTICA DEL MIX GRATIS ---
+lista_tutifruti = lista_animales + lista_casa + lista_colores + lista_profesiones
+
+# DICCIONARIO FINAL GRATIS
+DATOS_FREE = {
+    "🎲 TUTIFRUTI (Mix Gratis)": lista_tutifruti, 
+    "🐶 Animales (Gratis)": lista_animales,
+    "🏠 Objetos de Casa (Gratis)": lista_casa,
+    "🎨 Colores y Formas (Gratis)": lista_colores,
+    "👔 Profesiones (Gratis)": lista_profesiones
+}
+
+# =========================================
+# 2. LISTAS VIP (DE PAGO Y MASIVAS)
+# =========================================
+DATOS_VIP = {
+    "😈 MODO CANALLA (+18) [VIP]": [
+        # EL COMBO MORTAL: SALSEO + FIESTA + ALCOHOL
+        "Tu ex", "Ser infiel", "Un trío", "OnlyFans", "Tinder", "Ligar borracho", 
+        "Nudismo", "Calabazas", "Amigo con derecho", "Striptease", "Resaca moral",
+        "Sexo en público", "Juguetes eróticos", "Mensaje a las 4am", "Walk of Shame",
+        "Besar a un desconocido", "Mentir en el CV", "Robar en una tienda", 
+        "Dormir sin ropa interior", "Grindr", "Mandar nudes", "Bodycount", 
+        "Fetiches raros", "Sugar Daddy", "Roleplay", "Kamasutra", "Una orgía",
+        "El baño de la discoteca", "Hacerse un test de embarazo", "Stalkear a tu ex",
+        "Fantasmada sexual", "Primera cita", "Despedida de soltero", "Gatillazo",
+        "Friends with benefits", "Hacer la cobra", "Pagafantas", "Zona de amigos (Friendzone)",
+        "Resaca", "Chupito", "Jagger", "Vomitar", "Perrear", "Discoteca",
+        "Portero de discoteca", "VIP", "Barra libre", "Garrafón", "DJ",
+        "Cerrar el bar", "Kebab de madrugada", "Perder el móvil", "Laguna mental",
+        "Copas", "Cerveza", "Botellón", "La policía", "After", "Karaoke",
+        "Tequila", "Gin Tonic", "Cerveza caliente", "El conductor sobrio",
+        "Irse sin pagar (Simpa)", "Dormir en la calle", "Perder la chaqueta",
+        "Llamar a tu ex borracho", "Churros de madrugada", "El bus de vuelta",
+        "Fumar cachimba", "El segurata", "Perder la dignidad", "Ligar con el/la camarero/a",
+        "Borrachera triste", "Borrachera alegre", "Pelea de bar", "Colarse en la cola",
+        "Perder a tus amigos", "Acabar en otra ciudad", "Dormir en el sofá", "Pizza fría",
+        "Ibuprofeno", "Agua con gas", "Juramento de no volver a beber", "Domingo de resaca",
+        "Coma etílico", "Ron con Cola", "Whisky", "Vodka", "Absenta", "Chupito de fuego",
+        "Juegos de beber", "Beer Pong", "Yo nunca", "Verdad o Reto", "Botella",
+        "Besar a un amigo/a", "Confesión vergonzosa", "Baile sexy", "Quitarse la camiseta",
+        "Hacer el gusano", "Cantar a gritos", "Llorar en el baño", "Pedir matrimonio borracho",
+        "Tatuaje del que te arrepientes", "Tangas", "Calzoncillos de la suerte", "Condones", "Lubricante", "Esposas",
+        "Látigo", "Antifaz", "Chocolate en el cuerpo", "Hielo", "Masaje con final feliz",
+        "Cena romántica", "Motel de carretera", "Coche", "Playa de noche", "Ascensor",
+        "Probador de ropa", "Cine", "Parque", "Piscina"
+    ],
+
+    "⚽ Fútbol [VIP]": [
         "Real Madrid", "FC Barcelona", "Champions League", "Copa del Mundo",
         "Leo Messi", "Cristiano Ronaldo", "Kylian Mbappé", "Balón de Oro",
         "El Clásico", "Boca Juniors", "Manchester City", "La Liga",
         "Estadio Santiago Bernabéu", "Camp Nou", "Tarjeta Roja", "VAR",
-        "Fuera de Juego", "Bota de Oro", "Erling Haaland", "Vinícius Jr",
-        "Selección Española", "Inter Miami", "Luis de la Fuente", "Mundial 2030",
-        "Árbitro", "Jabulani", "Maradona", "Zidane", "Barça de Guardiola",
-        "La chilena de Cristiano", "Iker Casillas", "Xavi", "Iniesta", "El Chiringuito",
-        "Kings League", "Bajar de división", "Tirar un penalti", "Atlético de Madrid", 
+        "Fuera de Juego", "Bota de Oro", "Selección Española", "Inter Miami", 
+        "Luis de la Fuente", "Mundial 2030", "Árbitro", "Jabulani", "Barça de Guardiola",
+        "La chilena de Cristiano", "El Chiringuito", "Kings League", "Atlético de Madrid", 
         "Cholo Simeone", "Florentino Pérez", "Joan Laporta", "Neymar Jr", "Pelé", 
-        "Johan Cruyff", "Mundial de Sudáfrica 2010", "Gol de Iniesta", "Sergio Ramos", 
+        "Johan Cruyff", "Mundial de Sudáfrica 2010", "Gol de Iniesta",
         "Lamine Yamal", "Copa América", "Eurocopa", "Anfield", "River Plate", 
         "La Libertadores", "Saque de esquina", "Gol en propia puerta", "Tanda de penaltis", 
-        "Julian Alvarez", "MLS", "Gareth Bale", "Luis Rubiales", "Fútbol Femenino", 
-        "Alexia Putellas", "Aitana Bonmatí", "Balón de Oro", "Ley del Ex", 
-        "Henry", "Tirar a lo Panenka", "Paolo Maldini", "Roberto Baggio", 
-        "Vestuario", "Rueda de prensa", "Fichaje millonario", "Cláusula de rescisión", 
-        "Mourinho", "Pep Guardiola", "La Masía", "Cole Palmer", "Bruno Fernandes", "Ruud Gullit",
-        "Marco Van Basten", "Kubala", "Mundial 2002", "Mundial 2018", "Eurocopa", "Transfermarkt",
-        "Radamel Falcao", "Ryan Cherki", "Marcos Llorente"
+        "Luis Rubiales", "Fútbol Femenino","Alexia Putellas", "Aitana Bonmatí",
+        "Hacer una rabona", "Tirar a lo Panenka", "Rueda de prensa", "Fichaje millonario", 
+        "Cláusula de rescisión", "Mourinho", "Pep Guardiola", "La Masía", "La Fábrica",
+        "Tiki Taka", "Autobús defensivo", "Wanda Metropolitano", "San Mamés", "Mestalla",
+        "Brasil", "Old Trafford", "Allianz Arena", "Parque de los Príncipes",
+        "Wembley", "Maracaná", "Bombonera", "Monumental", "Balón de Oro",
+        "Manita", "Ruud Gullit", "Ryan Cherki", "Iñigo Martínez",
+        "Alfredo Di Stéfano", "Johan Cruyff", "Zinedine Zidane", "Ronaldo Nazario", "Ronaldinho", "Franz Beckenbauer",
+        "Michel Platini", "Gerd Müller", "Bobby Charlton", "George Best", "Lev Yashin",
+        "Paolo Maldini", "Marco van Basten", "Eusébio", "Ferenc Puskás", "Garrincha",
+        "Kylian Mbappé", "Erling Haaland", "Vinícius Jr", "Jude Bellingham", "Rodri Hernández",
+        "Lamine Yamal", "Robert Lewandowski", "Harry Kane", "Kevin De Bruyne", "Mohamed Salah",
+        "Neymar Jr", "Luka Modric", "Toni Kroos", "Antoine Griezmann", "Bernardo Silva",
+        "Virgil van Dijk", "Bruno Fernandes", "Lautaro Martínez", "Julián Álvarez", "Phil Foden",
+        "Jamal Musiala", "Florian Wirtz", "Bukayo Saka", "Cole Palmer", "Endrick",
+        "Iker Casillas", "Xavi Hernández", "Andrés Iniesta", "Sergio Ramos", "Carles Puyol",
+        "Gerard Piqué", "Sergio Busquets", "Xabi Alonso", "David Villa", "Fernando Torres",
+        "Raúl González", "Emilio Butragueño", "Pep Guardiola", "Luis Enrique", "Fernando Hierro",
+        "Cesc Fàbregas", "David Silva", "Santi Cazorla", "Jesús Navas", "Dani Carvajal",
+        "Jordi Alba", "Nico Williams", "Dani Olmo", "Pedri", "Gavi",
+        "Thierry Henry", "David Beckham", "Zlatan Ibrahimovic", "Wayne Rooney", "Kaká",
+        "Roberto Carlos", "Cafú", "Dani Alves", "Marcelo", "Luis Figo",
+        "Rivaldo", "Romário", "Samuel Eto'o", "Didier Drogba", "Frank Lampard",
+        "Steven Gerrard", "Paul Scholes", "Andrea Pirlo", "Francesco Totti", "Alessandro Del Piero",
+        "Gianluigi Buffon", "Oliver Kahn", "Fabio Cannavaro", "Carles Puyol", "Gareth Bale",
+        "Thibaut Courtois", "Marc-André ter Stegen", "Jan Oblak", "Dibu Martínez", "Manuel Neuer",
+        "Alisson Becker", "Ederson", "Keylor Navas", "Unai Simón", "David de Gea",
+        "Pepe", "Ruben Dias", "Antonio Rüdiger", "Achraf Hakimi", "Alphonso Davies",
+        "Luis Suárez", "Karim Benzema", "Harry Maguire", "Mario Balotelli", "Paul Pogba",
+        "Eden Hazard", "James Rodríguez", "Radamel Falcao", "Arturo Vidal", "Alexis Sánchez",
+        "Chicharito Hernández", "Joaquín Sánchez", "Arda Güler", "Vitor Roque"
     ],
-    "🏀 Deportes": [
+
+    "🏅 Otros Deportes [VIP]": [
         "Baloncesto", "Tenis", "Fórmula 1", "MotoGP", "Pádel", "NBA",
         "Boxeo", "Natación", "Ciclismo", "Golf", "Rugby", "Carlos Alcaraz",
         "Fernando Alonso", "Rafa Nadal", "Marc Márquez", "Juegos Olímpicos",
-        "Gimnasio", "Crossfit", "Maratón", "Surf", "Lamine Yamal", "Pau Gasol",
-        "Tour de Francia", "Wimbledon", "Super Bowl", "Esquí", "Escalada",
-        "Ajedrez", "Yoga", "La 33 de Alonso", "Lanzamiento de jabalina",
-        "Michael Jordan", "LeBron James", "Kobe Bryant", "Usain Bolt",
-        "Simone Biles", "Serena Williams", "Roland Garros", "Copa Davis",
-        "Lewis Hamilton", "Max Verstappen", "Valentino Rossi", "Dakar",
-        "UFC", "Ilia Topuria", "Conor McGregor", "Mike Tyson", "Karate", 
-        "Judo", "Ping Pong", "Bádminton", "Voleibol", "Waterpolo", "Halterofilia", 
-        "Triatlón", "Ironman", "Senderismo", "Skateboarding", "Snowboard", 
-        "Curling", "Petanca", "Dardos", "Billar", "Bolos", "Hoyo en uno", 
-        "Triple", "Mate", "Touchdown", "Pit Stop", "Bandera a cuadros", "Medalla de Oro"
+        "Gimnasio", "Crossfit", "Maratón", "Surf", "Pau Gasol",
+        "Tour de Francia", "Wimbledon", "Super Bowl", "La 33", "Michael Jordan",
+        "LeBron James", "Kobe Bryant", "Usain Bolt", "Simone Biles", 
+        "Lewis Hamilton", "Max Verstappen", "UFC", "Ilia Topuria", "McGregor",
+        "Novak Djokovic", "Roger Federer", "Serena Williams", "Roland Garros",
+        "Open de Australia", "US Open", "Copa Davis", "Anillo de la NBA", "Triple",
+        "Mate", "Tapón", "Alley-oop", "Bocina", "Tiempo muerto", "Prórroga",
+        "Touchdown", "Quarterback", "Haka", "Melé", "Ensayo", "Hoyo en uno",
+        "Green", "Swing", "Caddie", "Tiger Woods", "Jon Rahm", "Indurain",
+        "Contador", "Pogacar", "Vingegaard", "Maillot Amarillo", "Giro de Italia",
+        "Vuelta a España", "Dakar", "Carlos Sainz", "Valentino Rossi", "Jorge Lorenzo",
+        "Dani Pedrosa", "Ángel Nieto", "Pit Stop", "Safety Car", "Bandera a cuadros",
+        "Pole Position", "Adelantamiento", "DRS", "Red Bull", "Ferrari", "Mercedes",
+        "Aston Martin", "McLaren", "Ring de boxeo", "KO", "Gancho", "Uppercut",
+        "Cinturón de campeón", "Mike Tyson", "Muhammad Ali", "Canelo", "Mayweather",
+        "Judo", "Karate", "Taekwondo", "Cinturón Negro", "Tatami", "Kimono",
+        "Piscina olímpica", "Michael Phelps", "Mireia Belmonte", "Waterpolo",
+        "Sincronizada", "Salto de trampolín", "Bádminton", "Carolina Marín",
+        "Ping Pong", "Voleibol", "Balonmano", "Petanca", "Curling", "Skate",
+        "Snowboard", "Esquí", "Escalada", "Senderismo", "Triatlón", "Ironman"
     ],
-    "📜 Historia": [
-        "Pirámides de Egipto", "Imperio Romano", "Cristóbal Colón", "Guerra Fría",
-        "Revolución Francesa", "El Muro de Berlín", "Napoleón Bonaparte",
-        "Segunda Guerra Mundial", "Los Mayas", "Vikingos", "Edad Media",
-        "Renacimiento", "Juana de Arco", "Mahatma Gandhi", "Leonardo da Vinci",
-        "El Titanic", "Los Reyes Católicos", "La Peste Negra", "Julio César",
-        "La llegada a la Luna", "Antigua Grecia", "Samuráis", "Caballeros Templarios",
-        "La Revolución Industrial", "Cleopatra", "Atila el Huno", "El Lejano Oeste",
-        "Guerra Civil Española", "Franquismo", "La Transición", "Constitución de 1812",
-        "Albert Einstein", "Marie Curie", "Isaac Newton", "Charles Darwin",
-        "Mozart", "Beethoven", "Elvis Presley", "Marilyn Monroe",
-        "Adolf Hitler", "Winston Churchill", "Nelson Mandela", "Martin Luther King",
-        "La URSS", "Chernóbil", "Las Cruzadas", "Inquisición Española",
-        "Descubrimiento de América", "Revolución Rusa", "Caída de Roma",
-        "Los Aztecas", "Los Incas", "Machu Picchu", "Coliseo Romano",
-        "Torre Eiffel", "Estatua de la Libertad", "11-S", "Pandemia COVID-19",
-        "La Pinta, la Niña y la Santa María", "Gladiadores", "Faraones", "La Biblia",
-        "Imprenta", "Internet", "Teléfono", "Máquina de vapor"
-    ],
-    "🌟 Famosos": [
+
+    "🌟 Famosos, Youtubers y Memes [VIP]": [
         "Ibai Llanos", "Rosalía", "Shakira", "Mr Beast", "Bad Bunny",
         "Taylor Swift", "Georgina Rodríguez", "Auronplay", "TheGrefg",
         "Zendaya", "Tom Holland", "Rauw Alejandro", "Donald Trump",
@@ -180,9 +236,20 @@ DATOS = {
         "Kiko Rivera", "Paquirrín", "Torrente", "Santiago Segura",
         "Antonio Banderas", "Penélope Cruz", "Javier Bardem", "Úrsula Corberó",
         "Ester Expósito", "Mario Casas", "Blanca Suárez", "Steve Jobs",
-        "Mark Zuckerberg", "Jeff Bezos", "Bill Gates", "Papa Francisco"
+        "Mark Zuckerberg", "Jeff Bezos", "Bill Gates", "Papa Francisco",
+        "Fernando Alonso", "Carlos Alcaraz", "Isabel Pantoja", "Julio Iglesias",
+        "Raphael", "Rocío Jurado", "Lola Flores", "Alaska", "Mario Vaquerizo",
+        "Bertín Osborne", "Jorge Javier Vázquez", "Paz Padilla", "Chicote",
+        "Arguiñano", "Dabiz Muñoz", "Cristina Pedroche", "Pilar Rubio",
+        "Sergio Ramos", "Joaquín el del Betis", "Iniesta", "Casillas",
+        "Puyol", "Xavi", "Villa", "Torres", "Raúl", "Guti", "Beckham",
+        "Victoria Beckham", "Spice Girls", "Backstreet Boys", "One Direction",
+        "BTS", "Blackpink", "Coldplay", "Imagine Dragons", "Queen", "Freddie Mercury",
+        "Michael Jackson", "Madonna", "Britney Spears", "Jennifer Lopez",
+        "Pitbull", "Enrique Iglesias", "Ricky Martin", "Chayanne", "Luis Miguel"
     ],
-    "🎬 Series y Cine": [
+
+    "🎬 Cine y Series [VIP]": [
         "La Casa de Papel", "Juego de Tronos", "Harry Potter", "Star Wars",
         "Stranger Things", "Titanic", "Marvel", "El Rey León", "Avatar",
         "Batman", "Spiderman", "Élite", "The Last of Us", "Disney World",
@@ -198,9 +265,19 @@ DATOS = {
         "Friends", "Aquí no hay quien viva", "La que se avecina", "Los Serrano",
         "Cuéntame cómo pasó", "Paquita Salas", "Vis a Vis", "Merlí",
         "Hermanos", "Telenovela turca", "Sálvame", "La Isla de las Tentaciones",
-        "Operación Triunfo", "Supervivientes", "Masterchef", "First Dates"
+        "Operación Triunfo", "Supervivientes", "Masterchef", "First Dates",
+        "Física o Química", "El Internado", "Oliver y Benji", "Doraemon",
+        "Shin Chan", "Bob Esponja", "Patrulla Canina", "Peppa Pig", "Bluey",
+        "Mickey Mouse", "Pato Donald", "Goofy", "Pluto", "Cenicienta",
+        "Blancanieves", "La Sirenita", "La Bella y la Bestia", "Aladdin",
+        "Mulan", "Pocahontas", "Tarzán", "Hércules", "101 Dálmatas",
+        "Dumbo", "Bambi", "Pinocho", "Peter Pan", "Alicia en el País de las Maravillas",
+        "Mary Poppins", "Pesadilla antes de Navidad", "Eduardo Manostijeras",
+        "Charlie y la Fábrica de Chocolate", "Matilda", "Solo en Casa",
+        "Grease", "Dirty Dancing", "Pretty Woman", "Notting Hill", "Love Actually"
     ],
-    "🥘 Comida": [
+
+    "🥘 Comida Rica [VIP]": [
         "Pizza", "Hamburguesa", "Sushi", "Paella", "Tortilla de patatas",
         "Croquetas", "Tacos", "Kebab", "Pasta Carbonara", "Ramen",
         "Salmorejo", "Chuletón", "Tarta de Queso", "Donuts", "Bravas",
@@ -216,9 +293,17 @@ DATOS = {
         "Helado de chocolate", "Crep", "Gofre", "Nachos con queso",
         "Burrito", "Quesadilla", "Fajitas", "Hot Dog", "Nuggets",
         "Patatas fritas", "Ketchup", "Mayonesa", "Alioli",
-        "Mercadona", "Hacendado", "Glovo", "Uber Eats", "Telepizza"
+        "Mercadona", "Hacendado", "Glovo", "Uber Eats", "Telepizza",
+        "Domino's Pizza", "Burger King", "McDonald's", "KFC", "Subway",
+        "Starbucks", "Dunkin Donuts", "Five Guys", "Goiko Grill", "Vips",
+        "100 Montaditos", "La Tagliatella", "Fosters Hollywood", "Ginos",
+        "Rodilla", "Telechino", "Pollo asado", "Costillas barbacoa", "Alitas de pollo",
+        "Aros de cebolla", "Tequeños", "Empanadillas", "Gyozas", "Edamame",
+        "Sashimi", "Makis", "Nigiris", "Wasabi", "Jengibre", "Soja",
+        "Palillos chinos", "Tenedor libre", "Wok", "Buffet de desayuno"
     ],
-    "✈️ Lugares y Viajes": [
+
+    "✈️ Viajes y Lugares [VIP]": [
         "Madrid", "Barcelona", "París", "Nueva York", "Londres", "Roma",
         "Tokio", "Ibiza", "La Playa", "Egipto", "Route 66", "Un Gimnasio",
         "Una Discoteca", "El Supermercado", "Un Aeropuerto", "La Universidad",
@@ -235,9 +320,13 @@ DATOS = {
         "Estación de tren", "Metro de Madrid", "Un autobús", "Un taxi",
         "La casa de tus padres", "Un hotel de 5 estrellas", "Una casa rural",
         "La feria del pueblo", "Un concierto", "Un estadio de fútbol", "La cárcel",
-        "El baño de una discoteca", "La cola del paro", "Hacienda"
+        "El baño de una discoteca", "La cola del paro", "Hacienda",
+        "Marte", "Estación Espacial", "El Polo Norte", "El Triángulo de las Bermudas",
+        "Atlantis", "Hogwarts", "Mordor", "Narnia", "Wakanda", "Gotham",
+        "Springfield", "Bikini Bottom", "El País de Nunca Jamás", "El País de las Maravillas"
     ],
-    "📱 Tecnología y Redes": [
+    
+    "📱 Tecnología y Vida Moderna [VIP]": [
         "TikTok", "Instagram", "WhatsApp", "Twitter / X", "ChatGPT",
         "iPhone", "PlayStation 5", "YouTube", "Influencer", "Hacker",
         "Google", "Amazon", "Wifi", "Batería baja", "Selfie", "Inteligencia Artificial",
@@ -253,95 +342,99 @@ DATOS = {
         "Reiniciar el router", "Cable HDMI", "Cargador del móvil", "Auriculares",
         "AirPods", "Nintendo Switch", "Xbox", "PC Gamer", "Teclado mecánico",
         "Ratón", "Monitor 4K", "Fibra óptica", "5G", "Modo Incógnito",
-        "Historial de búsqueda", "Contraseña olvidada", "Verificación en dos pasos"
-    ],
-    "🛋️ Cosas de la Vida": [
-        "Llegar tarde", "La resaca", "Quedarse sin papel en el baño",
-        "Hacerse un selfie", "El grupo de WhatsApp de la familia",
-        "Ligar en una discoteca", "El primer día de gimnasio",
-        "Un examen sin haber estudiado", "Ir al dentista",
-        "Hacer un Bizum", "El olor a coche nuevo",
-        "Un grupo de turistas perdidos", "La cuenta de la cena",
-        "Stalkear a tu ex", "Dormir la siesta", "El mando a distancia",
-        "Ese amigo que nunca tiene batería", "Pedir un Glovo",
-        "Intentar no reírse en un sitio serio", "El lunes por la mañana",
-        "Hacer la compra con hambre", "Perder las llaves", "Hacer la maleta",
-        "Pisar una pieza de Lego", "Darse con el dedo meñique del pie",
-        "Se cae el internet", "Spoiler de tu serie favorita",
-        "La declaración de la Renta", "Pasar la ITV", "Buscar aparcamiento",
-        "El vecino ruidoso", "Llamada de spam a la siesta", "Olvidar el PIN de la tarjeta",
-        "Encontrarse a un ex", "Mancharse de tomate la camisa blanca",
-        "Perder el autobús por un segundo", "Que te toque la lotería",
-        "Domingo de lluvia", "Hacer dieta", "Dejar de fumar",
-        "Ir a Ikea el sábado", "Montar un mueble y que sobren piezas",
-        "Que se te queme la comida", "Pedir la cuenta y que no te miren",
-        "Quedarse sin batería en el momento clave", "Romper la pantalla del móvil",
-        "Perder un calcetín en la lavadora", "Sacar la basura",
-        "Reunión de vecinos", "Cena de empresa", "Amigo invisible",
-        "Boda, bautizo y comunión", "Operación bikini", "La cuesta de enero"
+        "Historial de búsqueda", "Contraseña olvidada", "Verificación en dos pasos",
+        "NFT", "Criptomoneda", "Bitcoin", "Metaverso", "Streaming", "Lag",
+        "Bug", "Glitch", "Update", "Download", "Upload", "Nube", "Drive",
+        "Dropbox", "WeTransfer", "PDF", "Word", "Excel", "PowerPoint"
     ]
 }
 
-# --- INICIALIZACIÓN DE MEMORIA SEGURA ---
+TODOS_LOS_DATOS = {**DATOS_FREE, **DATOS_VIP}
+
+
+# --- INICIALIZACIÓN ---
 if 'game_state' not in st.session_state: st.session_state.game_state = "setup"
 if 'eliminados' not in st.session_state: st.session_state.eliminados = []
 if 'roles_bool' not in st.session_state: st.session_state.roles_bool = []
 if 'total' not in st.session_state: st.session_state.total = 4
 if 'palabra' not in st.session_state: st.session_state.palabra = ""
+if 'vip_unlocked' not in st.session_state: st.session_state.vip_unlocked = False
 
 # =========================================
-# PANTALLA 1: SETUP (DISEÑO MEJORADO)
+# PANTALLA 1: SETUP
 # =========================================
 if st.session_state.game_state == "setup":
-    # 1. HEADER TIPO APP
     st.markdown(f"""
         <div class="hero-container">
             <img src="{URL_LOGO}" style="width: 100px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-bottom: 15px;">
             <h1 class="hero-title">INFILTRADO</h1>
-            <div class="hero-subtitle">Descubre al mentiroso antes de que sea tarde</div>
+            <div style="color: #6B7280; font-weight: 600;">Versión 4.0 Premium</div>
         </div>
         """, unsafe_allow_html=True)
-    
-    # 2. INSTRUCCIONES DESPLEGABLES (LIMPIEZA)
-    with st.expander("📜 ¿Cómo se juega? (Leer reglas)"):
-        st.write("""
-        1. **Pasad el móvil:** Cada jugador mira su rol en secreto.
-        2. **La Palabra:** Todos ven la misma palabra menos el **Infiltrado**.
-        3. **Debate:** Haced preguntas por turnos. El infiltrado debe disimular.
-        4. **Votación:** Expulsad al sospechoso. Si echáis al Infiltrado, ¡Ganan los inocentes!
-        """)
 
-    # 3. TARJETA DE CONFIGURACIÓN
     st.markdown('<div class="setup-card">', unsafe_allow_html=True)
-    st.markdown('<h3 style="text-align: left; margin-bottom: 20px;">⚙️ Configuración</h3>', unsafe_allow_html=True)
+    st.markdown('<h3>⚙️ Configuración</h3>', unsafe_allow_html=True)
     
-    tema = st.selectbox("📚 Elige un mazo de palabras", list(DATOS.keys()))
+    tema_seleccionado = st.selectbox("📚 Elige mazo de cartas", list(TODOS_LOS_DATOS.keys()))
     
-    st.write("") # Espacio
-    c1, c2 = st.columns(2)
-    with c1: jug = st.number_input("👥 Jugadores", 3, 20, 4)
-    with c2: imp = st.number_input("🕵️ Infiltrados", 1, max(1, jug-2), 1)
+    es_vip = tema_seleccionado in DATOS_VIP
+    acceso_concedido = False
     
-    st.write("") # Espacio
-    if st.button("🔥 GENERAR NUEVA PARTIDA"):
-        st.session_state.roles_bool = [False] * jug
-        indices_imp = random.sample(range(jug), imp)
-        for idx in indices_imp: st.session_state.roles_bool[idx] = True
+    if not es_vip:
+        acceso_concedido = True
+        st.success("✅ Categoría Gratuita seleccionada")
+    else:
+        if st.session_state.vip_unlocked:
+            acceso_concedido = True
+            st.success("🔓 ¡PACK VIP DESBLOQUEADO! A DISFRUTAR")
+        else:
+            st.markdown(f"""
+            <div class="premium-lock">
+                <div style="font-size: 50px;">👑</div>
+                <h2 style="color: white; margin: 10px 0;">PACK PREMIUM</h2>
+                <p style="color: #E5E7EB;">Has elegido <b>{tema_seleccionado}</b></p>
+                <p style="font-size: 14px; margin-top: 10px;">Accede al <b>Modo Canalla</b> y todas las categorías VIP por solo 1€.</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            c_pago1, c_pago2 = st.columns([2, 1])
+            with c_pago1:
+                clave = st.text_input("🔑 Introducir Clave VIP", placeholder="¿Ya la tienes?")
+            with c_pago2:
+                st.link_button("💳 Pagar 1€", STRIPE_LINK)
+            
+            if clave:
+                if clave.upper() == CLAVE_MAESTRA:
+                    st.session_state.vip_unlocked = True
+                    st.balloons()
+                    st.rerun()
+                else:
+                    st.error("❌ Clave incorrecta.")
+
+    if acceso_concedido:
+        st.write("")
+        c1, c2 = st.columns(2)
+        with c1: jug = st.number_input("👥 Jugadores", 3, 20, 4)
+        with c2: imp = st.number_input("🕵️ Infiltrados", 1, jug, 1) # Ahora el máximo es 'jug'
         
-        st.session_state.palabra = random.choice(DATOS[tema])
-        st.session_state.turno = 0
-        st.session_state.total = jug
-        st.session_state.eliminados = []
-        st.session_state.game_state = "playing" 
-        st.session_state.card_flipped = False
-        st.rerun()
+        st.write("")
+        if st.button("🔥 GENERAR PARTIDA"):
+            st.session_state.roles_bool = [False] * jug
+            indices_imp = random.sample(range(jug), imp)
+            for idx in indices_imp: st.session_state.roles_bool[idx] = True
+            
+            st.session_state.palabra = random.choice(TODOS_LOS_DATOS[tema_seleccionado])
+            st.session_state.turno = 0
+            st.session_state.total = jug
+            st.session_state.eliminados = []
+            st.session_state.game_state = "playing" 
+            st.session_state.card_flipped = False
+            st.rerun()
+            
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # 4. FOOTER
-    st.markdown('<div class="footer">v1.0 • Made with ❤️</div>', unsafe_allow_html=True)
-
 # =========================================
-# PANTALLA 2: PANTALLA DE BLOQUEO (TRANSICIÓN)
+# PANTALLA 2: TRANSICIÓN (STOP)
 # =========================================
 elif st.session_state.game_state == "transition":
     turno = st.session_state.turno
@@ -350,14 +443,13 @@ elif st.session_state.game_state == "transition":
     <div class="stop-card">
         <div style="font-size: 80px;">🛑</div>
         <h2 style="color: white; margin: 20px 0;">¡ALTO AHÍ!</h2>
-        <p style="color: #9CA3AF; font-size: 18px;">No mires la pantalla si no eres tú.</p>
+        <p style="color: #9CA3AF;">Pasa el dispositivo al siguiente.</p>
         <hr style="border-color: #374151; margin: 30px 0;">
-        <p style="color: white; font-weight: bold;">PASA EL MÓVIL AL:</p>
         <h1 style="color: #F87171; font-size: 3rem; margin: 0;">JUGADOR {turno + 1}</h1>
     </div>
     """, unsafe_allow_html=True)
     
-    if st.button(f"✅ SOY EL JUGADOR {turno + 1}, VER ROL"):
+    if st.button(f"✅ SOY EL JUGADOR {turno + 1}"):
         st.session_state.game_state = "playing"
         st.rerun()
 
@@ -366,8 +458,6 @@ elif st.session_state.game_state == "transition":
 # =========================================
 elif st.session_state.game_state == "playing":
     turno = st.session_state.turno
-    
-    # Barra de progreso visual
     progreso = (turno + 1) / st.session_state.total
     st.progress(progreso)
     st.markdown(f'<p style="text-align:center; color:#6B7280; font-size: 14px;">Jugador {turno + 1} de {st.session_state.total}</p>', unsafe_allow_html=True)
@@ -376,18 +466,14 @@ elif st.session_state.game_state == "playing":
         contenido = """<div style="text-align: center;">
             <span style="font-size: 60px;">🤫</span><br>
             <h2 style="color: #EF4444; margin-top: 10px;">ERES EL INFILTRADO</h2>
-            <p style="font-size: 16px;">Tu misión: Engañar a todos.</p>
             <div style="background: #FEF2F2; padding: 10px; border-radius: 10px; margin-top: 15px; color: #B91C1C; font-size: 14px;">
-            ⚠️ No conoces la palabra secreta. Escucha y miente.
-            </div>
-            </div>"""
+            ⚠️ Miente. No conoces la palabra.
+            </div></div>"""
     else:
         contenido = f"""<div style="text-align: center;">
-            <p style="color: #6B7280; font-weight: 600;">La palabra secreta es:</p>
+            <p style="color: #6B7280;">La palabra secreta es:</p>
             <h1 style="font-size: 42px; margin: 15px 0; color: #4F46E5;">{st.session_state.palabra.upper()}</h1>
-            <span style="font-size: 40px;">🧐</span>
-            <p style="font-size: 14px; margin-top: 10px;">Encuentra al mentiroso.</p>
-            </div>"""
+            <span style="font-size: 40px;">🧐</span></div>"""
 
     flip_cls = "flipped" if st.session_state.get('card_flipped', False) else ""
     
@@ -396,8 +482,7 @@ elif st.session_state.game_state == "playing":
       <div class="flip-card-inner {flip_cls}">
         <div class="flip-card-front">
             <span style="font-size: 60px; margin-bottom: 20px;">🃏</span>
-            <h2 style="color: white;">TU CARTA DE ROL</h2>
-            <p style="opacity: 0.9;">Toca el botón para girar</p>
+            <h2 style="color: white;">TU CARTA</h2><p>Toca para revelar</p>
         </div>
         <div class="flip-card-back">{contenido}</div>
       </div>
@@ -410,38 +495,50 @@ elif st.session_state.game_state == "playing":
             st.rerun()
     else:
         es_ultimo = turno >= st.session_state.total - 1
-        txt = "🗳️ IR A LAS VOTACIONES" if es_ultimo else "🔒 OCULTAR Y SIGUIENTE"
-        
+        txt = "🗳️ IR A VOTACIONES" if es_ultimo else "🔒 OCULTAR Y SIGUIENTE"
         if st.button(txt):
             st.session_state.card_flipped = False
-            if es_ultimo: 
-                st.session_state.game_state = "voting_round"
+            if es_ultimo: st.session_state.game_state = "voting_round"
             else: 
                 st.session_state.turno += 1
                 st.session_state.game_state = "transition"
             st.rerun()
 
 # =========================================
-# PANTALLA 4: VOTACIÓN
+# PANTALLA 3.5: MOSTRAR QUIÉN EMPIEZA (NUEVA)
 # =========================================
-elif st.session_state.game_state == "voting_round":
+elif st.session_state.game_state == "show_starter":
+    inicial = st.session_state.jugador_inicial
     st.markdown(f"""
-    <div class="hero-container" style="margin-top: 0; padding: 20px;">
-        <h2 class="hero-title" style="font-size: 2rem !important;">VOTACIÓN</h2>
-        <p>¿Quién es el infiltrado?</p>
+    <div style="padding-top: 50px;"></div>
+    <div class="starter-card">
+        <div style="font-size: 60px;">🎲</div>
+        <h2 style="color: white; margin: 20px 0;">¡ROLES REPARTIDOS!</h2>
+        <p style="color: #E0E7FF; font-size: 18px;">Empieza hablando el:</p>
+        <div style="background: white; color: #4F46E5; border-radius: 15px; padding: 20px; margin: 20px 0;">
+            <h1 style="font-size: 3.5rem; margin: 0;">JUGADOR {inicial + 1}</h1>
+        </div>
+        <p style="color: #E0E7FF;">Hacedle la primera pregunta.</p>
     </div>
     """, unsafe_allow_html=True)
     
+    if st.button("⏱️ EMPEZAR CRONÓMETRO DE DEBATE"):
+        st.session_state.game_state = "voting_round"
+        st.rerun()
+# =========================================
+# PANTALLA 4: VOTACIÓN
+# =========================================
+elif st.session_state.game_state == "voting_round":
+    st.markdown('<div class="hero-container" style="margin-top: 0; padding: 20px;"><h2 class="hero-title" style="font-size: 2rem !important;">VOTACIÓN</h2></div>', unsafe_allow_html=True)
     st.markdown('<div class="setup-card">', unsafe_allow_html=True)
     for i in range(st.session_state.total):
         if i not in st.session_state.eliminados:
-            st.markdown('<div class="vote-btn">', unsafe_allow_html=True)
-            if st.button(f"👉 ACUSAR AL JUGADOR {i+1}", key=f"vote_{i}"):
+            st.markdown(f'<div style="margin-bottom: 10px;"><button style="width:100%; padding:15px; border-radius:12px; border:2px solid #4F46E5; background:white; color:#4F46E5; font-weight:bold; cursor:pointer;" onclick="document.getElementById(\'vote_{i}\').click()">👉 ACUSAR AL JUGADOR {i+1}</button></div>', unsafe_allow_html=True)
+            if st.button(f"Confirmar Voto Jugador {i+1}", key=f"vote_{i}"):
                 st.session_state.ultimo_expulsado = i
                 st.session_state.eliminados.append(i)
                 st.session_state.game_state = "round_result"
                 st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
         else:
              st.markdown(f'<div style="text-align:center; padding: 10px; color: #D1D5DB; text-decoration: line-through;">💀 Jugador {i+1} (Eliminado)</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -457,35 +554,32 @@ elif st.session_state.game_state == "round_result":
     inocentes_vivos = sum(1 for i in range(st.session_state.total) if not st.session_state.roles_bool[i] and i not in st.session_state.eliminados)
     
     st.markdown('<div class="setup-card" style="text-align: center;">', unsafe_allow_html=True)
-    st.markdown(f"<h3 style='color: #6B7280;'>El Jugador {expulsado + 1} era...</h3>", unsafe_allow_html=True)
     
     if es_impostor:
-        st.markdown(f"<h1 style='color: #10B981; font-size: 3rem; margin: 20px 0;'>¡INFILTRADO! 😈</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='color: #10B981; font-size: 3rem;'>¡INFILTRADO! 😈</h1>", unsafe_allow_html=True)
         if impostores_vivos == 0:
             st.balloons()
             st.success("🎉 ¡VICTORIA DE LOS INOCENTES!")
             st.markdown(f"**La palabra era:** {st.session_state.palabra}")
-            if st.button("🔄 JUGAR OTRA PARTIDA"):
+            if st.button("🔄 JUGAR OTRA"):
                 st.session_state.game_state = "setup"
                 st.rerun()
             st.stop()
         else:
-            st.info(f"¡Bien hecho! Pero quedan {impostores_vivos} infiltrados...")
+            st.info(f"Quedan {impostores_vivos} infiltrados...")
     else:
-        st.markdown(f"<h1 style='color: #EF4444; font-size: 3rem; margin: 20px 0;'>¡INOCENTE! 😱</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='color: #EF4444; font-size: 3rem;'>¡INOCENTE! 😱</h1>", unsafe_allow_html=True)
         if impostores_vivos >= inocentes_vivos:
-            st.error("💀 ¡VICTORIA DE LOS INFILTRADOS!")
-            st.markdown("Han conseguido la mayoría numérica.")
+            st.error("💀 ¡GANAN LOS INFILTRADOS!")
             st.markdown(f"**La palabra era:** {st.session_state.palabra}")
-            if st.button("🔄 JUGAR OTRA PARTIDA"):
+            if st.button("🔄 JUGAR OTRA"):
                 st.session_state.game_state = "setup"
                 st.rerun()
             st.stop()
         else:
-            st.warning("Habéis expulsado a un inocente. La partida continúa.")
+            st.warning("Habéis fallado. Seguimos.")
 
     st.markdown('</div>', unsafe_allow_html=True)
-    
-    if st.button("➡️ SEGUIR JUGANDO"):
+    if st.button("➡️ SEGUIR"):
         st.session_state.game_state = "voting_round"
         st.rerun()
