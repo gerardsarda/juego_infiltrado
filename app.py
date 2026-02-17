@@ -11,7 +11,7 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL"
 CLAVE_MAESTRA = "IMP-VIP-99"
 
-# --- 🎨 CSS PREMIUM (CRISTAL + CONTRASTE OK) ---
+# --- 🎨 CSS DEFINITIVO ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
@@ -29,7 +29,7 @@ st.markdown(f"""
         margin-bottom: 25px !important;
     }}
 
-    /* INPUTS LEGIBLES (BLANCO/NEGRO) */
+    /* INPUTS (BLANCO/NEGRO) */
     .stSelectbox label, .stNumberInput label, .stTextInput label, p {{
         color: #FFFFFF !important; font-weight: 800 !important;
         text-transform: uppercase; font-size: 0.9rem !important;
@@ -46,7 +46,7 @@ st.markdown(f"""
         color: #000000 !important; fill: #000000 !important;
     }}
 
-    /* TARJETAS CRISTAL (GLASSMORPHISM) */
+    /* TARJETAS CRISTAL */
     .glass-card {{
         background: rgba(15, 23, 42, 0.6);
         backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -76,6 +76,22 @@ st.markdown(f"""
         font-size: 2.2rem; font-weight: 900; margin: 20px auto;
         display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }}
+
+    /* ARREGLO ESPECÍFICO: CAJA QUIÉN EMPIEZA */
+    .starter-box {
+        background-color: white !important;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 30px 0;
+    }
+    
+    /* FUERZA bruta para que el texto dentro de starter-box sea NEGRO */
+    .starter-box h1 {
+        color: #000000 !important; 
+        text-shadow: none !important; /* Quita la sombra blanca */
+        font-size: 4rem !important;
+        margin: 0 !important;
+    }
 
     .stButton>button {{
         width: 100%; border-radius: 16px !important; height: 62px;
@@ -402,7 +418,7 @@ DATOS_VIP = {
 
 TODOS_LOS_DATOS = {**DATOS_FREE, **DATOS_VIP}
 
-# --- LÓGICA ---
+# --- LÓGICA DE ESTADOS ---
 if 'game_state' not in st.session_state: st.session_state.game_state = "setup"
 if 'eliminados' not in st.session_state: st.session_state.eliminados = []
 if 'vip_unlocked' not in st.session_state: st.session_state.vip_unlocked = False
@@ -501,8 +517,8 @@ elif st.session_state.game_state == "show_starter":
         <div style="font-size: 80px; margin-bottom: 20px;">🗣️</div>
         <h2>RONDA DE PREGUNTAS</h2>
         <p>Debe empezar preguntando el:</p>
-        <div style="background: white; color: black; padding: 20px; border-radius: 20px; margin: 30px 0;">
-            <h1 style="color: #1e1b4b !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
+        <div class="starter-box">
+            <h1 style="color: black !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
         </div>
     </div>""", unsafe_allow_html=True)
     if st.button("IR A VOTACIÓN"):
@@ -522,11 +538,11 @@ elif st.session_state.game_state == "voting":
                 st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# PANTALLA 6: RESULTADO + LÓGICA DE CONTINUAR
+# PANTALLA 6: RESULTADO
 elif st.session_state.game_state == "result":
     es_imp = st.session_state.roles[st.session_state.ultimo_expulsado]
     
-    # Contar vivos para saber si el juego sigue
+    # Contar vivos
     impostores_vivos = sum(1 for i in range(st.session_state.total) if st.session_state.roles[i] and i not in st.session_state.eliminados)
     inocentes_vivos = sum(1 for i in range(st.session_state.total) if not st.session_state.roles[i] and i not in st.session_state.eliminados)
     
