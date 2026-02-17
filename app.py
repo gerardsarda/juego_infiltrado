@@ -3,13 +3,13 @@ import random
 
 # --- CONFIGURACIÓN INICIAL ---
 URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
-st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered")
+st.set_page_config(page_title="Infiltrado", page_icon="🕵️", layout="centered")
 
-# --- 💰 TU NEGOCIO ---
+# --- 💰 TUS DATOS ---
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL"
 CLAVE_MAESTRA = "IMP-VIP-99"
 
-# --- 🎨 CSS DEFINITIVO (CONTRASTE REAL Y DISEÑO VIBRANT) ---
+# --- 🎨 CSS CORREGIDO (SOLUCIÓN TÍTULOS NEGROS) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
@@ -20,7 +20,7 @@ st.markdown(f"""
         color: white !important;
     }}
 
-    /* TÍTULO PRINCIPAL */
+    /* 1. TÍTULO PRINCIPAL */
     h1 {{
         font-weight: 900 !important;
         text-transform: uppercase;
@@ -31,34 +31,53 @@ st.markdown(f"""
         margin-bottom: 25px !important;
     }}
 
-    /* INPUTS Y SELECTORES: FONDO BLANCO -> LETRA NEGRA */
-    div[data-baseweb="input"], div[data-baseweb="select"] > div {{
-        background-color: white !important;
-        border-radius: 12px !important;
-    }}
-    
-    input, .stSelectbox div[data-baseweb="select"] span {{
-        color: black !important;
-        -webkit-text-fill-color: black !important;
+    /* 2. ETIQUETAS (TITULOS ENCIMA DE LOS INPUTS) -> BLANCOS */
+    label, .stNumberInput label, .stSelectbox label, p {{
+        color: #FFFFFF !important; /* ESTO ARREGLA LOS TÍTULOS NEGROS */
         font-weight: 800 !important;
-    }}
-    
-    /* ICONOS DE LOS INPUTS */
-    button[kind="secondary"], svg {{
-        color: black !important;
-        fill: black !important;
+        font-size: 1rem !important;
+        text-transform: uppercase;
     }}
 
-    /* TARJETA DE ROL: FONDO BLANCO -> LETRA NEGRA */
+    /* 3. CAJAS DE INPUT (EL RECUADRO) -> BLANCO */
+    div[data-baseweb="input"], div[data-baseweb="select"] > div {{
+        background-color: #ffffff !important;
+        border-radius: 12px !important;
+        border: 2px solid #e5e7eb !important;
+    }}
+    
+    /* 4. TEXTO DENTRO DEL INPUT -> NEGRO */
+    input, .stSelectbox div[data-baseweb="select"] span {{
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+    }}
+    
+    /* ICONOS DE FLECHAS Y +/- -> NEGROS */
+    div[data-baseweb="select"] svg, button[kind="secondary"] {{
+        color: #000000 !important;
+        fill: #000000 !important;
+    }}
+
+    /* 5. TARJETAS (FONDO OSCURO -> TEXTO BLANCO) */
+    .modern-card {{
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+        padding: 25px;
+        margin-bottom: 25px;
+        text-align: center;
+    }}
+
+    /* 6. CARTA DE JUEGO (REVERSO BLANCO -> TEXTO NEGRO) */
     .white-card {{
         background: white !important;
         border-radius: 24px;
         padding: 40px;
         text-align: center;
         min-height: 350px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        display: flex; flex-direction: column; justify-content: center;
         border: 4px solid #a855f7;
     }}
     
@@ -68,17 +87,13 @@ st.markdown(f"""
     }}
 
     .secret-word-box {{
-        background: #f3f4f6;
-        color: #4c1d95 !important;
-        padding: 15px;
-        border-radius: 12px;
-        font-size: 2.5rem;
-        font-weight: 900;
-        margin: 15px 0;
-        border: 1px solid #ddd;
+        background: #f3f4f6; color: #4c1d95 !important;
+        padding: 15px; border-radius: 12px;
+        font-size: 2.2rem; font-weight: 900;
+        margin: 15px 0; border: 1px solid #ddd;
     }}
 
-    /* BOTONES ACCIÓN */
+    /* 7. BOTONES */
     .stButton>button {{
         width: 100%; border-radius: 16px !important; height: 62px;
         background: linear-gradient(90deg, #ec4899, #db2777);
@@ -407,12 +422,12 @@ if 'vip_unlocked' not in st.session_state: st.session_state.vip_unlocked = False
 if st.session_state.game_state == "setup":
     st.markdown(f"""
         <div style="text-align: center; margin-bottom: 20px;">
-            <img src="{URL_LOGO}" style="width: 200px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <img src="{URL_LOGO}" style="width: 250px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown('<h1>INFILTRADO</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 24px;">', unsafe_allow_html=True)
+    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
     
     tema_seleccionado = st.selectbox("MAZO DE CARTAS", list(TODOS_LOS_DATOS.keys()))
     
@@ -476,7 +491,7 @@ elif st.session_state.game_state == "playing":
             st.markdown(f'<p>LA PALABRA SECRETA ES:</p><div class="secret-word-box">{st.session_state.palabra.upper()}</div><h2 style="color: #2563eb !important;">ERES INOCENTE</h2>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
-        texto_btn = "EMPEZAR DEBATE" if st.session_state.turno == st.session_state.total - 1 else "OCULTAR Y SIGUIENTE"
+        texto_btn = "EMPEZAR JUEGO" if st.session_state.turno == st.session_state.total - 1 else "OCULTAR Y SIGUIENTE"
         if st.button(texto_btn):
             st.session_state.flipped = False
             if st.session_state.turno == st.session_state.total - 1:
