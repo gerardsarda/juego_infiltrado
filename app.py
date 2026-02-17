@@ -2,16 +2,16 @@ import streamlit as st
 import random
 
 # --- LOGO ---
-URL_LOGO = "https://i.imgur.com/8Q6Zq9m.png"
+URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
 
 # --- CONFIGURACIÓN DE PÁGINA ---
-st.set_page_config(page_title="Infiltrado", page_icon="🕵️", layout="centered")
+st.set_page_config(page_title="Infiltrado", page_icon="URL_LOGO", layout="centered")
 
 # --- 💰 TU NEGOCIO ---
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL"
-CLAVE_MAESTRA = "FIESTA"
+CLAVE_MAESTRA = "IMP-VIP-99"
 
-# --- 🎨 CSS CORREGIDO (CONTRASTES INTELIGENTES) ---
+# --- 🎨 CSS DEFINITIVO (CONTRASTES ARREGLADOS) ---
 st.markdown(f"""
     <style>
     /* 1. FUENTE MONTSERRAT */
@@ -20,48 +20,49 @@ st.markdown(f"""
     /* 2. FONDO PRINCIPAL */
     html, body, .stApp {{
         font-family: 'Montserrat', sans-serif !important;
-        background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%); /* Morado */
-        color: white !important; /* Por defecto texto blanco */
+        background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%); /* Morado Vibrante */
+        color: white !important; /* Por defecto texto blanco sobre fondo morado */
     }}
 
-    /* 3. TÍTULOS GENERALES */
-    h1 {{
+    /* 3. TÍTULOS GENERALES (BLANCOS) */
+    h1, h2, h3 {{
+        color: white !important;
         font-weight: 900 !important;
         text-transform: uppercase;
-        font-size: 3rem !important;
-        text-align: center;
-        text-shadow: 0 4px 0 rgba(0,0,0,0.2);
-        color: white !important;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }}
-    h2, h3, p, label {{ color: white !important; }}
+    
+    h1 {{ font-size: 3rem !important; text-align: center; margin-bottom: 0 !important; }}
+    p, label {{ color: white !important; font-weight: 600; }}
 
-    /* 4. CORRECCIÓN DE INPUTS (FONDO BLANCO -> TEXTO OSCURO) */
+    /* 4. INPUTS Y SELECTORES (FONDO BLANCO -> TEXTO NEGRO) */
     /* La caja del input */
     div[data-baseweb="input"], div[data-baseweb="select"] > div {{
-        background-color: white !important;
-        border: none !important;
+        background-color: #ffffff !important;
+        border: 2px solid #e5e7eb !important;
         border-radius: 12px !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
+        color: black !important;
     }}
     
-    /* El texto DENTRO del input (Números y letras) */
+    /* El texto DENTRO del input */
     input, .stSelectbox div[data-baseweb="select"] span {{
-        color: #4c1d95 !important; /* MORADO OSCURO PARA QUE SE LEA */
+        color: #000000 !important; /* NEGRO PURO */
+        -webkit-text-fill-color: #000000 !important;
         font-weight: 800 !important;
-        -webkit-text-fill-color: #4c1d95 !important;
         font-size: 1.1rem !important;
+        caret-color: black;
     }}
     
-    /* Iconos del input (+ - y flechas) */
+    /* Iconos del input */
     div[data-baseweb="select"] svg, button[kind="secondary"] {{
-        color: #4c1d95 !important;
-        fill: #4c1d95 !important;
+        color: #000000 !important;
+        fill: #000000 !important;
     }}
 
-    /* 5. TARJETAS */
+    /* 5. TARJETAS (FONDO OSCURO -> TEXTO BLANCO) */
     .modern-card {{
-        background: rgba(0, 0, 0, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 24px;
         padding: 25px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -87,18 +88,7 @@ st.markdown(f"""
     .stButton>button:hover {{ transform: translateY(-2px); border-bottom-width: 2px; }}
     .stButton>button:active {{ transform: translateY(2px); border-bottom-width: 0px; }}
 
-    /* 7. ESCAPARATE CATEGORÍA */
-    .category-box {{
-        background: rgba(255,255,255,0.1);
-        border: 2px solid rgba(255,255,255,0.3);
-        border-radius: 16px; padding: 15px;
-        display: flex; align-items: center; margin: 20px 0;
-    }}
-    .cat-icon {{ font-size: 40px; margin-right: 15px; }}
-    .vip-badge {{ background: #fbbf24; color: black !important; padding: 5px 10px; border-radius: 10px; font-weight: bold; font-size: 12px; }}
-    .free-badge {{ background: #4ade80; color: black !important; padding: 5px 10px; border-radius: 10px; font-weight: bold; font-size: 12px; }}
-
-    /* 8. CARTAS (CORRECCIÓN DE CONTRASTE EN REVERSO) */
+    /* 7. CARTAS (REVERSO BLANCO -> TEXTO NEGRO) */
     .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
     .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
@@ -109,28 +99,30 @@ st.markdown(f"""
         box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     }}
     
+    /* FRENTE AZUL -> TEXTO BLANCO */
     .flip-card-front {{ 
-        background: linear-gradient(135deg, #2563eb, #7c3aed); 
+        background: linear-gradient(135deg, #3b82f6, #6366f1); 
         border: 2px solid rgba(255,255,255,0.2);
     }}
+    .flip-card-front h2, .flip-card-front p {{ color: white !important; }}
     
-    /* REVERSO BLANCO -> TEXTO OSCURO */
+    /* REVERSO BLANCO -> TEXTO NEGRO */
     .flip-card-back {{ 
         background: white; 
         transform: rotateY(180deg); 
-        border: 4px solid #a855f7;
+        border: 4px solid #8b5cf6;
     }}
     
-    /* IMPORTANTE: Forzar texto oscuro dentro de la carta blanca */
+    /* FUERZA TEXTO NEGRO EN REVERSO */
     .flip-card-back h1, .flip-card-back h2, .flip-card-back p, .flip-card-back div {{
-        color: #4c1d95 !important; /* TEXTO MORADO */
+        color: #1f2937 !important; /* Gris muy oscuro */
         text-shadow: none !important;
     }}
     
-    /* Excepciones para roles */
-    .role-impostor {{ color: #dc2626 !important; font-size: 2.5rem; font-weight: 900; }}
-    .role-innocent {{ color: #2563eb !important; font-size: 2rem; font-weight: 900; }}
-    .secret-word {{ background: #f3f4f6; padding: 10px; border-radius: 10px; color: #4c1d95 !important; font-size: 2.5rem; font-weight: 900; }}
+    /* Roles Específicos */
+    .role-impostor {{ color: #dc2626 !important; font-size: 2.5rem; font-weight: 900; margin: 10px 0; }}
+    .role-innocent {{ color: #2563eb !important; font-size: 2rem; font-weight: 900; margin: 10px 0; }}
+    .secret-word {{ background: #f3f4f6; padding: 15px; border-radius: 12px; color: #4c1d95 !important; font-size: 2.2rem; font-weight: 900; border: 2px solid #e5e7eb; }}
 
     /* OCULTAR UI */
     #MainMenu, footer, header {{visibility: hidden;}}
@@ -475,32 +467,22 @@ if st.session_state.game_state == "setup":
     st.markdown('<h3>⚙️ CONFIGURACIÓN</h3>', unsafe_allow_html=True)
     
     tema_seleccionado = st.selectbox("MAZO DE CARTAS", list(TODOS_LOS_DATOS.keys()))
-    icono_actual = ICONOS_TEMA.get(tema_seleccionado, "❓")
-    es_vip = tema_seleccionado in DATOS_VIP
-    badge = '<span class="vip-badge">PREMIUM</span>' if es_vip else '<span class="free-badge">GRATIS</span>'
     
-    st.markdown(f"""
-    <div class="category-box">
-        <div class="cat-icon">{icono_actual}</div>
-        <div>
-            <h3 style="margin:0; text-align: left; font-size: 1.2rem;">{tema_seleccionado.split('(')[0]}</h3>
-            {badge}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    es_vip = tema_seleccionado in DATOS_VIP
     
     acceso_concedido = False
     if not es_vip:
         acceso_concedido = True
+        st.success("✅ CATEGORÍA GRATUITA")
     else:
         if st.session_state.vip_unlocked:
             acceso_concedido = True
-            st.success("✅ PACK DESBLOQUEADO")
+            st.success("✅ PACK VIP DESBLOQUEADO")
         else:
-            st.warning("🔒 Categoría Bloqueada")
+            st.warning("🔒 CATEGORÍA VIP")
             c1, c2 = st.columns([2, 1])
             with c1: clave = st.text_input("CÓDIGO VIP", placeholder="Introduce clave...")
-            with c2: st.markdown(f'<a href="{STRIPE_LINK}" target="_blank"><button style="background: #fbbf24; color: black !important; margin-top: 29px;">PAGAR 1€</button></a>', unsafe_allow_html=True)
+            with c2: st.markdown(f'<a href="{STRIPE_LINK}" target="_blank"><button style="background: #fbbf24; color: black !important; margin-top: 29px; border-bottom-color: #d97706;">PAGAR 1€</button></a>', unsafe_allow_html=True)
             
             if clave:
                 if clave.upper() == CLAVE_MAESTRA:
@@ -537,7 +519,7 @@ elif st.session_state.game_state == "transition":
     turno = st.session_state.turno
     st.markdown(f"""
     <div style="padding-top: 50px;"></div>
-    <div class="modern-card" style="border: 2px solid #ec4899;">
+    <div class="modern-card" style="border: 3px solid #ec4899;">
         <div style="font-size: 80px; margin-bottom: 20px;">🛑</div>
         <h2>¡ALTO AHÍ!</h2>
         <p>Pasa el móvil al siguiente jugador</p>
@@ -561,14 +543,16 @@ elif st.session_state.game_state == "playing":
     st.markdown(f'<p style="text-align:center; opacity: 0.8;">REPARTIENDO ({turno + 1}/{st.session_state.total})</p>', unsafe_allow_html=True)
     
     if st.session_state.roles_bool[turno]:
+        # CARTA IMPOSTOR (Texto oscuro sobre fondo blanco)
         contenido = """<div style="text-align: center;">
             <div style="font-size: 80px; margin-bottom: 20px;">🤫</div>
             <h1 class="role-impostor">INFILTRADO</h1>
-            <p style="margin-top: 20px;">No sabes la palabra.<br><b>¡MIENTE!</b></p>
+            <p style="margin-top: 20px; color: #333 !important;">No conoces la palabra.<br><b>¡TE TOCA MENTIR!</b></p>
             </div>"""
     else:
+        # CARTA INOCENTE (Texto oscuro sobre fondo blanco)
         contenido = f"""<div style="text-align: center;">
-            <p>LA PALABRA ES:</p>
+            <p style="color: #666 !important; font-size: 0.9rem;">LA PALABRA ES:</p>
             <div class="secret-word">{st.session_state.palabra.upper()}</div>
             <h2 class="role-innocent">INOCENTE</h2>
             </div>"""
@@ -580,7 +564,7 @@ elif st.session_state.game_state == "playing":
         <div class="flip-card-front">
             <div style="font-size: 80px; margin-bottom: 20px;">🃏</div>
             <h2>TU MISIÓN</h2>
-            <p>Toca para ver tu carta</p>
+            <p>Toca para girar</p>
         </div>
         <div class="flip-card-back">{contenido}</div>
       </div>
@@ -598,14 +582,14 @@ elif st.session_state.game_state == "playing":
         if st.button(txt):
             st.session_state.card_flipped = False
             if es_ultimo: 
-                st.session_state.game_state = "show_starter" # AQUÍ SALTA A LA PANTALLA QUE FALTABA
+                st.session_state.game_state = "show_starter" # AQUÍ VA A LA PANTALLA QUIÉN EMPIEZA
             else: 
                 st.session_state.turno += 1
                 st.session_state.game_state = "transition"
             st.rerun()
 
 # =========================================
-# PANTALLA 3.5: QUIÉN EMPIEZA (PUNTO 1 ARREGLADO)
+# PANTALLA 3.5: QUIÉN EMPIEZA (ASEGURADA)
 # =========================================
 elif st.session_state.game_state == "show_starter":
     inicial = st.session_state.jugador_inicial
