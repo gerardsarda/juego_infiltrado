@@ -10,175 +10,180 @@ st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL" 
 CLAVE_MAESTRA = "IMP-VIP-99" # La palabra que el usuario recibe al pagar
 
-# --- 🎨 CSS ESTILO "PRO GAMING" (DARK & POWERFUL) ---
+# --- 🎨 CSS ESTILO "VIBRANT NIGHT" + TIPOGRAFÍA MONTSERRAT ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTE 'RUSSO ONE' (ESTILO ESPORTS/GAMING) */
-    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+    /* 1. FUENTE 'MONTSERRAT' (Profesional, moderna y fuerte) */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
     
-    /* 2. FONDO PRINCIPAL */
+    /* 2. FONDO DEGRADADO AZUL-MORADO VIBRANTE */
     html, body, .stApp {{
-        font-family: 'Russo One', sans-serif !important;
-        background-color: #0b0e14; /* Negro azulado profundo */
-        background-image: 
-            linear-gradient(rgba(18, 22, 33, 0.9), rgba(18, 22, 33, 0.9)),
-            url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        font-family: 'Montserrat', sans-serif !important;
+        background: linear-gradient(135deg, #1e40af 0%, #7e22ce 100%); /* Azul fuerte a Morado fuerte */
+        color: #f8fafc;
+        background-attachment: fixed;
+    }}
+
+    /* 3. TÍTULOS CON FUERZA */
+    h1 {{
+        font-weight: 900 !important;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        font-size: 3rem !important;
+        text-align: center;
+        margin-bottom: 0 !important;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }}
+    
+    h2, h3 {{
+        font-weight: 800 !important;
+        color: white !important;
+    }}
+    
+    p, div, label, span {{
+        font-weight: 600 !important;
+        letter-spacing: 0.5px;
         color: #e2e8f0;
     }}
 
-    /* 3. TÍTULOS IMPONENTES */
-    h1 {{
-        font-size: 3.5rem !important;
-        text-transform: uppercase;
-        background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0px 5px 15px rgba(0,0,0,0.5);
-        text-align: center;
-        margin-bottom: 5px !important;
-        letter-spacing: 2px;
-    }}
-    
-    h2 {{
-        font-size: 1.8rem !important;
-        color: white !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }}
-    
-    p {{
-        font-family: 'Segoe UI', sans-serif !important; /* Fuente secundaria para leer bien */
-        font-size: 1.1rem !important;
-        color: #94a3b8 !important;
-        font-weight: 500;
-    }}
-
-    /* 4. TARJETAS "GAMING INTERFACE" */
-    .pro-card {{
-        background: #151923;
-        border: 1px solid #2d3748;
-        border-top: 4px solid #6366f1; /* Borde superior de color */
-        border-radius: 12px;
+    /* 4. TARJETAS DE CRISTAL OSCURO (MODERNO) */
+    .modern-card {{
+        background: rgba(15, 23, 42, 0.6); /* Negro azulado semitransparente */
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
         padding: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         margin-bottom: 25px;
         text-align: center;
-        position: relative;
     }}
 
-    /* 5. SELECTORES E INPUTS OSCUROS */
+    /* 5. INPUTS FUERTES */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        background-color: #0f1116 !important;
-        border: 2px solid #2d3748 !important;
-        border-radius: 8px !important;
+        background-color: rgba(0, 0, 0, 0.5) !important;
+        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 12px !important;
         color: white !important;
-        font-family: 'Russo One', sans-serif !important;
-        height: 50px;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 700 !important;
+        height: 55px;
     }}
     div[data-baseweb="select"] span {{ color: white !important; }}
     
     /* Hover en inputs */
-    div[data-baseweb="select"] > div:hover {{
-        border-color: #6366f1 !important;
-        box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    div[data-baseweb="select"] > div:hover, div[data-baseweb="input"] > div:hover {{
+        border-color: #a855f7 !important; /* Morado brillante al pasar el ratón */
     }}
 
-    /* 6. BOTONES 3D "PRESS START" */
+    /* 6. BOTONES GRADIENTE VIBRANTE */
     .stButton>button {{
         width: 100%;
-        border-radius: 8px !important;
+        border-radius: 16px !important;
         height: 60px;
-        background: linear-gradient(180deg, #6366f1 0%, #4338ca 100%); /* Índigo vibrante */
+        background: linear-gradient(90deg, #3b82f6, #a855f7); /* Azul a Morado brillante */
         border: none;
-        border-bottom: 4px solid #312e81; /* Sombra sólida */
         color: white;
-        font-family: 'Russo One', sans-serif !important;
-        font-size: 20px !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 900 !important;
+        font-size: 18px !important;
         text-transform: uppercase;
         letter-spacing: 1px;
-        transition: all 0.1s;
-        box-shadow: 0 5px 15px rgba(67, 56, 202, 0.4);
+        box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.5); /* Sombra morada */
+        transition: all 0.2s ease;
     }}
     
     .stButton>button:hover {{
-        transform: translateY(2px);
-        border-bottom-width: 2px;
-        filter: brightness(1.2);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px -5px rgba(168, 85, 247, 0.7);
+        filter: brightness(1.1);
     }}
     
-    .stButton>button:active {{
-        transform: translateY(4px);
-        border-bottom-width: 0px;
-    }}
-    
-    /* Botón Secundario (ROJO PELIGRO) */
+    /* Botón Secundario (Eliminar) */
     .vote-btn button {{
-        background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%) !important;
-        border-bottom: 4px solid #7f1d1d !important;
-        box-shadow: 0 5px 15px rgba(185, 28, 28, 0.4) !important;
+        background: rgba(239, 68, 68, 0.1) !important;
+        border: 2px solid rgba(239, 68, 68, 0.5) !important;
+        color: #fca5a5 !important;
+        box-shadow: none !important;
+    }}
+    .vote-btn button:hover {{
+        background: rgba(239, 68, 68, 0.2) !important;
+        border-color: #ef4444 !important;
+        color: white !important;
     }}
 
-    /* 7. WIDGET DE CATEGORÍA (Estilo "Loot Box") */
-    .loot-box {{
-        background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-        border: 2px solid #334155;
-        border-radius: 16px;
+    /* 7. ESCAPARATE DE CATEGORÍA */
+    .category-showcase {{
+        background: rgba(255,255,255,0.05);
+        border-radius: 20px;
         padding: 20px;
         margin: 20px 0;
-        box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
-        position: relative;
-        overflow: hidden;
+        border: 2px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
     }}
-    
-    .glow-icon {{
-        font-size: 60px;
-        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
-        margin-bottom: 10px;
+    .cat-icon-box {{
+        font-size: 50px;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        margin-right: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }}
+    .cat-info {{ text-align: left; }}
     
-    /* 8. ETIQUETAS DE ESTADO */
-    .badge {{
-        padding: 5px 12px;
-        border-radius: 4px;
+    /* 8. ETIQUETAS VIP/FREE */
+    .status-badge {{
+        padding: 5px 15px;
+        border-radius: 30px;
         font-size: 0.8rem;
+        font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: 1px;
         display: inline-block;
         margin-top: 5px;
     }}
-    .badge-vip {{ background: #fbbf24; color: #451a03; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }}
-    .badge-free {{ background: #22c55e; color: #022c22; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }}
+    .badge-vip {{ background: #fbbf24; color: #451a03; box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4); }}
+    .badge-free {{ background: #34d399; color: #064e3b; box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4); }}
 
-    /* 9. JUEGO DE CARTAS */
-    .flip-card {{ background-color: transparent; width: 100%; height: 400px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }}
+    /* 9. CARTAS DE JUEGO */
+    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
+    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }}
     .flipped {{ transform: rotateY(180deg); }}
     
     .flip-card-front, .flip-card-back {{ 
         position: absolute; width: 100%; height: 100%; 
         -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 16px; display: flex; flex-direction: column; 
-        justify-content: center; align-items: center; padding: 20px; 
+        border-radius: 24px; display: flex; flex-direction: column; 
+        justify-content: center; align-items: center; padding: 30px; 
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         border: 2px solid rgba(255,255,255,0.1);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }}
     
+    /* Frente: Gradiente a juego con el fondo */
     .flip-card-front {{ 
-        background: linear-gradient(135deg, #4f46e5, #312e81); 
+        background: linear-gradient(135deg, #2563eb, #9333ea); 
     }}
     
+    /* Reverso: Oscuro para contraste */
     .flip-card-back {{ 
-        background: #1e293b; 
+        background: #0f172a; 
         transform: rotateY(180deg); 
-        border: 2px solid #6366f1;
+        border-color: #a855f7;
     }}
 
-    /* OCULTAR ELEMENTOS EXTRAÑOS */
+    /* ROLES */
+    .role-title {{ font-size: 3rem; font-weight: 900; text-transform: uppercase; margin: 10px 0; text-shadow: 0 5px 10px rgba(0,0,0,0.5); }}
+    .impostor {{ color: #ef4444; }}
+    .innocent {{ color: #3b82f6; }}
+    .secret-word-box {{ background: white; color: black; padding: 15px 25px; border-radius: 15px; font-size: 2.5rem; font-weight: 900; margin: 15px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }}
+
+    /* OCULTAR ELEMENTOS */
     #MainMenu, footer, header {{visibility: hidden;}}
     
     </style>
     """, unsafe_allow_html=True)
-    
+
 # --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
 
 # =========================================
@@ -248,11 +253,11 @@ lista_tutifruti = lista_animales + lista_casa + lista_colores + lista_profesione
 
 # DICCIONARIO FINAL GRATIS
 DATOS_FREE = {
-    "🎲 TUTIFRUTI (Mix Gratis)": lista_tutifruti, 
-    "🐶 Animales (Gratis)": lista_animales,
-    "🏠 Objetos de Casa (Gratis)": lista_casa,
-    "🎨 Colores y Formas (Gratis)": lista_colores,
-    "👔 Profesiones (Gratis)": lista_profesiones
+    "🎲 TUTIFRUTI": lista_tutifruti, 
+    "🐶 Animales": lista_animales,
+    "🏠 Objetos de Casa": lista_casa,
+    "🎨 Colores y Formas": lista_colores,
+    "👔 Profesiones": lista_profesiones
 }
 
 # =========================================
@@ -647,24 +652,23 @@ elif st.session_state.game_state == "playing":
             st.rerun()
 
 # =========================================
-# PANTALLA 3.5: MOSTRAR QUIÉN EMPIEZA (NUEVA)
+# PANTALLA 3.5: QUIÉN EMPIEZA (RECUPERADO)
 # =========================================
 elif st.session_state.game_state == "show_starter":
     inicial = st.session_state.jugador_inicial
     st.markdown(f"""
     <div style="padding-top: 50px;"></div>
-    <div class="starter-card">
-        <div style="font-size: 60px;">🎲</div>
-        <h2 style="color: white; margin: 20px 0;">¡ROLES REPARTIDOS!</h2>
-        <p style="color: #E0E7FF; font-size: 18px;">Empieza hablando el:</p>
-        <div style="background: white; color: #4F46E5; border-radius: 15px; padding: 20px; margin: 20px 0;">
-            <h1 style="font-size: 3.5rem; margin: 0;">JUGADOR {inicial + 1}</h1>
+    <div class="modern-card">
+        <div style="font-size: 80px; filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)); margin-bottom: 20px;">🗣️</div>
+        <h2 style="font-size: 2rem !important; margin-bottom: 10px;">RONDA DE DEBATE</h2>
+        <p style="color: #e2e8f0; margin-bottom: 30px;">Debe empezar hablando y preguntando:</p>
+        <div style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);">
+            <h1 style="margin: 0 !important; font-size: 3.5rem !important;">JUGADOR {inicial + 1}</h1>
         </div>
-        <p style="color: #E0E7FF;">Hacedle la primera pregunta.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    if st.button("⏱️ EMPEZAR CRONÓMETRO DE DEBATE"):
+    if st.button("PROCEDER A VOTACIÓN"):
         st.session_state.game_state = "voting_round"
         st.rerun()
 # =========================================
