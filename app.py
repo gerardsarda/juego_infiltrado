@@ -1,26 +1,29 @@
 import streamlit as st
 import random
 
-# --- CONFIGURACIÓN INICIAL ---
+# --- 1. TU LOGO (LINK DE GITHUB) ---
 URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
-st.set_page_config(page_title="Infiltrado", page_icon="🕵️", layout="centered")
 
-# --- 💰 TUS DATOS ---
+# --- 2. CONFIGURACIÓN DE PÁGINA ---
+st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered")
+
+# --- 💰 TUS DATOS DE NEGOCIO ---
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL"
 CLAVE_MAESTRA = "IMP-VIP-99"
 
-# --- 🎨 CSS CORREGIDO (SOLUCIÓN TÍTULOS NEGROS) ---
+# --- 🎨 CSS DEFINITIVO (TÍTULOS BLANCOS + INPUTS NEGROS + CARTA LEGIBLE) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
     
+    /* FONDO GENERAL */
     html, body, .stApp {{
         font-family: 'Montserrat', sans-serif !important;
         background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
         color: white !important;
     }}
 
-    /* 1. TÍTULO PRINCIPAL */
+    /* TÍTULO PRINCIPAL */
     h1 {{
         font-weight: 900 !important;
         text-transform: uppercase;
@@ -31,22 +34,25 @@ st.markdown(f"""
         margin-bottom: 25px !important;
     }}
 
-    /* 2. ETIQUETAS (TITULOS ENCIMA DE LOS INPUTS) -> BLANCOS */
-    label, .stNumberInput label, .stSelectbox label, p {{
-        color: #FFFFFF !important; /* ESTO ARREGLA LOS TÍTULOS NEGROS */
+    /* --- CORRECCIÓN DE ETIQUETAS (TÍTULOS DE INPUTS) --- */
+    /* Forzamos BLANCO para que se lea sobre el fondo morado */
+    .stSelectbox label, .stNumberInput label, .stTextInput label, p {{
+        color: #FFFFFF !important; 
         font-weight: 800 !important;
-        font-size: 1rem !important;
         text-transform: uppercase;
+        font-size: 0.9rem !important;
     }}
 
-    /* 3. CAJAS DE INPUT (EL RECUADRO) -> BLANCO */
-    div[data-baseweb="input"], div[data-baseweb="select"] > div {{
+    /* --- CORRECCIÓN DE CAJAS (INPUTS) --- */
+    /* Fondo BLANCO */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         background-color: #ffffff !important;
-        border-radius: 12px !important;
         border: 2px solid #e5e7eb !important;
+        border-radius: 12px !important;
+        color: black !important;
     }}
-    
-    /* 4. TEXTO DENTRO DEL INPUT -> NEGRO */
+
+    /* Texto NEGRO dentro de la caja */
     input, .stSelectbox div[data-baseweb="select"] span {{
         color: #000000 !important;
         -webkit-text-fill-color: #000000 !important;
@@ -54,14 +60,15 @@ st.markdown(f"""
         font-size: 1.1rem !important;
     }}
     
-    /* ICONOS DE FLECHAS Y +/- -> NEGROS */
+    /* Flechas e iconos en NEGRO */
     div[data-baseweb="select"] svg, button[kind="secondary"] {{
         color: #000000 !important;
         fill: #000000 !important;
     }}
 
-    /* 5. TARJETAS (FONDO OSCURO -> TEXTO BLANCO) */
-    .modern-card {{
+    /* --- TARJETAS --- */
+    /* Tarjeta oscura (Configuración) */
+    .glass-card {{
         background: rgba(0, 0, 0, 0.25);
         border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 24px;
@@ -70,7 +77,7 @@ st.markdown(f"""
         text-align: center;
     }}
 
-    /* 6. CARTA DE JUEGO (REVERSO BLANCO -> TEXTO NEGRO) */
+    /* Tarjeta Blanca (Resultado/Rol) - Texto NEGRO */
     .white-card {{
         background: white !important;
         border-radius: 24px;
@@ -82,7 +89,7 @@ st.markdown(f"""
     }}
     
     .white-card h1, .white-card h2, .white-card p, .white-card div {{
-        color: black !important;
+        color: #1e1b4b !important; /* Texto oscuro */
         text-shadow: none !important;
     }}
 
@@ -93,7 +100,7 @@ st.markdown(f"""
         margin: 15px 0; border: 1px solid #ddd;
     }}
 
-    /* 7. BOTONES */
+    /* BOTONES */
     .stButton>button {{
         width: 100%; border-radius: 16px !important; height: 62px;
         background: linear-gradient(90deg, #ec4899, #db2777);
@@ -420,14 +427,11 @@ if 'vip_unlocked' not in st.session_state: st.session_state.vip_unlocked = False
 
 # PANTALLA 1: SETUP
 if st.session_state.game_state == "setup":
-    st.markdown(f"""
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="{URL_LOGO}" style="width: 250px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        </div>
-        """, unsafe_allow_html=True)
-
+    # FOTO GRANDE
+    st.markdown(f"""<div style="text-align: center; margin-bottom: 20px;"><img src="{URL_LOGO}" style="width: 250px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>""", unsafe_allow_html=True)
+    
     st.markdown('<h1>INFILTRADO</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     
     tema_seleccionado = st.selectbox("MAZO DE CARTAS", list(TODOS_LOS_DATOS.keys()))
     
@@ -475,7 +479,7 @@ elif st.session_state.game_state == "transition":
 # PANTALLA 3: REVELAR CARTA
 elif st.session_state.game_state == "playing":
     if not st.session_state.flipped:
-        st.markdown(f"""<div style="background: rgba(0,0,0,0.2); padding: 40px; border-radius: 24px; text-align: center; height: 400px; display: flex; flex-direction: column; justify-content: center;">
+        st.markdown(f"""<div style="background: rgba(0,0,0,0.2); padding: 40px; border-radius: 24px; text-align: center; height: 400px; display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(255,255,255,0.1);">
             <div style="font-size: 100px;">🃏</div>
             <h2>JUGADOR {st.session_state.turno + 1}</h2>
             <p>Toca para revelar tu identidad</p>
@@ -491,7 +495,7 @@ elif st.session_state.game_state == "playing":
             st.markdown(f'<p>LA PALABRA SECRETA ES:</p><div class="secret-word-box">{st.session_state.palabra.upper()}</div><h2 style="color: #2563eb !important;">ERES INOCENTE</h2>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
-        texto_btn = "EMPEZAR JUEGO" if st.session_state.turno == st.session_state.total - 1 else "OCULTAR Y SIGUIENTE"
+        texto_btn = "EMPEZAR DEBATE" if st.session_state.turno == st.session_state.total - 1 else "OCULTAR Y SIGUIENTE"
         if st.button(texto_btn):
             st.session_state.flipped = False
             if st.session_state.turno == st.session_state.total - 1:
@@ -529,7 +533,7 @@ elif st.session_state.game_state == "voting":
 # PANTALLA 6: RESULTADO
 elif st.session_state.game_state == "result":
     es_imp = st.session_state.roles[st.session_state.ultimo_expulsado]
-    st.markdown('<div style="text-align: center; background: rgba(0,0,0,0.2); padding: 40px; border-radius: 24px;">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     if es_imp:
         st.markdown('<div style="font-size: 80px;">🎯</div><h1 style="color: #4ade80 !important;">¡ERA ÉL!</h1><p>Habéis pillado al infiltrado.</p>', unsafe_allow_html=True)
     else:
