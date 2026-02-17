@@ -1,115 +1,91 @@
 import streamlit as st
 import random
 
-# --- LOGO ---
+# --- CONFIGURACIÓN INICIAL ---
 URL_LOGO = "https://raw.githubusercontent.com/gerardsarda/juego_infiltrado/main/Gemini_Generated_Image_poe3ntpoe3ntpoe3.png"
-
-# --- CONFIGURACIÓN DE PÁGINA ---
-st.set_page_config(page_title="Infiltrado", page_icon="URL_LOGO", layout="centered")
+st.set_page_config(page_title="Infiltrado", page_icon=URL_LOGO, layout="centered")
 
 # --- 💰 TU NEGOCIO ---
 STRIPE_LINK = "https://buy.stripe.com/PON_AQUI_TU_LINK_REAL"
 CLAVE_MAESTRA = "IMP-VIP-99"
 
-# --- 🎨 CSS RESTAURADO (ESTILO VIBRANT NIGHT + FIX INPUTS) ---
+# --- 🎨 CSS DEFINITIVO (CONTRASTE REAL Y DISEÑO VIBRANT) ---
 st.markdown(f"""
     <style>
-    /* 1. FUENTE MONTSERRAT */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
     
-    /* 2. FONDO PRINCIPAL MORADO */
     html, body, .stApp {{
         font-family: 'Montserrat', sans-serif !important;
         background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
-        color: white !important; /* Texto general blanco */
+        color: white !important;
     }}
 
-    /* 3. TÍTULOS (RESTAURADOS A BLANCO) */
+    /* TÍTULO PRINCIPAL */
     h1 {{
         font-weight: 900 !important;
         text-transform: uppercase;
-        font-size: 3rem !important;
+        font-size: 3.2rem !important;
         text-align: center;
-        text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        margin-bottom: 10px !important;
-        color: white !important; /* Asegura que se vea */
-    }}
-    
-    h2, h3, h4, p, label {{ color: white !important; }}
-
-    /* 4. TARJETAS (ESTILO CRISTAL OSCURO ORIGINAL) */
-    .modern-card {{
-        background: rgba(0, 0, 0, 0.25); /* Oscuro semitransparente */
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.15); /* Borde blanco sutil */
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        margin-bottom: 25px;
-        text-align: center;
+        color: white !important;
+        text-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        margin-bottom: 25px !important;
     }}
 
-    /* 5. INPUTS (LA ÚNICA CORRECCIÓN: BLANCOS CON TEXTO NEGRO) */
+    /* INPUTS Y SELECTORES: FONDO BLANCO -> LETRA NEGRA */
     div[data-baseweb="input"], div[data-baseweb="select"] > div {{
-        background-color: #ffffff !important; /* Fondo blanco */
-        border: 2px solid #e5e7eb !important;
+        background-color: white !important;
         border-radius: 12px !important;
     }}
-    /* El texto DENTRO del input */
+    
     input, .stSelectbox div[data-baseweb="select"] span {{
-        color: #000000 !important; /* Texto NEGRO */
-        -webkit-text-fill-color: #000000 !important;
+        color: black !important;
+        -webkit-text-fill-color: black !important;
         font-weight: 800 !important;
-        caret-color: black;
     }}
-    /* Iconos del input */
-    div[data-baseweb="select"] svg, button[kind="secondary"] {{
-        color: #000000 !important; fill: #000000 !important;
+    
+    /* ICONOS DE LOS INPUTS */
+    button[kind="secondary"], svg {{
+        color: black !important;
+        fill: black !important;
     }}
 
-    /* 6. BOTONES */
+    /* TARJETA DE ROL: FONDO BLANCO -> LETRA NEGRA */
+    .white-card {{
+        background: white !important;
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        min-height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 4px solid #a855f7;
+    }}
+    
+    .white-card h1, .white-card h2, .white-card p, .white-card div {{
+        color: black !important;
+        text-shadow: none !important;
+    }}
+
+    .secret-word-box {{
+        background: #f3f4f6;
+        color: #4c1d95 !important;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin: 15px 0;
+        border: 1px solid #ddd;
+    }}
+
+    /* BOTONES ACCIÓN */
     .stButton>button {{
-        width: 100%; border-radius: 16px !important; height: 60px;
-        background: linear-gradient(90deg, #3b82f6, #a855f7); /* Azul-Morado */
-        border: none; color: white; font-weight: 900 !important;
-        font-size: 18px !important; text-transform: uppercase;
-        box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.5);
-        transition: all 0.2s ease;
+        width: 100%; border-radius: 16px !important; height: 62px;
+        background: linear-gradient(90deg, #ec4899, #db2777);
+        color: white !important; font-weight: 900 !important;
+        text-transform: uppercase; border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }}
-    .stButton>button:hover {{ transform: translateY(-3px); filter: brightness(1.1); }}
-
-    /* 7. ELEMENTOS EXTRA */
-    .category-showcase {{
-        background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px;
-        margin: 20px 0; border: 2px solid rgba(255,255,255,0.1);
-        display: flex; align-items: center;
-    }}
-    .cat-icon-box {{
-        font-size: 50px; background: linear-gradient(135deg, #3b82f6, #a855f7);
-        width: 80px; height: 80px; border-radius: 50%; display: flex;
-        align-items: center; justify-content: center; margin-right: 20px;
-    }}
-    .status-badge {{ padding: 5px 15px; border-radius: 30px; font-size: 0.8rem; font-weight: 900; display: inline-block; }}
-    .badge-vip {{ background: #fbbf24; color: #451a03 !important; }}
-    .badge-free {{ background: #34d399; color: #064e3b !important; }}
-
-    /* 8. CARTAS DE JUEGO */
-    .flip-card {{ background-color: transparent; width: 100%; height: 450px; perspective: 1000px; margin-bottom: 20px; }}
-    .flip-card-inner {{ position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }}
-    .flipped {{ transform: rotateY(180deg); }}
-    .flip-card-front, .flip-card-back {{ 
-        position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-        border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; 
-        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.1);
-    }}
-    .flip-card-front {{ background: linear-gradient(135deg, #2563eb, #9333ea); }}
-    /* Reverso blanco con texto oscuro para contraste */
-    .flip-card-back {{ background: white; transform: rotateY(180deg); border-color: #a855f7; }}
-    .flip-card-back h1, .flip-card-back h2, .flip-card-back p {{ color: #1e1b4b !important; text-shadow: none !important; }}
-    .role-impostor {{ color: #dc2626 !important; font-size: 3rem; }}
-    .role-innocent {{ color: #2563eb !important; font-size: 2.5rem; }}
-    .secret-word-box {{ background: #f3f4f6; color: #1e1b4b !important; padding: 15px; border-radius: 15px; font-size: 2.5rem; font-weight: 900; margin: 20px 0; }}
 
     #MainMenu, footer, header {{visibility: hidden;}}
     </style>
@@ -117,9 +93,7 @@ st.markdown(f"""
 
 # --- 📦 DATOS: BASE DE DATOS EXTENSA (V. TITÁNICA) ---
 
-# =========================================
-# 1. LISTAS GRATUITAS (GIGANTES PERO "FAMILY FRIENDLY")
-# =========================================
+# 1. LISTAS GRATUITAS
 lista_animales = [
     "Perro", "Gato", "Elefante", "León", "Delfín", "Hormiga", "Jirafa", "Vaca", "Cerdo", 
     "Gallina", "Koala", "Pingüino", "Tiburón", "Águila", "Canguro", "Panda", "Murciélago", 
@@ -179,10 +153,8 @@ lista_profesiones = [
     "Recepcionista", "Secretario", "Contable", "Director de banco", "Empresario"
 ]
 
-# --- CREACIÓN AUTOMÁTICA DEL MIX GRATIS ---
 lista_tutifruti = lista_animales + lista_casa + lista_colores + lista_profesiones
 
-# DICCIONARIO FINAL GRATIS
 DATOS_FREE = {
     "🎲 TUTIFRUTI": lista_tutifruti, 
     "🐶 Animales": lista_animales,
@@ -191,12 +163,9 @@ DATOS_FREE = {
     "👔 Profesiones": lista_profesiones
 }
 
-# =========================================
-# 2. LISTAS VIP (DE PAGO Y MASIVAS)
-# =========================================
+# 2. LISTAS VIP
 DATOS_VIP = {
     "😈 MODO CANALLA (+18) [VIP]": [
-        # EL COMBO MORTAL: SALSEO + FIESTA + ALCOHOL
         "Tu ex", "Ser infiel", "Un trío", "OnlyFans", "Tinder", "Ligar borracho", 
         "Nudismo", "Calabazas", "Amigo con derecho", "Striptease", "Resaca moral",
         "Sexo en público", "Juguetes eróticos", "Mensaje a las 4am", "Walk of Shame",
@@ -429,235 +398,130 @@ DATOS_VIP = {
 
 TODOS_LOS_DATOS = {**DATOS_FREE, **DATOS_VIP}
 
-# --- INICIALIZACIÓN ---
+# --- LÓGICA DE ESTADOS ---
 if 'game_state' not in st.session_state: st.session_state.game_state = "setup"
 if 'eliminados' not in st.session_state: st.session_state.eliminados = []
-if 'roles_bool' not in st.session_state: st.session_state.roles_bool = []
-if 'total' not in st.session_state: st.session_state.total = 4
-if 'palabra' not in st.session_state: st.session_state.palabra = ""
 if 'vip_unlocked' not in st.session_state: st.session_state.vip_unlocked = False
-if 'jugador_inicial' not in st.session_state: st.session_state.jugador_inicial = 0
 
-# =========================================
 # PANTALLA 1: SETUP
-# =========================================
 if st.session_state.game_state == "setup":
-    if URL_LOGO:
-        st.markdown(f"""<div style="text-align: center; margin-bottom: 20px;"><img src="{URL_LOGO}" style="width: 250px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>""", unsafe_allow_html=True)
-    else:
-        st.markdown(f"""<div style="text-align: center; margin-bottom: 10px; font-size: 80px;">🕵️</div>""", unsafe_allow_html=True)
+    st.markdown(f"""
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="{URL_LOGO}" style="width: 200px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown('<h1>INFILTRADO</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    st.markdown('<h3>CONFIGURACIÓN DE MISIÓN</h3>', unsafe_allow_html=True)
+    st.markdown('<div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 24px;">', unsafe_allow_html=True)
     
     tema_seleccionado = st.selectbox("MAZO DE CARTAS", list(TODOS_LOS_DATOS.keys()))
-    icono_actual = ICONOS_TEMA.get(tema_seleccionado, "❓")
-    es_vip = tema_seleccionado in DATOS_VIP
-    status_badge = '<span class="status-badge badge-vip">👑 PREMIUM VIP</span>' if es_vip else '<span class="status-badge badge-free">✨ GRATIS</span>'
     
-    st.markdown(f"""
-    <div class="category-showcase">
-        <div class="cat-icon-box">{icono_actual}</div>
-        <div class="cat-info">
-            <h3 style="margin: 0;">{tema_seleccionado.split('(')[0]}</h3>
-            {status_badge}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    acceso_concedido = False
-    if not es_vip:
-        acceso_concedido = True
-    else:
-        if st.session_state.vip_unlocked:
-            acceso_concedido = True
-            st.success("✅ ACCESO VIP VERIFICADO")
-        else:
-            st.markdown(f"""<div style="background: rgba(251, 191, 36, 0.15); border: 2px solid #fbbf24; border-radius: 16px; padding: 20px; margin: 20px 0; text-align: left;"><p style="color: #fbbf24 !important; font-weight: 800; margin:0;">🔒 CONTENIDO BLOQUEADO</p></div>""", unsafe_allow_html=True)
-            c1, c2 = st.columns([2, 1])
-            with c1: clave = st.text_input("CÓDIGO DE ACCESO", placeholder="Introduce clave...")
-            with c2: st.markdown(f'<a href="{STRIPE_LINK}" target="_blank"><button style="background: linear-gradient(90deg, #fbbf24, #d97706); color: #451a03; margin-top: 29px; border:none; font-weight:bold; padding:10px; border-radius:10px; width:100%;">PAGAR 1€</button></a>', unsafe_allow_html=True)
-            
-            if clave:
-                if clave.upper() == CLAVE_MAESTRA:
-                    st.session_state.vip_unlocked = True
-                    st.balloons()
-                    st.rerun()
-                else:
-                    st.error("❌ CÓDIGO INVÁLIDO")
+    # Bloque VIP
+    acceso = True
+    if "[VIP]" in tema_seleccionado and not st.session_state.vip_unlocked:
+        acceso = False
+        st.warning("🔒 CATEGORÍA VIP")
+        c1, c2 = st.columns([2, 1])
+        with c1: clave = st.text_input("CÓDIGO", placeholder="...")
+        with c2: st.markdown(f'<a href="{STRIPE_LINK}" target="_blank"><button style="margin-top:28px; width:100%; height:42px; background:#fbbf24; color:black; font-weight:bold; border-radius:10px; border:none; cursor:pointer;">PAGAR</button></a>', unsafe_allow_html=True)
+        if clave.upper() == CLAVE_MAESTRA:
+            st.session_state.vip_unlocked = True
+            st.rerun()
 
-    if acceso_concedido:
-        st.markdown("<hr style='border: 1px solid rgba(255,255,255,0.1); margin: 30px 0;'>", unsafe_allow_html=True)
+    if acceso:
         c1, c2 = st.columns(2)
         with c1: jug = st.number_input("JUGADORES", 3, 20, 4)
-        with c2: imp = st.number_input("INFILTRADOS", 1, jug, 1)
+        with c2: imp = st.number_input("INFILTRADOS", 1, 2, 1)
         
-        st.write("")
-        if st.button("INICIAR OPERACIÓN"):
-            st.session_state.roles_bool = [False] * jug
-            indices_imp = random.sample(range(jug), imp)
-            for idx in indices_imp: st.session_state.roles_bool[idx] = True
-            st.session_state.jugador_inicial = random.randint(0, jug - 1)
+        if st.button("INICIAR PARTIDA"):
+            st.session_state.roles = [False] * jug
+            for i in random.sample(range(jug), imp): st.session_state.roles[i] = True
             st.session_state.palabra = random.choice(TODOS_LOS_DATOS[tema_seleccionado])
+            st.session_state.jugador_inicial = random.randint(1, jug)
             st.session_state.turno = 0
             st.session_state.total = jug
             st.session_state.eliminados = []
-            st.session_state.game_state = "playing" 
-            st.session_state.card_flipped = False
+            st.session_state.flipped = False
+            st.session_state.game_state = "playing"
             st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================================
-# PANTALLA 2: STOP
-# =========================================
+# PANTALLA 2: TRANSICIÓN
 elif st.session_state.game_state == "transition":
-    turno = st.session_state.turno
-    st.markdown(f"""
-    <div style="padding-top: 50px;"></div>
-    <div class="modern-card" style="border-top: 4px solid #ef4444;">
+    st.markdown(f"""<div style="text-align: center; padding-top: 50px;">
         <div style="font-size: 80px; margin-bottom: 20px;">🛑</div>
-        <h2>¡ALTO AHÍ!</h2>
-        <p>Pasa el dispositivo al siguiente agente.</p>
-        <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-top: 30px;">
-            <h1 style="margin: 0 !important; font-size: 3.5rem !important;">JUGADOR {turno + 1}</h1>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.button(f"SOY EL JUGADOR {turno + 1}"):
+        <h2>PASA EL MÓVIL AL:</h2>
+        <h1 style="font-size: 4rem !important; color: white !important;">JUGADOR {st.session_state.turno + 1}</h1>
+    </div>""", unsafe_allow_html=True)
+    if st.button(f"SOY YO"):
         st.session_state.game_state = "playing"
         st.rerun()
 
-# =========================================
-# PANTALLA 3: CARTAS
-# =========================================
+# PANTALLA 3: REVELAR CARTA
 elif st.session_state.game_state == "playing":
-    turno = st.session_state.turno
-    progreso = (turno + 1) / st.session_state.total
-    st.progress(progreso)
-    st.markdown(f'<p style="text-align:center; font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">DISTRIBUYENDO ROLES ({turno + 1}/{st.session_state.total})</p>', unsafe_allow_html=True)
-    
-    if st.session_state.roles_bool[turno]:
-        contenido = """<div style="text-align: center;">
-            <div style="font-size: 80px; margin-bottom: 20px;">🤫</div>
-            <h1 class="role-impostor">INFILTRADO</h1>
-            <p style="margin-top: 20px; color: #1e1b4b !important;">No conoces la palabra clave.<br><b>¡Tu misión es mentir!</b></p>
-            </div>"""
-    else:
-        contenido = f"""<div style="text-align: center;">
-            <p style="color: #666 !important; margin-bottom: 10px;">LA PALABRA CLAVE ES:</p>
-            <div class="secret-word-box">{st.session_state.palabra.upper()}</div>
-            <h2 class="role-innocent">AGENTE INOCENTE</h2>
-            </div>"""
-
-    flip_cls = "flipped" if st.session_state.get('card_flipped', False) else ""
-    st.markdown(f"""
-    <div class="flip-card">
-      <div class="flip-card-inner {flip_cls}">
-        <div class="flip-card-front">
-            <div style="font-size: 80px; margin-bottom: 20px;">📂</div>
-            <h2>EXPEDIENTE TOP SECRET</h2>
-            <p style="opacity: 0.8;">Toca para desenmascarar</p>
-        </div>
-        <div class="flip-card-back">{contenido}</div>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if not st.session_state.get('card_flipped'):
-        if st.button("VER MI ROL"):
-            st.session_state.card_flipped = True
+    if not st.session_state.flipped:
+        st.markdown(f"""<div style="background: rgba(0,0,0,0.2); padding: 40px; border-radius: 24px; text-align: center; height: 400px; display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 100px;">🃏</div>
+            <h2>JUGADOR {st.session_state.turno + 1}</h2>
+            <p>Toca para revelar tu identidad</p>
+        </div>""", unsafe_allow_html=True)
+        if st.button("REVELAR"):
+            st.session_state.flipped = True
             st.rerun()
     else:
-        es_ultimo = turno >= st.session_state.total - 1
-        txt = "COMENZAR MISIÓN" if es_ultimo else "OCULTAR Y SIGUIENTE"
-        if st.button(txt):
-            st.session_state.card_flipped = False
-            if es_ultimo: 
+        st.markdown('<div class="white-card">', unsafe_allow_html=True)
+        if st.session_state.roles[st.session_state.turno]:
+            st.markdown('<div style="font-size:80px;">🤫</div><h1 style="color: #dc2626 !important;">INFILTRADO</h1><p>No sabes la palabra.<br>¡TU MISIÓN ES MENTIR!</p>', unsafe_allow_html=True)
+        else:
+            st.markdown(f'<p>LA PALABRA SECRETA ES:</p><div class="secret-word-box">{st.session_state.palabra.upper()}</div><h2 style="color: #2563eb !important;">ERES INOCENTE</h2>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        texto_btn = "EMPEZAR DEBATE" if st.session_state.turno == st.session_state.total - 1 else "OCULTAR Y SIGUIENTE"
+        if st.button(texto_btn):
+            st.session_state.flipped = False
+            if st.session_state.turno == st.session_state.total - 1:
                 st.session_state.game_state = "show_starter"
-            else: 
+            else:
                 st.session_state.turno += 1
                 st.session_state.game_state = "transition"
             st.rerun()
 
-# =========================================
-# PANTALLA 3.5: QUIÉN EMPIEZA
-# =========================================
+# PANTALLA 4: QUIÉN EMPIEZA
 elif st.session_state.game_state == "show_starter":
-    inicial = st.session_state.jugador_inicial
-    st.markdown(f"""
-    <div style="padding-top: 50px;"></div>
-    <div class="modern-card">
+    st.markdown(f"""<div style="text-align: center; padding-top: 50px;">
         <div style="font-size: 80px; margin-bottom: 20px;">🗣️</div>
-        <h2>RONDA DE DEBATE</h2>
-        <p>Inicia las preguntas el agente:</p>
-        <div style="background: linear-gradient(90deg, #3b82f6, #a855f7); padding: 30px; border-radius: 20px; margin: 30px 0;">
-            <h1 style="font-size: 3.5rem !important; margin: 0 !important;">JUGADOR {inicial + 1}</h1>
+        <h2>RONDA DE PREGUNTAS</h2>
+        <p>Debe empezar preguntando el:</p>
+        <div style="background: white; color: black; padding: 30px; border-radius: 20px; margin: 30px 0;">
+            <h1 style="color: black !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.button("PROCEDER A VOTACIÓN"):
-        st.session_state.game_state = "voting_round"
+    </div>""", unsafe_allow_html=True)
+    if st.button("IR A VOTACIÓN"):
+        st.session_state.game_state = "voting"
         st.rerun()
 
-# =========================================
-# PANTALLA 4: VOTACIÓN
-# =========================================
-elif st.session_state.game_state == "voting_round":
-    st.markdown('<div style="text-align: center; margin-bottom: 30px;"><h1>VOTACIÓN FINAL</h1><p>Identificad al Infiltrado</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    
+# PANTALLA 5: VOTACIÓN
+elif st.session_state.game_state == "voting":
+    st.markdown('<h1>VOTACIÓN</h1>', unsafe_allow_html=True)
     for i in range(st.session_state.total):
         if i not in st.session_state.eliminados:
-            st.markdown(f'<div class="vote-btn" style="margin-bottom: 15px;">', unsafe_allow_html=True)
-            if st.button(f"ACUSAR AL JUGADOR {i+1}", key=f"vote_{i}"):
+            if st.button(f"ACUSAR AL JUGADOR {i+1}", key=f"v_{i}"):
                 st.session_state.ultimo_expulsado = i
                 st.session_state.eliminados.append(i)
-                st.session_state.game_state = "round_result"
+                st.session_state.game_state = "result"
                 st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
-        else:
-             st.markdown(f'<div style="text-align:center; padding: 15px; color: #ef4444; text-decoration: line-through; font-weight: 700; background: rgba(239, 68, 68, 0.1); border-radius: 12px;">💀 JUGADOR {i+1} ELIMINADO</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================================
-# PANTALLA 5: RESULTADO
-# =========================================
-elif st.session_state.game_state == "round_result":
-    expulsado = st.session_state.ultimo_expulsado
-    es_impostor = st.session_state.roles_bool[expulsado]
-    
-    impostores_vivos = sum(1 for i in range(st.session_state.total) if st.session_state.roles_bool[i] and i not in st.session_state.eliminados)
-    
-    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    
-    if es_impostor:
-        st.markdown(f"<div style='font-size:80px;'>🎯</div><h1 style='color: #4ade80 !important; font-size: 3.5rem !important;'>¡CAZADO!</h1><p style='color: #4ade80; font-size: 1.5rem;'>OBJETIVO NEUTRALIZADO</p>", unsafe_allow_html=True)
-        if impostores_vivos == 0:
-            st.balloons()
-            st.success("¡MISIÓN CUMPLIDA! VICTORIA INOCENTE")
-            st.markdown(f"<div class='secret-word-box' style='margin-top:30px;'>{st.session_state.palabra.upper()}</div>", unsafe_allow_html=True)
-            if st.button("NUEVA OPERACIÓN"):
-                st.session_state.game_state = "setup"
-                st.rerun()
-            st.stop()
-        else:
-            st.info(f"Buen trabajo. Quedan {impostores_vivos} amenazas activas.")
+# PANTALLA 6: RESULTADO
+elif st.session_state.game_state == "result":
+    es_imp = st.session_state.roles[st.session_state.ultimo_expulsado]
+    st.markdown('<div style="text-align: center; background: rgba(0,0,0,0.2); padding: 40px; border-radius: 24px;">', unsafe_allow_html=True)
+    if es_imp:
+        st.markdown('<div style="font-size: 80px;">🎯</div><h1 style="color: #4ade80 !important;">¡ERA ÉL!</h1><p>Habéis pillado al infiltrado.</p>', unsafe_allow_html=True)
     else:
-        st.markdown(f"<div style='font-size:80px;'>💀</div><h1 style='color: #ef4444 !important; font-size: 3.5rem !important;'>¡ERROR CRÍTICO!</h1><p style='color: #ef4444; font-size: 1.5rem;'>BAJA CIVIL CONFIRMADA</p>", unsafe_allow_html=True)
-        if impostores_vivos >= inocentes_vivos:
-            st.error("GAME OVER: LOS INFILTRADOS GANAN EL CONTROL")
-            st.markdown(f"<div class='secret-word-box' style='margin-top:30px;'>{st.session_state.palabra.upper()}</div>", unsafe_allow_html=True)
-            if st.button("REINTENTAR"):
-                st.session_state.game_state = "setup"
-                st.rerun()
-            st.stop()
-        else:
-            st.warning("Habéis eliminado a un agente inocente.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
-    if st.button("CONTINUAR RONDA"):
-        st.session_state.game_state = "voting_round"
+        st.markdown('<div style="font-size: 80px;">💀</div><h1 style="color: #ef4444 !important;">¡FALLO!</h1><p>Era un agente inocente.</p>', unsafe_allow_html=True)
+    
+    st.write(f"### PALABRA: {st.session_state.palabra.upper()}")
+    if st.button("REINTENTAR"):
+        st.session_state.game_state = "setup"
         st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
