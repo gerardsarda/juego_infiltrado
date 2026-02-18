@@ -84,6 +84,9 @@ st.markdown(f"""
         text-transform: uppercase; border: none;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }}
+    /* título de jugador inicial */
+    .starter-title {{ color: #7c3aed !important; font-size: 4rem; font-weight: 900; }}
+    .starter-box {{ background: #f3e8ff !important; }}
     #MainMenu, footer, header {{visibility: hidden;}}
     </style>
     """, unsafe_allow_html=True)
@@ -449,7 +452,7 @@ elif st.session_state.game_state == "transition":
     st.markdown(f"""<div style="text-align: center; padding-top: 50px;">
         <div style="font-size: 80px; margin-bottom: 20px;">🛑</div>
         <h2>PASA EL MÓVIL AL:</h2>
-        <h1 style="font-size: 4rem !important; color: white !important;">JUGADOR {st.session_state.turno + 1}</h1>
+        <h1 style="font-size: 4rem !important; color: #7c3aed !important;">JUGADOR {st.session_state.turno + 1}</h1>
     </div>""", unsafe_allow_html=True)
     if st.button(f"SOY YO"):
         st.session_state.game_state = "playing"
@@ -501,8 +504,8 @@ elif st.session_state.game_state == "show_starter":
         <div style="font-size: 80px; margin-bottom: 20px;">🗣️</div>
         <h2>RONDA DE PREGUNTAS</h2>
         <p>Debe empezar preguntando el:</p>
-        <div style="background: white; color: black; padding: 20px; border-radius: 20px; margin: 30px 0;">
-            <h1 style="color: #7c3aed !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
+        <div class="starter-box" style="background: #f3e8ff; color: black; padding: 20px; border-radius: 20px; margin: 30px 0;">
+            <h1 class="starter-title" style="margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
         </div>
     </div>""", unsafe_allow_html=True)
     if st.button("IR A VOTACIÓN"):
