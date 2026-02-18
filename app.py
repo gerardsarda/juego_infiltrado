@@ -502,7 +502,7 @@ elif st.session_state.game_state == "show_starter":
         <h2>RONDA DE PREGUNTAS</h2>
         <p>Debe empezar preguntando el:</p>
         <div style="background: white; color: black; padding: 20px; border-radius: 20px; margin: 30px 0;">
-            <h1 style="color: #1e1b4b !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
+            <h1 style="color: #7c3aed !important; margin: 0 !important; font-size: 4rem !important;">JUGADOR {st.session_state.jugador_inicial}</h1>
         </div>
     </div>""", unsafe_allow_html=True)
     if st.button("IR A VOTACIÓN"):
